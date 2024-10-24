@@ -35,7 +35,6 @@ Currently, my research interests are in **ubiquitous and mobile health**. For mo
   <img src="/images/SSR.png" alt="Project Image" class="project-image">
   <div class="project-description">
     <div class="project-title">Silent speech recognition using low-power active acoustic sensing</div>
-<!--     <div class="project-authors">Jiankai Tang, <u>and Jiacheng Liu</u>, RENLING TONG, Kai Zhu, Zhe Li, Junliang Xing, Yuanchun Shi, Yuntao Wang (Manuscript in preparation)</div> -->
     <div class="project-authors">Research during summer research at SciFilab at Cornell.</div>
     <div class="project-authors">Ongoing research</div>
   </div>
