@@ -15,7 +15,7 @@ My current research interests are in **health-focused ubiquitous, accessibility,
 <div class="project">
   <img src="/images/No_work.png" alt="interests-image" width="300">
   <div class="project-description">
-    With the rapid advancements in AI, fabrication, and wearable devices, I envision a future where everyone can benefit from <b>personalized healthcare systems</b> that continuously monitor health, enable seamless patient-doctor communication, and provide reliable preliminary diagnoses. I also envision <b>accessible platforms and devices</b> that improve the quality of life for individuals suffer from disabilities or functional impairments.
+    With the rapid advancements in AI, fabrication, and wearable devices, I envision a future where everyone can benefit from personalized healthcare systems that continuously monitor health, enable seamless patient-doctor communication, and provide reliable preliminary diagnoses. I also envision accessible platforms and devices that improve the quality of life for individuals suffer from disabilities or functional impairments.
   </div>
 </div>
 
