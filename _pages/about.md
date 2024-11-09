@@ -12,9 +12,10 @@ I’m an undergraduate in [Creative Design and Intelligent Engineering (CDIE)](h
 My current research interests are in **health-focused ubiquitous, accessibility, and mobile health**. For more information about me and details on my past projects, please refer to my [CV](assets/JiachengLiu_Resume.pdf).
 
 <h2 id='Research Projects'>Research Projects</h2>
-  <img src="/images/PPGA.png" alt="Project Image" class="project-image">
+<div class="project">
+  <img src="/images/No_work.png" alt="interests-image" width="300">
   <div class="project-description">
-    With the rapid advancements in AI, fabrication, and wearable devices, I envision a future where everyone can benefit from personalized healthcare systems that continuously monitor health, enable seamless patient-doctor communication, and provide reliable preliminary diagnoses. I am also highly passionate about developing accessible platforms and devices that improve the quality of life for individuals with disabilities or functional impairments.
+    With the rapid advancements in AI, fabrication, and wearable devices, I envision a future where everyone can benefit from **personalized healthcare systems** that continuously monitor health, enable seamless patient-doctor communication, and provide reliable preliminary diagnoses. I am also highly passionate about developing **accessible platforms and devices** that improve the quality of life for individuals with disabilities or functional impairments.
   </div>
 </div>
 
