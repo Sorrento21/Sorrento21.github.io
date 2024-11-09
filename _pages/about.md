@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Hi! This is Jiacheng Liu (Jason) speaking."
+title: "Hi! This is Jiacheng (Jason) Liu speaking."
 author_profile: true
 redirect_from: 
   - /about/
@@ -9,7 +9,14 @@ redirect_from:
 
 I’m an undergraduate in [Creative Design and Intelligent Engineering (CDIE)](https://www.xyc.tsinghua.edu.cn/en/info/1111/1374.htm) at [Tsinghua University](https://www.tsinghua.edu.cn/en/index.htm), a cross-disciplinary field within the realm of automation. My coursework in automation, machinery, and design has cultivated a broad academic perspective and fostered my creativity.
 
-Currently, my research interests are in **ubiquitous and mobile health**. For more information about me and details on my past projects, please refer to my [CV](assets/JiachengLiu_Resume.pdf).
+My current research interests are in **health-focused ubiquitous, accessibility, and mobile health**. For more information about me and details on my past projects, please refer to my [CV](assets/JiachengLiu_Resume.pdf).
+
+<h2 id='Research Projects'>Research Projects</h2>
+  <img src="/images/PPGA.png" alt="Project Image" class="project-image">
+  <div class="project-description">
+    With the rapid advancements in AI, fabrication, and wearable devices, I envision a future where everyone can benefit from personalized healthcare systems that continuously monitor health, enable seamless patient-doctor communication, and provide reliable preliminary diagnoses. I am also highly passionate about developing accessible platforms and devices that improve the quality of life for individuals with disabilities or functional impairments.
+  </div>
+</div>
 
 <h2 id='Research Projects'>Research Projects</h2>
 
