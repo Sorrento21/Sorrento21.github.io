@@ -11,7 +11,7 @@ I’m an undergraduate in [Creative Design and Intelligent Engineering (CDIE)](h
 
 My current research interests are in **health-focused ubiquitous, accessibility, and mobile health**. For more information about me and details on my past projects, please refer to my [CV](assets/JiachengLiu_Resume.pdf).
 
-<h2 id='Research Projects'>Research Projects</h2>
+<h2 id='Research Projects'>Research Envision</h2>
 <div class="project">
   <img src="/images/No_work.png" alt="interests-image" width="300">
   <div class="project-description">
