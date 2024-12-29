@@ -7,7 +7,7 @@ collection: portfolio
 <div id="content" style="width: 100%; margin: 0 auto; padding: 20px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
 
     <!-- Project Title -->
-    <h1 style="font-size: 28px; color: #2C3E50; text-align: center;">Smart Artistic Vase: Interactive Plant Care</h1>
+    <!-- <h1 style="font-size: 28px; color: #2C3E50; text-align: center;">Smart Artistic Vase: Interactive Plant Care</h1>-->
 
     <!-- Project Description -->
     <p style="font-size: 18px; line-height: 1.6; color: #34495E; text-align: justify;">
