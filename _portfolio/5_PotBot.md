@@ -1,13 +1,4 @@
 ---
-
-**title**: "Smart Artistic Vase: Interactive Plant Care"  
-**excerpt**: "An interactive conceptual design that allows plants to express their needs, guiding users on proper plant care.<br/><img src='/images/vase.png' width='500' height='200'>"
-
-**collection**: portfolio
-
----
-
----
 title: "Smart Artistic Vase: Interactive Plant Care"
 excerpt: "An interactive conceptual design that allows plants to express their needs, guiding users on proper plant care.<br/><img src='/images/pot.png' width='500' height='200'>"
 collection: portfolio
