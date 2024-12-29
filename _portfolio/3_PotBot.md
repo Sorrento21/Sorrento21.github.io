@@ -32,7 +32,7 @@ collection: portfolio
 
     <!-- Video Section -->
     <div style="text-align: center; margin: 20px 0;">
-        <iframe width="720" height="405" src="https://youtu.be/Z9c-yO9ULxU" frameborder="0" allowfullscreen style="border: 2px solid #ccc; border-radius: 5px;"></iframe>
+        <iframe width="720" height="405" src="https://www.youtube.com/watch?v=Z9c-yO9ULxU" frameborder="0" allowfullscreen style="border: 2px solid #ccc; border-radius: 5px;"></iframe>
     </div>
 
     <!-- Project Details -->
