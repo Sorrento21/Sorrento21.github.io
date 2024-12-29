@@ -7,6 +7,12 @@
 
 ---
 
+---
+title: "Smart Artistic Vase: Interactive Plant Care"
+excerpt: "An interactive conceptual design that allows plants to express their needs, guiding users on proper plant care.<br/><img src='/images/pot.png' width='500' height='200'>"
+collection: portfolio
+---
+
 <div id="content" style="width: 100%; margin: 0 auto; padding: 20px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
 
     <!-- Project Title -->
@@ -19,7 +25,7 @@
 
     <!-- Image Section -->
     <div style="text-align: center; margin: 20px 0;">
-        <img src="/images/vase.png" alt="Smart Vase Image" style="max-width: 100%; border: 2px solid #ccc; border-radius: 5px;">
+        <img src="/images/pot_2.png" alt="Smart Vase Image" style="max-width: 100%; border: 2px solid #ccc; border-radius: 5px;">
     </div>
 
     <p style="font-size: 18px; line-height: 1.6; color: #34495E; text-align: justify;">
