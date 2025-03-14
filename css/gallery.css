@@ -1,0 +1,43 @@
+/* ———————————————————— projects ———————————————————— */
+
+.main_img {
+    width: 100%;
+    height: 30vh;
+    object-fit: cover;
+    border-radius: 2.5%;
+}
+
+.main_project {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    text-align: left;  /* 确保所有文字左对齐 */
+    width: 48%;  /* 适配 3 个项目 */
+    height: auto; /* 根据内容自动调整高度 */
+    background-color: #FF7E6F;
+    border-radius: 10px; /* 可选，添加圆角效果 */
+    padding: 10px; /* 内边距，避免内容太贴近容器边缘 */
+    box-sizing: border-box; /* 确保内边距不会影响容器的总大小 */
+    overflow: hidden; /* 确保图片溢出时不显示 */
+    padding-bottom: 5vh;
+}
+
+.main_project h3 {
+    color: #F7F8F4;  /* 设置标题的颜色 */
+    margin: 10px 0; /* 设置标题的上下间距 */
+    font-size: 1.6em;  /* 设置字体大小 */
+    font-weight: bold;  /* 使项目名称加粗 */
+}
+
+.main_project p {
+    color: #F7F8F4;  /* 设置状态的字体颜色 */
+    font-size: 1.1em;  /* 设置字体大小 */
+    font-weight: lighter;  /* 设置最细字体 */
+}
+
+.project img {
+    width: 100%;  /* 图片宽度填满容器 */
+    height: 50vh; /* 设置固定高度 */
+    object-fit: cover;  /* 保证图片按比例适配并填满容器 */
+    border-radius: 2.5%;  /* 可选，给图片圆角效果 */
+}

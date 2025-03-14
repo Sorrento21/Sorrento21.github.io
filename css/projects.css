@@ -1,0 +1,33 @@
+/* ———————————————————— abstract ———————————————————— */
+
+.abstract {
+    background-color: #FF7E6F;
+    width: 100%;
+    display: block;
+}
+
+.abstract h1 {
+    color: #F7F8F4;
+    text-align: left;
+    font-size: 3em;
+    font-weight: normal;
+    padding:  10vh 0 6vh 0;
+}
+
+.abstract p {
+    color: #F7F8F4;  /* 文字颜色 */
+    font-size: 1.2em;  /* 字体大小 */
+    font-weight: lighter;  /* 设置字体权重 */
+    line-height: 1.6em;  /* 让行距更清晰 */
+    text-align: left; /* 确保文字左对齐 */
+    padding-bottom: 8vh;  /* 设置内边距 */
+}
+
+/* ———————————————————— projects ———————————————————— */
+
+.project img {
+    width: 100%;  /* 图片宽度填满容器 */
+    height: 30vh; /* 设置固定高度 */
+    object-fit: cover;  /* 保证图片按比例适配并填满容器 */
+    border-radius: 2.5%;  /* 可选，给图片圆角效果 */
+}

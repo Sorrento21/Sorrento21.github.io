@@ -1,0 +1,322 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    /* background-color: #F7F8F4; */
+}
+
+/* ———————————————————— header ———————————————————— */
+
+header {
+    background-color: #FF7E6F;
+    color: #F7F8F4;
+    height: 15vh;
+    width: 100%;
+    position: relative;
+    border-bottom: #F7F8F4 solid;
+    
+}
+
+header h1 {
+    position: absolute;
+    left: 8.5vw;
+    top: 0px;
+    line-height: 15vh;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+header p {
+    position: absolute;
+    left: 5vw;
+    top: 0px;
+    line-height: 15vh;
+    font-weight: bold;
+}
+
+header ul {
+    position: absolute;
+    right: 8.5vw;
+    top: 0px;
+    line-height: 15vh;
+}
+
+header li {
+    display: inline;
+    margin-left: 2vw;
+}
+
+header a {
+    color: #F7F8F4;
+    text-decoration: none;
+    font-weight: lighter;
+    transition: all 0.3s ease;
+}
+
+header a:hover {
+    color: #D7E7FF;
+    text-decoration: underline;
+}
+
+/* ———————————————————— main ———————————————————— */
+
+section {
+    box-sizing: border-box;  /* 使padding和border不影响元素的总宽度 */
+}
+
+section .content {
+    width: 100%;
+    max-width: 1600px;  /* 设置最大宽度 */
+    padding-left: 8.5vw;  /* 左侧内边距 */
+    padding-right: 8.5vw; /* 右侧内边距 */
+    margin: 0 auto;  /* 使容器居中 */
+    box-sizing: border-box;
+}
+
+h2 {
+    color: #FF7E6F;
+    text-align: left;
+    font-size: 1.8em;
+    font-weight: normal;
+    padding:  10vh 0 5vh 0;
+}
+
+a {
+    color: #D7E7FF;  /* 设置超链接的字体颜色 */
+    font-weight: lighter;  /* 设置字体重量 */
+    transition: all 0.3s ease;  /* 平滑过渡 */
+}
+
+a:hover {
+    text-decoration: underline;  /* 鼠标悬停时添加下划线 */
+    color: #F7F8F4;  /* 鼠标悬停时改变颜色 */
+}
+
+/* ———————————————————— intro ———————————————————— */
+
+.intro {
+    background-color: #FF7E6F;
+    height: 700px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.intro .content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.intro img {
+    width: 30%; /* 控制图片的宽度 */
+    border-radius: 2.5%;
+    object-fit: cover; /* 保证图片比例正确 */
+    margin-left: 10%; /* 给图片右侧留出间距 */
+}
+
+.intro .text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 保证文字在垂直方向上分布 */
+    flex-grow: 1; /* 确保文字区域填充剩余空间 */
+}
+
+.intro h2 {
+    color: #F7F8F4;
+    font-weight: normal;
+    font-size: 1.3em;
+    margin: 0; /* 去除默认的 margin */
+}
+
+.intro p {
+    color: #F7F8F4;
+    font-size: 1.1em;
+    font-weight: lighter;
+    text-align: justify;
+    line-height: 1.4em;
+    margin-top: 10px; /* 给段落留出顶部间距 */
+}
+
+/* ———————————————————— interests ———————————————————— */
+
+.interests {
+    background-color: #222222;
+    /* height: 650px; */
+    width: 100%;
+    display: block;
+}
+
+.interests .content {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 100px;
+    /* justify-content: center; 使整个 section 内的内容垂直居中 */
+}
+
+.interests h2 {
+    color: #F7F8F4;
+    text-align: left;  /* 标题左对齐 */
+    font-size: 1.8em;
+    font-weight: lighter;
+    padding-bottom: 10vh;  /* 设置标题和内容之间的间距 */
+}
+
+.interest_container {
+    display: flex;
+    align-items: center;  /* 让文字和图片在同一行内垂直居中 */
+    justify-content: space-between;  /* 文字在左，图片在右 */
+    width: 100%;
+    max-width: 1200px; /* 限制内容最大宽度，防止太宽 */
+    margin: 0 auto; /* 让整个 interest_container 居中 */
+}
+
+.interests p {
+    color: #F7F8F4;  /* 文字颜色 */
+    font-size: 1.1em;  /* 字体大小 */
+    font-weight: lighter;  /* 设置字体权重 */
+    line-height: 1.6em;  /* 让行距更清晰 */
+    width: 50%;  /* 让文字占据左侧 50% */
+    text-align: center; /* 确保文字左对齐 */
+}
+
+.interests img {
+    width: 60%; /* 让图片占据右侧 40% */
+    height: auto;  /* 让图片保持原比例 */
+    border-radius: 2.5%;  /* 圆角效果 */
+    object-fit: cover; /* 确保图片按比例裁剪 */
+}
+
+/* ———————————————————— updates ———————————————————— */
+
+.updates {
+    background-color: #F7F8F4;
+    width: 100%;
+    display: block;
+}
+
+.news_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: left;
+    padding: 0 0 5vh 0;
+}
+
+.update {
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border-left: 5px solid #FF7E6F;  /* 给每条新闻添加左边框，使其更突出 */
+}
+
+.update time {
+    display: block;
+    font-size: 0.9em;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.update p {
+    font-size: 1.1em;
+    line-height: 1.5;
+    color: #333;
+}
+
+.update strong {
+    font-weight: bold;  /* 强调内容加粗 */
+    color: #FF7E6F;  /* 你可以根据需要修改加粗部分的颜色 */
+}
+
+/* ———————————————————— projects ———————————————————— */
+
+.projects {
+    background-color: #F7F8F4;
+    width: 100%;
+    display: block;
+    padding-bottom: 5vh;
+}
+
+.display_row {
+    display: flex;
+    /* flex-wrap: wrap; */
+    gap: 20px;
+    justify-content: space-between;
+    padding: 0 0 5vh 0;
+}
+
+.project {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    text-align: left;  /* 确保所有文字左对齐 */
+    width: 32%;  /* 适配 3 个项目 */
+    height: auto; /* 根据内容自动调整高度 */
+    background-color: #FF7E6F;
+    border-radius: 10px; /* 可选，添加圆角效果 */
+    padding: 10px; /* 内边距，避免内容太贴近容器边缘 */
+    box-sizing: border-box; /* 确保内边距不会影响容器的总大小 */
+    overflow: hidden; /* 确保图片溢出时不显示 */
+    padding-bottom: 5vh;
+}
+
+.project img {
+    width: 100%;  /* 图片宽度填满容器 */
+    height: 27vh; /* 设置固定高度 */
+    object-fit: cover;  /* 保证图片按比例适配并填满容器 */
+    border-radius: 2.5%;  /* 可选，给图片圆角效果 */
+}
+
+.project h3 {
+    color: #fff;  /* 设置标题的颜色 */
+    margin: 10px 0; /* 设置标题的上下间距 */
+    font-size: 1.6em;  /* 设置字体大小 */
+    font-weight: bold;  /* 使项目名称加粗 */
+}
+
+.project .author {
+    color: #F7F8F4;  /* 设置作者的字体颜色 */
+    font-size: 1.1em;  /* 设置字体大小 */
+    font-weight: lighter;  /* 设置最细字体 */
+    font-style: italic;  /* 设置斜体 */
+    margin-bottom: 15px; /* 给作者部分留些间距 */
+}
+
+.project .state {
+    color: #F7F8F4;  /* 设置状态的字体颜色 */
+    font-size: 1.1em;  /* 设置字体大小 */
+    font-weight: lighter;  /* 设置最细字体 */
+    margin-bottom: 15px; /* 给状态部分留些间距 */
+}
+
+.project .links {
+    display: flex;  /* 横向排列链接 */
+    justify-content: flex-start;  /* 链接左对齐 */
+    gap: 15px;  /* 给每个链接之间留出间距 */
+    text-align: left;  /* 链接左对齐 */
+}
+
+.project a {
+    font-size: 1.1em;  /* 设置字体大小 */
+}
+
+/* ———————————————————— footer ———————————————————— */
+
+footer {
+    background-color: #FF7E6F;
+    border-top: #F7F8F4 solid;
+    color: #F7F8F4;
+    height: 20vh;
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+footer p {
+    position: absolute;
+    font-size: 1em;
+    left: 15%;
+    top: 30%;
+}
