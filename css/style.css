@@ -137,8 +137,34 @@ a:hover {
     font-weight: lighter;
     text-align: justify;
     line-height: 1.4em;
-    margin-top: 10px; /* 给段落留出顶部间距 */
 }
+
+.intro .links {
+    display: flex;  /* 横向排列链接 */
+    justify-content: flex-start;  /* 链接左对齐 */
+    gap: 15px;  /* 给每个链接之间留出间距 */
+    text-align: left;  /* 链接左对齐 */
+    margin-top: 30px; /* 给段落留出顶部间距 */
+}
+
+.intro a {
+    font-size: 1.1em;  /* 设置字体大小 */
+}
+
+.link_unit {
+    display: flex;  /* 横向排列链接 */
+    justify-content: flex-start;  /* 链接左对齐 */
+    align-items: center; /* 垂直方向居中 */
+    gap: 5px;  /* 图文之间留出间距 */
+    text-align: left;  /* 链接左对齐 */
+}
+
+.link_unit img {
+    width: 1.5vw; /* 控制图片的宽度 */
+    border-radius: 2.5%;
+    object-fit: cover; /* 保证图片比例正确 */
+    margin: 0
+} 
 
 /* ———————————————————— interests ———————————————————— */
 
@@ -239,6 +265,14 @@ a:hover {
     padding-bottom: 5vh;
 }
 
+.projects p {
+    color: #FF7E6F;
+    text-align: left;
+    font-size: 1.2em;
+    font-weight: normal;
+    padding-bottom: 2vh;
+}
+
 .display_row {
     display: flex;
     /* flex-wrap: wrap; */
@@ -259,7 +293,7 @@ a:hover {
     padding: 10px; /* 内边距，避免内容太贴近容器边缘 */
     box-sizing: border-box; /* 确保内边距不会影响容器的总大小 */
     overflow: hidden; /* 确保图片溢出时不显示 */
-    padding-bottom: 5vh;
+    padding-bottom: 3vh;
 }
 
 .project img {
@@ -281,14 +315,14 @@ a:hover {
     font-size: 1.1em;  /* 设置字体大小 */
     font-weight: lighter;  /* 设置最细字体 */
     font-style: italic;  /* 设置斜体 */
-    margin-bottom: 15px; /* 给作者部分留些间距 */
+    margin-bottom: 0px; /* 给作者部分留些间距 */
 }
 
 .project .state {
     color: #F7F8F4;  /* 设置状态的字体颜色 */
     font-size: 1.1em;  /* 设置字体大小 */
     font-weight: lighter;  /* 设置最细字体 */
-    margin-bottom: 15px; /* 给状态部分留些间距 */
+    margin-bottom: 0px; /* 给状态部分留些间距 */
 }
 
 .project .links {

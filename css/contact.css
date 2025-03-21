@@ -1,0 +1,10 @@
+a {
+    color: #FF7E6F;  /* 设置超链接的字体颜色 */
+    font-weight: lighter;  /* 设置字体重量 */
+    transition: all 0.3s ease;  /* 平滑过渡 */
+}
+
+a:hover {
+    text-decoration: underline;  /* 鼠标悬停时添加下划线 */
+    color: #D7E7FF;  /* 鼠标悬停时改变颜色 */
+}

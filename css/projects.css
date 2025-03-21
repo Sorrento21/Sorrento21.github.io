@@ -1,13 +1,13 @@
 /* ———————————————————— abstract ———————————————————— */
 
 .abstract {
-    background-color: #FF7E6F;
+    background-color: #F7F8F4;
     width: 100%;
     display: block;
 }
 
 .abstract h1 {
-    color: #F7F8F4;
+    color: #FF7E6F;
     text-align: left;
     font-size: 3em;
     font-weight: normal;
@@ -15,7 +15,7 @@
 }
 
 .abstract p {
-    color: #F7F8F4;  /* 文字颜色 */
+    color: #FF7E6F;  /* 文字颜色 */
     font-size: 1.2em;  /* 字体大小 */
     font-weight: lighter;  /* 设置字体权重 */
     line-height: 1.6em;  /* 让行距更清晰 */
@@ -24,6 +24,13 @@
 }
 
 /* ———————————————————— projects ———————————————————— */
+
+.projects {
+    background-color: #F7F8F4;
+    width: 100%;
+    display: block;
+    padding-bottom: 0;
+}
 
 .project img {
     width: 100%;  /* 图片宽度填满容器 */
