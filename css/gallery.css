@@ -29,7 +29,7 @@
     padding: 10px; /* 内边距，避免内容太贴近容器边缘 */
     box-sizing: border-box; /* 确保内边距不会影响容器的总大小 */
     overflow: hidden; /* 确保图片溢出时不显示 */
-    padding-bottom: 5vh;
+    padding-bottom: 0;
 }
 
 .main_project h3 {
@@ -49,6 +49,10 @@
     width: 100%;
     object-fit: cover;
     border-radius: 2.5%;
+}
+
+.project {
+    padding-bottom: 0;
 }
 
 .project img {
