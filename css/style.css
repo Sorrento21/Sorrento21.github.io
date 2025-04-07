@@ -160,7 +160,7 @@ a:hover {
 }
 
 .link_unit img {
-    width: 1.5vw; /* 控制图片的宽度 */
+    width: 20px; /* 控制图片的宽度 */
     border-radius: 2.5%;
     object-fit: cover; /* 保证图片比例正确 */
     margin: 0
