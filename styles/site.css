@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;/*如果有Arial字体则使用，否则使用Helvetica, sans-serif*/
     /* background-color: #F7F8F4; */
 }
 
