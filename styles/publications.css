@@ -1,37 +1,17 @@
 /* ———————————————————— abstract ———————————————————— */
 
 .abstract {
-    background-color: #FF7E6F;
+    /* background-color: #051937; */
     width: 100%;
     display: block;
 }
 
-.abstract h1 {
-    color: #F7F8F4;
-    text-align: left;
-    font-size: 3em;
-    font-weight: normal;
-    padding:  10vh 0 6vh 0;
-}
-
 .abstract p {
-    color: #F7F8F4;  /* 文字颜色 */
-    font-size: 1.2em;  /* 字体大小 */
-    font-weight: lighter;  /* 设置字体权重 */
-    line-height: 1.6em;  /* 让行距更清晰 */
     text-align: left; /* 确保文字左对齐 */
     padding-bottom: 8vh;  /* 设置内边距 */
 }
 
 /* ———————————————————— abstract ———————————————————— */
-
-.abstract h2 {
-    color: #F7F8F4;
-    text-align: left;
-    font-size: 1.3em;
-    font-weight: normal;
-    padding:  0 0 2.5vh 0;
-}
 
 .abstract p {
     padding-bottom: 3vh;  /* 设置内边距 */
@@ -40,7 +20,7 @@
 /* ———————————————————— publications ———————————————————— */
 
 .publication_list {
-    background-color: #FF7E6F;
+    background-color: #F5F5F3;
     width: 100%;
     display: block;
     padding-bottom: 60px;
@@ -71,29 +51,29 @@
 
 /* Title Style */
 .pub-title {
-    font-size: 1.6em;
+    font-size: 1.3vw;
     font-weight: bold;
-    color: #F7F8F4;
+    /* color: #F7F8F4; */
     margin: 0;
 }
 
 /* Author Style */
 .pub-author {
-    font-size: 1.1em;
+    font-size: 0.9vw;
     font-weight: lighter;
     font-style: italic;
-    color: #F7F8F4;
+    /* color: #F7F8F4; */
     margin: 5px 0;
 }
 
 /* Conference Style */
 .pub-conference {
-    font-size: 1.1em;
+    font-size: 0.9vw;
     font-weight: normal;
-    color: #F7F8F4;
+    /* color: #F7F8F4; */
     margin: 5px 0;
 }
 
-.pub-links {
+/* .pub-links {
     color: #D7E7FF;
-}
+} */

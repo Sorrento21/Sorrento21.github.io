@@ -1,24 +1,22 @@
 /* ———————————————————— abstract ———————————————————— */
 
 .abstract {
-    background-color: #F7F8F4;
     width: 100%;
     display: block;
+    padding-top: 10vh;
+    /* background-image: linear-gradient(to bottom, #148a8e, #008093, #007596); */
+    background-color: #F5F5F3;
 }
 
-.abstract h1 {
+/* .abstract h2 {
     color: #FF7E6F;
     text-align: left;
     font-size: 3em;
     font-weight: normal;
     padding:  10vh 0 6vh 0;
-}
+} */
 
 .abstract p {
-    color: #FF7E6F;  /* 文字颜色 */
-    font-size: 1.2em;  /* 字体大小 */
-    font-weight: lighter;  /* 设置字体权重 */
-    line-height: 1.6em;  /* 让行距更清晰 */
     text-align: left; /* 确保文字左对齐 */
     padding-bottom: 8vh;  /* 设置内边距 */
 }
@@ -26,10 +24,11 @@
 /* ———————————————————— projects ———————————————————— */
 
 .projects {
-    background-color: #F7F8F4;
     width: 100%;
     display: block;
     padding-bottom: 0;
+    /* background-image: linear-gradient(to bottom, #007596, #006997, #005c93, #14548e, #214c89, #2b4482, #32407d, #373c77, #3b3872, #3e346c); */
+    background-color: #F5F5F3;
 }
 
 .project img {
@@ -40,7 +39,7 @@
 }
 
 /* ———————————————————— footer ———————————————————— */
-
-/* footer {
-    margin-top: 5vh;
+/* 
+footer {
+    background-color: #afe733;
 } */

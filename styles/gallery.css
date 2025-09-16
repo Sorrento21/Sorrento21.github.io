@@ -1,17 +1,17 @@
 /* ———————————————————— abstract ———————————————————— */
 
-.abstract h2 {
+/* .abstract h2 {
     color: #FF7E6F;
     text-align: left;
     font-size: 1.8em;
     font-weight: normal;
     padding: 2vh 0 5vh 0;
-}
+} */
 
 /* ———————————————————— projects ———————————————————— */
 
 .projects {
-    background-color: #F7F8F4;
+    background-color: #F5F5F3;
     width: 100%;
     display: block;
     padding-bottom: 8vh;
@@ -24,7 +24,8 @@
     text-align: left;  /* 确保所有文字左对齐 */
     width: 48%;  /* 适配 3 个项目 */
     height: auto; /* 根据内容自动调整高度 */
-    background-color: #FF7E6F;
+    /* background-color: rgba(5, 25, 55, 0.2); */
+    border: #28282A 0.1vw solid; /* 添加边框 */
     border-radius: 10px; /* 可选，添加圆角效果 */
     padding: 10px; /* 内边距，避免内容太贴近容器边缘 */
     box-sizing: border-box; /* 确保内边距不会影响容器的总大小 */
@@ -33,15 +34,15 @@
 }
 
 .main_project h3 {
-    color: #F7F8F4;  /* 设置标题的颜色 */
+    color: #28282A;  /* 设置标题的颜色 */
     margin: 10px 0; /* 设置标题的上下间距 */
-    font-size: 1.6em;  /* 设置字体大小 */
+    /* font-size: 1.6vw;  设置字体大小 */
     font-weight: bold;  /* 使项目名称加粗 */
 }
 
 .main_project p {
-    color: #F7F8F4;  /* 设置状态的字体颜色 */
-    font-size: 1.1em;  /* 设置字体大小 */
+    color: #28282A;  /* 设置状态的字体颜色 */
+    /* font-size: 1.1vw;  设置字体大小 */
     font-weight: lighter;  /* 设置最细字体 */
 }
 
