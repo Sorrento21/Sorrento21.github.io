@@ -87,7 +87,7 @@ header h1, header p {
     line-height: 10vh;
     font-weight: bold;
 }
-header h1 { left: 8.5vw; font-size: 1.5em; }
+header h1 { left: 8.5vw; font-size: 1.3vw; }
 header p { left: 5vw; }
 
 header ul {
@@ -104,6 +104,10 @@ header li {
 
 header a {
     color: #28282A;
+}
+
+header li a {
+    font-size: 1.0vw;
 }
 header a:hover {
     color: #8787d3;
