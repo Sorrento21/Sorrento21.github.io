@@ -77,3 +77,17 @@
 /* .pub-links {
     color: #D7E7FF;
 } */
+
+@media (max-width: 768px) {
+    .pub-img {
+        width: 20vw;  /* 设置图片大小 */
+        height: 30vw;  /* 保持图片为正方形 */
+        margin-right: 15px;  /* 图片与文字内容之间的间距 */
+    }
+    .pub-title {
+        font-size: 4vw;
+    }
+    .pub-author, .pub-conference {
+        font-size: 3vw;
+    }
+}

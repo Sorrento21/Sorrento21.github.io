@@ -113,6 +113,14 @@ header a:hover {
     color: #8787d3;
 }
 
+/* 汉堡按钮默认隐藏 */
+.menu-toggle {
+  display: none;
+  font-size: 6vw;
+  cursor: pointer;
+  user-select: none;
+}
+
 /* ———————————————————— intro ———————————————————— */
 .intro {
     /* background-image: linear-gradient(to bottom,  #62c292, #86d38d, #70ca8d, #59c18d, #40b78d, #008f8d, #00667f, #003e60, #051937);     */
@@ -363,4 +371,158 @@ footer p {
     font-size: 0.8vw;
     left: 15%;
     top: 30%;
+}
+
+
+/* ———————— 响应式：手机适配 ———————— */
+@media (max-width: 768px) {
+    /* 显示汉堡按钮 */
+    .menu-toggle {
+        display: block;
+        font-size: 6vw;
+        cursor: pointer;
+        order: 1; /* 左侧 */
+    }
+
+    /* header 内部排列 */
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; /* 用 order 控制位置 */
+        padding: 0 2vw;
+        height: 48px;
+    }
+
+    /* h1 放右侧 */
+    header h1 {
+        position: static;  /* 或直接删掉 absolute */
+        left: auto;        /* 清除 left 定位 */
+        order: 2;
+        margin-left: auto; /* 推到最右 */
+        margin-right: 10vw;
+        line-height: 48px;
+        font-size: 4vw;
+    }
+
+    /* 导航菜单默认隐藏 */
+    header nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 48px;
+        right: 0;
+        width: 100%;
+        background: #f5f5f5;
+        border-top: 1px solid #ccc;
+        padding: 10px 0;
+        list-style: none;
+    }
+
+    /* 展开时显示 */
+    header nav ul.active {
+        display: flex;
+    }
+
+    header nav li {
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    header li a {
+        font-size: 3.5vw;
+    }
+    .intro {
+        flex-direction: column;
+        height: auto;
+        min-height: 80vh;
+        padding-top: 48px;
+    }
+    .intro .content {
+        display: flex;
+        flex-direction: column;  /* 上下排布 */
+        align-items: center;
+        justify-content: center;
+        gap: 2vh;
+    }
+
+    .intro img {
+        width: 80vw;
+        margin: 2vh 0 0 0;
+    }
+    .intro h2 {
+        font-size: 4vw;
+    }
+    .intro p {
+        font-size: 3.5vw;
+        line-height: 5vw;
+    }
+    .interests .content,
+    .interest_container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .link_unit img {
+        width: 20px;
+    }
+    .interests img {
+        width: 90vw;
+        margin-left: 0;
+        margin-bottom: 2vh;
+        max-width: 100%;
+    }
+    .interests p {
+        width: 100%;
+        padding-left: 0;
+        font-size: 3.5vw;
+        text-align: left;
+    }
+    .projects .display_row {
+        flex-direction: column;
+        gap: 3vh;
+    }
+    .project {
+        width: 100%;
+        margin-bottom: 2vh;
+        padding: 2vw 2vw 6vw;
+    }
+    .project h3 {
+        font-size: 4vw;
+    }
+    .project .author, .project .state {
+        font-size: 3vw;
+    }
+    .project a {
+        font-size: 3vw;
+    }
+    h2 {
+        font-size: 6vw;
+        padding: 4vw 0 2vw;
+    }
+    h3 {
+        font-size: 4vw;
+        padding: 0 0 2vw 0;
+    }
+    p, .update p {
+        font-size: 3.5vw;
+        line-height: 5vw;
+    }
+    .update time {
+        font-size: 3vw;
+        margin-bottom: 4px;
+    }
+    .dot-separator::before {
+        font-size: 7vw;
+    }
+    footer {
+        height: auto;
+        min-height: 60px;
+        padding: 2vw 0;
+    }
+    footer p {
+        font-size: 3vw;
+        padding-left: 5vw;
+        top: 10%;
+        position: static;
+        text-align: left;
+    }
 }

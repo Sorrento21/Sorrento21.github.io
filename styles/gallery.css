@@ -62,3 +62,19 @@
     object-fit: cover;  /* 保证图片按比例适配并填满容器 */
     border-radius: 2.5%;  /* 可选，给图片圆角效果 */
 }
+
+@media (max-width: 768px) {
+    .display_row {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .project {
+        width: 100%;
+    }
+
+    .main_project {
+        width: 100%;
+        margin-bottom: 30px; /* 添加底部间距 */
+    }
+}

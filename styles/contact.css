@@ -2,3 +2,10 @@
     padding-top: 22vh;
     height: 80vh;
 }
+
+@media (max-width: 768px) {
+    .abstract {
+        padding-top: 15vh;
+        height: 90vh;
+    }
+}
