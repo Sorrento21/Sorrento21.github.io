@@ -399,8 +399,8 @@ footer p {
         left: auto;        /* 清除 left 定位 */
         order: 2;
         margin-left: auto; /* 推到最右 */
-        margin-right: 10vw;
-        line-height: 48px;
+        margin-right: 5vw;
+        line-height: 54px;
         font-size: 4vw;
     }
 
