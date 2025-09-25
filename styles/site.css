@@ -303,8 +303,9 @@ header a:hover {
 
 .display_row {
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding-bottom: 5vh;
 }
 
@@ -312,7 +313,7 @@ header a:hover {
     display: flex;
     flex-direction: column;
     text-align: left;
-    width: 32%;
+    width: calc(33.333% - 14px);
     /* background-color: rgba(40, 40, 42, 0.5); */
     border: #28282A solid 0.1vw;
     border-radius: 10px;
