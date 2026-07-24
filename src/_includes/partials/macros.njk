@@ -1,0 +1,62 @@
+{# ---------------------------------------------------------------------------
+   Reusable rendering macros. Every card on the site is drawn by one of these,
+   so a card's markup lives in exactly one place. Add content by editing the
+   JSON files in src/_data/ — never by copying markup.
+   --------------------------------------------------------------------------- #}
+
+{# A project card (research projects + other projects).
+   `p.meta` is an ordered list of {cls, text} lines, so the same macro renders
+   both the research order (author, then state) and the other-projects order
+   (state, then author). `text` may contain inline HTML (e.g. <u>, <b>). #}
+{% macro projectCard(p) %}
+                    <div class="project">
+                        {%- if p.image %}
+                        <figure>
+                            <img src="{{ p.image }}" alt="{{ p.alt }}">
+                        </figure>
+                        {%- endif %}
+                        <h3>{{ p.title }}</h3>
+                        {%- for line in p.meta %}
+                        <p{% if line.cls %} class="{{ line.cls }}"{% endif %}>{{ line.text | safe }}</p>
+                        {%- endfor %}
+                        {%- if p.links and p.links.length %}
+                        <div class="links">
+                            {%- for l in p.links %}
+                            <a href="{{ l.url }}" target="_blank">{{ l.label }}</a>
+                            {%- endfor %}
+                        </div>
+                        {%- endif %}
+                    </div>
+{% endmacro %}
+
+{# A publication row (image + title/authors/venue/links). Image is optional. #}
+{% macro pubItem(pub) %}
+                <div class="publication">
+                    {%- if pub.image %}
+                    <picture>
+                        <img src="{{ pub.image }}" alt="{{ pub.alt }}" class="pub-img">
+                    </picture>
+                    {%- endif %}
+                    <div class="pub-text">
+                        <h3 class="pub-title">{{ pub.title }}</h3>
+                        <p class="pub-author">{{ pub.authors | safe }}</p>
+                        <p class="pub-conference">{{ pub.conference }}</p>
+                        <p class="pub-links">
+                            {%- for l in pub.links %}{% if not loop.first %} | {% endif %}<a href="{{ l.url }}" target="_blank">{{ l.label }}</a>{%- endfor %}
+                        </p>
+                    </div>
+                </div>
+{% endmacro %}
+
+{# A gallery card. `variant` is the wrapper class: "main_project" or "project". #}
+{% macro galleryCard(item, variant) %}
+                    <div class="{{ variant }}">
+                        <picture>
+                            <img src="{{ item.img }}" alt="{{ item.alt }}">
+                        </picture>
+                        <h3>{{ item.title }}</h3>
+                        {%- for line in item.meta %}
+                        <p{% if line.cls %} class="{{ line.cls }}"{% endif %}>{{ line.text | safe }}</p>
+                        {%- endfor %}
+                    </div>
+{% endmacro %}

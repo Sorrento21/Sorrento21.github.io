@@ -1,0 +1,68 @@
+---
+layout: layouts/base.njk
+permalink: /index.html
+---
+{%- from "partials/macros.njk" import projectCard %}
+        <section class="intro">
+            <div class="content">
+                <div class="text-container">
+                    <h2>🐉 Hi, I'm Jiacheng Liu 刘佳成<br><br></h2>
+                    <p>I am a first-year Ph.D. student at the <a href="https://www.scifilab.org/">SciFi Lab</a> at <a href="https://www.cornell.edu/">Cornell University</a>, advised by <a href="https://www.cs.cornell.edu/~zheng/">Prof. Cheng Zhang</a>. My research centers on <b>AI-assisted sensing technologies</b>, with a particular emphasis on <b>wearable form factors</b>. My work focuses on <b>activity-detection systems and assistive devices</b> that provide unobtrusive, seamless monitoring and support.</p><br>
+
+<p>Before Cornell, I earned a Bachelor of Engineering in <a href="https://www.xyc.tsinghua.edu.cn/en/info/1111/1374.htm">Creative Design and Intelligent Engineering</a> (CDIE) at <a href="https://www.xyc.tsinghua.edu.cn/en/">Xinya College</a>, <a href="https://www.tsinghua.edu.cn/en/index.htm">Tsinghua University</a>. I gained research experience in multiple labs, including <a href="https://pi.cs.tsinghua.edu.cn/">the PI Lab</a> and <a href="https://thfl.tsinghua.edu.cn/en/">the Future Lab</a> at Tsinghua University.</p>
+
+                    <div class="links">
+                        {%- for s in site.socials %}
+                        <div class="link_unit">
+                            <a href="{{ s.url }}" target="_blank">
+                                <picture>
+                                    <img src="{{ s.icon }}" alt="{{ s.alt }}" />
+                                </picture>
+                            </a>
+                        </div>
+                        {%- endfor %}
+                    </div>
+                </div>
+                <img src="images/black_selfie.jpg" alt="portrait">
+            </div>
+        </section>
+
+        <section class="interests">
+            <div class="content">
+                <div class="dot-separator"></div>
+                <h2>Research Interests</h2>
+                <div class="interest_container">
+                    <img src="images/research_interests.png" alt="interests">
+                    <p>
+                        How can we integrate <b>AI with sensing systems</b> to develop <b>early detection systems and assistive devices</b> for everyday use, providing <b>unobtrusive and seamless</b> health support for individuals with diverse health conditions?
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="updates">
+            <div class="content">
+                <div class="dot-separator"></div>
+                <h2>Updates</h2>
+                <div class="news_list">
+                    {%- for u in updates %}
+                    <div class="update">
+                        <time datetime="{{ u.date }}">{{ u.date }}</time>
+                        <p>{{ u.html | safe }}</p>
+                    </div>
+                    {%- endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="projects">
+            <div class="content">
+                <div class="dot-separator"></div>
+                <h2>Research Projects</h2>
+                <p>* indicates co-first author.</p>
+
+                <div class="display_row">
+                    {%- for p in research %}{{ projectCard(p) }}{%- endfor %}
+                </div>
+            </div>
+        </section>

@@ -1,0 +1,11 @@
+    <header>
+        <h1><a href="index.html">{{ site.name }}</a></h1>
+        <div class="menu-toggle">☰</div>
+        <nav>
+            <ul>
+                {%- for item in site.nav %}
+                <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+                {%- endfor %}
+            </ul>
+        </nav>
+    </header>

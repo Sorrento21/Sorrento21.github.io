@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site.title }}</title>
+    <link rel="icon" href="images/icons/favicon.png" type="image/png">
+    <link rel="stylesheet" href="styles/site.css" type="text/css">
+    {%- for css in extraStyles %}
+    <link rel="stylesheet" href="styles/{{ css }}">
+    {%- endfor %}
+</head>
+<body>
+    {% include "partials/header.njk" %}
+    <main>
+{{ content | safe }}
+    </main>
+
+    <footer>
+        <p>{{ site.footer }}</p>
+    </footer>
+    <script src="js/menu.js" defer></script>
+</body>
+</html>

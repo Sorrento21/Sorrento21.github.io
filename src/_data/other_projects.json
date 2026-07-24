@@ -1,0 +1,70 @@
+[
+  {
+    "image": "images/projects/magnet.png",
+    "alt": "magnet",
+    "title": "TagMagnet: Personalized Album App Based on Tags",
+    "meta": [
+      { "cls": "state", "text": "2023, Coursework of Interaction Design" },
+      { "cls": "author", "text": "UI design, Interaction Design" }
+    ],
+    "links": [
+      { "label": "Video", "url": "https://www.youtube.com/embed/T6v0Q4fTbaU" }
+    ]
+  },
+  {
+    "image": "images/projects/canvas.png",
+    "alt": "canvas",
+    "title": "CanvaSphere: Urban Art Festival Design",
+    "meta": [
+      { "cls": "state", "text": "2023, Coursework of Innovative Design and Practice - Basics" },
+      { "cls": "author", "text": "Interaction Design, Concept Design" }
+    ],
+    "links": [
+      { "label": "Video", "url": "https://www.youtube.com/embed/RX3KmYmdnA0" }
+    ]
+  },
+  {
+    "image": "images/projects/car.jpg",
+    "alt": "car",
+    "title": "Design and Construction of Line-Following Robot",
+    "meta": [
+      { "cls": "state", "text": "2023, Coursework of Design Projects in Electronic Technology" },
+      { "cls": "author", "text": "Electrical Engineering, Product Design" }
+    ],
+    "links": [
+      { "label": "Video", "url": "" }
+    ]
+  },
+  {
+    "image": "images/projects/guide.png",
+    "alt": "guide",
+    "title": "Redesigning the Guide System at Xinya College",
+    "meta": [
+      { "cls": "state", "text": "2024, Coursework of Innovative Design and Practice - Basics" },
+      { "cls": "author", "text": "Interaction Design" }
+    ],
+    "links": []
+  },
+  {
+    "image": "images/projects/wave.png",
+    "alt": "wave",
+    "title": "Water Ripples: Pure Wooden Mechanical Structure",
+    "meta": [
+      { "cls": "state", "text": "2024, Coursework of Fundamentals of Mechanical Design" },
+      { "cls": "author", "text": "Mechanical Design" }
+    ],
+    "links": [
+      { "label": "Video", "url": "https://www.youtube.com/embed/n3zACk_Cu3I" }
+    ]
+  },
+  {
+    "image": "images/projects/charm.png",
+    "alt": "charm",
+    "title": "Charm Clicker: A Photo Guide App for Girls, Designed for Boys",
+    "meta": [
+      { "cls": "state", "text": "2024, Coursework of Innovative Design and Practice - Basics" },
+      { "cls": "author", "text": "Interaction Design, Computer Engineering" }
+    ],
+    "links": []
+  }
+]

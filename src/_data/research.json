@@ -1,0 +1,61 @@
+[
+  {
+    "image": "images/research/bridge.png",
+    "alt": "bridge",
+    "title": "PPG as a Bridge: Cross-Device Identity Transfer with Photoplethysmography",
+    "meta": [
+      { "cls": "author", "text": "<u>Jiacheng Liu*</u>, Jiankai Tang*, Ruichen Gui, Songqin Cheng, Taiting Lu, Mahanth Gowda, Yuanchun Shi, Yuntao Wang" },
+      { "cls": "state", "text": "2025, CHI'26 (Submitted)" }
+    ],
+    "links": []
+  },
+  {
+    "image": "images/research/speech.png",
+    "alt": "speech",
+    "title": "NeckVoice: Voice Synthesis for Laryngectomees with On-body Sound Actuation",
+    "meta": [
+      { "cls": "author", "text": "Ruidong Zhang, <u>Jiacheng Liu</u>, Justin Xiang, Ke Li, Babak Sadoughi, Sam Tilsen, François Guimbretière, Cheng Zhang" },
+      { "cls": "state", "text": "2025, Nature Electronics (Submitted)" }
+    ],
+    "links": []
+  },
+  {
+    "image": "images/research/PPG_authen.jpg",
+    "alt": "ppg_authen",
+    "title": "Exploring Reliable PPG Authentication on Smartwatches in Daily Scenarios",
+    "meta": [
+      { "cls": "author", "text": "Jiankai Tang*, <u>Jiacheng Liu*</u>, RENLING TONG, Kai Zhu, Zhe Li, Junliang Xing, Yuanchun Shi, Yuntao Wang" },
+      { "cls": "state", "text": "2025, arXiv'25" }
+    ],
+    "links": [
+      { "label": "Paper", "url": "docs/_CHI_IMWUT_2025__Robust_and_Efficient_PPG_authentification.pdf" },
+      { "label": "DOI", "url": "https://doi.org/10.48550/arXiv.2503.23930" }
+    ]
+  },
+  {
+    "image": "images/research/odoragent.png",
+    "alt": "odoragent",
+    "title": "OdorAgent: Generate Odor Sequences for Movies Based on Large Language Model",
+    "meta": [
+      { "cls": "author", "text": "Yu Zhang, Peizhong Gao, Fangzhou Kang, Jiaxiang Li, <u>Jiacheng Liu</u>, Qi Lu, Yingqing Xu" },
+      { "cls": "state", "text": "2024, IEEE VR'24" }
+    ],
+    "links": [
+      { "label": "Paper", "url": "docs/OdorAgent_Generate_Odor_Sequences_for_Movies_Based_on_Large_Language_Model.pdf" },
+      { "label": "DOI", "url": "https://ieeexplore.ieee.org/abstract/document/10494179" }
+    ]
+  },
+  {
+    "image": "images/research/camera.png",
+    "alt": "camera",
+    "title": "Camera-Based Remote Physiology Sensing for Hundreds of Subjects Across Skin Tones",
+    "meta": [
+      { "cls": "author", "text": "Jiankai Tang, Xinyi Li, <u>Jiacheng Liu</u>, Xiyuxing Zhang, Zeyu Wang, Yuntao Wang" },
+      { "cls": "state", "text": "2024, CHI'24 Workshop PhysioCHI" }
+    ],
+    "links": [
+      { "label": "Paper", "url": "docs/Camera-Based Remote Physiology Sensing.pdf" },
+      { "label": "DOI", "url": "https://doi.org/10.48550/arXiv.2404.05003" }
+    ]
+  }
+]

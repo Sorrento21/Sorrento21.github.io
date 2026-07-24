@@ -1,0 +1,21 @@
+---
+layout: layouts/base.njk
+permalink: /publications.html
+extraStyles: ["projects.css", "publications.css"]
+---
+{%- from "partials/macros.njk" import pubItem %}
+        <section class="abstract">
+            <div class="content">
+                <h2>Publications</h2>
+                <p>* indicates co-first author. See full publication list at my <a href="https://scholar.google.com/citations?user=_mc1WWgAAAAJ&hl=en">Google Scholar Page</a>.</p>
+            </div>
+        </section>
+
+        {%- for section in publications %}
+        <section class="publication_list">
+            <div class="content">
+                <h3>{{ section.group }}</h3>
+                {%- for pub in section.items %}{{ pubItem(pub) }}{%- endfor %}
+            </div>
+        </section>
+        {%- endfor %}

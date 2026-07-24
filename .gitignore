@@ -1,0 +1,8 @@
+
+# Eleventy / Node
+node_modules/
+_site/
+.cache/
+
+# macOS
+.DS_Store

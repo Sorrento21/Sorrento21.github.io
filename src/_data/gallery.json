@@ -1,0 +1,112 @@
+[
+  {
+    "type": "prose",
+    "h2": "Walk into my life",
+    "h3": "Painting",
+    "html": "I am an art enthusiast. During my time in the department, I served as <b>Head of the Publicity Department for a student organization</b>, where I created numerous paintings, cultural and creative products, promotional materials, and posters. In my spare time, I continue to create my own artwork, experimenting with various mediums such as watercolor, gouache, sketching, impasto, vector art, and Chinese ink painting."
+  },
+  {
+    "type": "gallery",
+    "rows": [
+      {
+        "variant": "main_project",
+        "items": [
+          {
+            "img": "images/interests/sink.png",
+            "alt": "main_project1",
+            "title": "The Sunken Girl",
+            "meta": [{ "cls": "", "text": "2023, Xinya College Student Festival Promotion" }]
+          },
+          {
+            "img": "images/interests/smoke.png",
+            "alt": "main_project2",
+            "title": "Smoky Haze",
+            "meta": [{ "cls": "", "text": "2023, Xinya College Student Festival Promotion" }]
+          }
+        ]
+      },
+      {
+        "variant": "project",
+        "items": [
+          {
+            "img": "images/interests/sun.png",
+            "alt": "project1",
+            "title": "Waves Rolling With The Setting Sun",
+            "meta": [{ "cls": "state", "text": "2023, Xinya College Student Festival Promotion" }]
+          },
+          {
+            "img": "images/interests/lotus.png",
+            "alt": "project2",
+            "title": "The Moon Reflecting on The Lotus Pond",
+            "meta": [{ "cls": "state", "text": "2023, Xinya College Student Festival Promotion" }]
+          },
+          {
+            "img": "images/interests/printer.png",
+            "alt": "project3",
+            "title": "Dream Printer",
+            "meta": [{ "cls": "state", "text": "2023, Xinya College Student Festival Promotion" }]
+          }
+        ]
+      },
+      {
+        "variant": "main_project",
+        "items": [
+          {
+            "img": "images/interests/woman.jpg",
+            "alt": "woman",
+            "title": "Self-portrait and Lady Portrait Copying",
+            "meta": [{ "cls": "state", "text": "2021, Gouache / Photoshop Thick Brush Practice" }]
+          },
+          {
+            "img": "images/interests/mask.jpg",
+            "alt": "mask",
+            "title": "Ink Plum Blossom Copying and Traditional Chinese Pattern Themed Masks",
+            "meta": [{ "cls": "state", "text": "2022, Ink Painting Practice / Xinya Winter Solstice Cultural Creation" }]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "prose",
+    "h3": "Mixing",
+    "html": "Apart from my studies, I'm <b>an amateur bartender</b> for my friends! I've turned my dorm room into a cozy little bar where I can relax and create my own cocktails. I've mastered classics like Tequila Sunrise, Passionate Coast, Mojito, Long Island Iced Tea, and Godfather. From time to time, I also enjoy <b>experimenting with new recipes</b> by mixing different syrups, liqueurs, and base spirits!"
+  },
+  {
+    "type": "gallery",
+    "rows": [
+      {
+        "variant": "project",
+        "items": [
+          {
+            "img": "images/interests/sunrise.png",
+            "alt": "sunrise",
+            "title": "Tequila Sunrise",
+            "meta": [
+              { "cls": "author", "text": "Tequila, Orange Juice, Grenadine" },
+              { "cls": "state", "text": "This cocktail has a gradient color effect that looks like a sunrise, with orange juice at the top and a redder hue at the bottom from the grenadine." }
+            ]
+          },
+          {
+            "img": "images/interests/orange.png",
+            "alt": "orange",
+            "title": "Screwdriver",
+            "meta": [
+              { "cls": "author", "text": "Vodka, orange juice" },
+              { "cls": "state", "text": "A classic and straightforward cocktail with a bright orange color." }
+            ]
+          },
+          {
+            "img": "images/interests/red.png",
+            "alt": "red",
+            "title": "Sex on the Beach",
+            "meta": [
+              { "cls": "author", "text": "Vodka, Peach Schnapps, Cranberry Juice, Orange Juice" },
+              { "cls": "state", "text": "A fruity cocktail with a mix of peach and cranberry flavors, creating a beautiful orange hue." }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
