@@ -6,3 +6,6 @@ _site/
 
 # macOS
 .DS_Store
+
+# Design sources (large binaries, kept locally only)
+design-src/
