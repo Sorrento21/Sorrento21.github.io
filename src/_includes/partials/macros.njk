@@ -1,62 +1,112 @@
 {# ---------------------------------------------------------------------------
-   Reusable rendering macros. Every card on the site is drawn by one of these,
-   so a card's markup lives in exactly one place. Add content by editing the
-   JSON files in src/_data/ — never by copying markup.
+   Reusable rendering macros. Every repeated block on the site is drawn by one
+   of these, so its markup lives in exactly one place. Add content by editing
+   the JSON files in src/_data/ — never by copying markup.
+
+   Theme note: the site is one terminal window. `cmd()` prints a prompt line;
+   the block right after it is that command's output.
    --------------------------------------------------------------------------- #}
 
-{# A project card (research projects + other projects).
-   `p.meta` is an ordered list of {cls, text} lines, so the same macro renders
-   both the research order (author, then state) and the other-projects order
-   (state, then author). `text` may contain inline HTML (e.g. <u>, <b>). #}
-{% macro projectCard(p) %}
-                    <div class="project">
-                        {%- if p.image %}
-                        <figure>
-                            <img src="{{ p.image }}" alt="{{ p.alt }}">
-                        </figure>
-                        {%- endif %}
-                        <h3>{{ p.title }}</h3>
-                        {%- for line in p.meta %}
-                        <p{% if line.cls %} class="{{ line.cls }}"{% endif %}>{{ line.text | safe }}</p>
-                        {%- endfor %}
-                        {%- if p.links and p.links.length %}
-                        <div class="links">
-                            {%- for l in p.links %}
-                            <a href="{{ l.url }}" target="_blank">{{ l.label }}</a>
-                            {%- endfor %}
-                        </div>
-                        {%- endif %}
-                    </div>
+{# A shell prompt line. `note` renders as a dimmed trailing comment. #}
+{% macro cmd(command, note) %}
+            <div class="line"><span class="pr"></span><span class="cmd">{{ command | safe }}{% if note %} <span class="note"># {{ note }}</span>{% endif %}</span></div>
 {% endmacro %}
 
-{# A publication row (image + title/authors/venue/links). Image is optional. #}
-{% macro pubItem(pub) %}
-                <div class="publication">
-                    {%- if pub.image %}
-                    <picture>
-                        <img src="{{ pub.image }}" alt="{{ pub.alt }}" class="pub-img">
-                    </picture>
-                    {%- endif %}
-                    <div class="pub-text">
-                        <h3 class="pub-title">{{ pub.title }}</h3>
-                        <p class="pub-author">{{ pub.authors | safe }}</p>
-                        <p class="pub-conference">{{ pub.conference }}</p>
-                        <p class="pub-links">
-                            {%- for l in pub.links %}{% if not loop.first %} | {% endif %}<a href="{{ l.url }}" target="_blank">{{ l.label }}</a>{%- endfor %}
-                        </p>
+{# The publication browser: a selectable list on the left, a live figure preview
+   on the right. Accepts research.json entries (meta lines) and publications.json
+   entries (authors/conference) alike — the `authors`/`venue` filters normalise
+   both shapes. #}
+{% macro pubBrowser(items, startIndex) %}
+            <div class="browser" data-browser>
+                <div class="plist" role="listbox" aria-label="Publications" tabindex="0">
+                    {%- for p in items %}
+                    {%- set au = p | authors %}
+                    {%- set ven = p | venue %}
+                    <a class="prow{% if loop.first %} sel{% endif %}" role="option" aria-selected="{{ 'true' if loop.first else 'false' }}"
+                         href="/papers/{{ p.slug }}.html"
+                         data-img="/{{ p.image }}"
+                         data-title="{{ p.title }}"
+                         data-au="{{ au }}"
+                         data-venue="{{ ven }}"
+                         data-tone="{{ ven | venueTone }}"
+                         data-links='{{ p.links | absLinks | dump | safe }}'>
+                        <span class="i">{{ (loop.index + (startIndex or 0)) | pad }}</span>
+                        <span>
+                            <span class="t">{{ p.title }}</span>
+                            <span class="meta">
+                                <span class="{{ ven | venueTone }}">{{ ven | shortVenue }}</span>
+                                {%- if ven | year %}<span>{{ ven | year }}</span>{% endif %}
+                                {%- if au | isCoFirst %}<span>co-first</span>{% endif %}
+                            </span>
+                        </span>
+                    </a>
+                    {%- endfor %}
+                </div>
+                {#- The pane is rendered with the first entry already in place, so it is
+                    correct before site.js runs and still useful with JS disabled. #}
+                {%- set first = items[0] %}
+                <div class="pv">
+                    <div class="stage{% if not first.image %} empty{% endif %}" data-stage>
+                        <button class="expand" type="button" data-full="/{{ first.image }}" data-cap="{{ first.title }}"{% if not first.image %} hidden{% endif %}>⤢ full size</button>
+                        <img alt="{{ first.title }}" data-slot="0"{% if first.image %} src="/{{ first.image }}" class="on"{% endif %}><img alt="" data-slot="1">
+                        <span class="nofig"{% if first.image %} hidden{% endif %}>no figure attached</span>
+                    </div>
+                    <div class="info">
+                        <h3 data-pv-title>{{ first.title }}</h3>
+                        <p class="au" data-pv-authors>{{ first | authors | safe }}</p>
+                        <div class="r">
+                            <span class="vtag {{ first | venue | venueTone }}" data-pv-venue>{{ first | venue }}</span>
+                            <span data-pv-links>{% for l in first.links %}{% if l.url %}{% if not loop.first %} · {% endif %}<a href="{{ l.url | link }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endif %}{% endfor %}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endmacro %}
+
+{# A thumbnail tile: image first, caption under it. Used for projects, gallery
+   pieces and any other image-led list. `variant` adds modifier classes
+   ("tall", "fit"). #}
+{# A thumbnail tile.
+
+   `href` — where the tile leads. Pass a detail page for papers and projects;
+   omit it for gallery artwork, which has no page of its own and opens the image
+   in the lightbox instead.
+
+   NOTE: the card itself must not be an <a> when it carries its own links
+   (Paper/DOI/Video) — an <a> inside an <a> is invalid and the browser hoists the
+   inner links out of the card. So the image is the link, and the caption links
+   sit beside it. #}
+{% macro tile(item, variant, href) %}
+                <div class="tile{% if variant %} {{ variant }}{% endif %}">
+                    <a class="m"{% if href %} href="{{ href }}"{% else %} href="/{{ item.image or item.img }}" data-full="/{{ item.image or item.img }}" data-cap="{{ item.title }}"{% endif %}>
+                        {%- if item.flag %}<span class="flag{% if item.flagTone %} {{ item.flagTone }}{% endif %}">{{ item.flag }}</span>{% endif %}
+                        <span class="zoom" aria-hidden="true">{% if href %}→{% else %}⤢{% endif %}</span>
+                        <img src="/{{ item.image or item.img }}" alt="{{ item.alt or item.title }}" loading="lazy">
+                    </a>
+                    <div class="c">
+                        <h4>{% if href %}<a href="{{ href }}">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}</h4>
+                        {%- if item.meta %}
+                        {%- for line in item.meta %}
+                        <p{% if line.cls %} class="{{ line.cls }}"{% endif %}>{{ line.text | safe }}</p>
+                        {%- endfor %}
+                        {%- else %}
+                        {%- if item.authors %}<p class="author">{{ item.authors | safe }}</p>{% endif %}
+                        {%- if item | venue %}<p class="{{ item | venue | venueTone }}">{{ item | venue }}</p>{% endif %}
+                        {%- endif %}
+                        {%- if item.links and item.links.length %}
+                        <div class="links">
+                            {%- for l in item.links %}{% if l.url %}<a href="{{ l.url | link }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>{% endif %}{% endfor %}
+                        </div>
+                        {%- endif %}
                     </div>
                 </div>
 {% endmacro %}
 
-{# A gallery card. `variant` is the wrapper class: "main_project" or "project". #}
-{% macro galleryCard(item, variant) %}
-                    <div class="{{ variant }}">
-                        <picture>
-                            <img src="{{ item.img }}" alt="{{ item.alt }}">
-                        </picture>
-                        <h3>{{ item.title }}</h3>
-                        {%- for line in item.meta %}
-                        <p{% if line.cls %} class="{{ line.cls }}"{% endif %}>{{ line.text | safe }}</p>
-                        {%- endfor %}
-                    </div>
+{# One line of updates.log. The level tag is derived from the text. #}
+{% macro logLine(u) %}
+                <li>
+                    <span class="c-d">{{ u.date }}</span>
+                    <span class="lvl {{ u.html | logKind }}">{{ u.html | logKind | upper }}</span>
+                    <span class="msg">{{ u.html | safe }}</span>
+                </li>
 {% endmacro %}

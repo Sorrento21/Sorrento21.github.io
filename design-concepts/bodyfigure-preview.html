@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Body figure — drafts for the gallery map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0D10;--pane-2:#151C21;--line:#222C33;--text:#D7E0E4;--dim:#7C8B94;--dimmer:#4E5C65;--green:#5BE49B;--cyan:#56C7E8}
+.light{--bg:#EFEDE6;--pane-2:#F1EFE7;--line:#DCD7C9;--text:#1C2126;--dim:#5B646C;--dimmer:#8C949B;--green:#0B7A4B;--cyan:#0A6C92}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;font-family:"JetBrains Mono",monospace;font-size:13px;line-height:1.7}
+section{background:var(--bg);color:var(--text);padding:34px clamp(16px,4vw,48px)}
+h1{font-family:"Inter",sans-serif;font-size:26px;font-weight:600;letter-spacing:-.03em;margin:6px 0 8px}
+.note{color:var(--dim);font-family:"Inter",sans-serif;font-weight:300;max-width:84ch}
+.mono{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer)}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:22px}
+.card{border:1px solid var(--line);border-radius:10px;background:var(--pane-2);padding:16px;
+  background-image:linear-gradient(rgba(127,127,127,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(127,127,127,.08) 1px,transparent 1px);
+  background-size:24px 24px}
+.card h2{font-family:"Inter",sans-serif;font-size:15px;font-weight:600}
+.card p{color:var(--dim);font-family:"Inter",sans-serif;font-size:12.5px;font-weight:300;margin-bottom:10px}
+.card svg.fig{width:100%;height:auto;display:block}
+
+/* drawing language */
+/* limbs are drawn as a thick accent stroke with the card colour laid back over it,
+   which turns a centre line into a real outlined limb */
+.limbOut{fill:none;stroke:var(--dim);stroke-width:19;stroke-linecap:round;stroke-linejoin:round}
+.limbIn{fill:none;stroke:var(--pane-2);stroke-width:15;stroke-linecap:round;stroke-linejoin:round}
+.limbMass{fill:none;stroke:var(--dim);stroke-width:19;stroke-linecap:round;stroke-linejoin:round;opacity:.13}
+.limbEdge{fill:none;stroke:var(--green);stroke-width:1.8;stroke-linecap:round}
+.wire *{fill:none;stroke:var(--dim);stroke-width:2}
+.mass *{fill:var(--dim);opacity:.13;stroke:none}
+.edge *{fill:none;stroke:var(--green);stroke-width:1.8;stroke-linejoin:round}
+.thin path{fill:none;stroke:var(--dim);stroke-width:1;opacity:.3}
+.contour path{fill:none;stroke:var(--green);stroke-width:1.5;opacity:.85}
+.scanline{stroke:var(--cyan);stroke-width:1;opacity:.22}
+.strap{opacity:.45}
+.face{fill:none;stroke:var(--dim);stroke-width:1.4;stroke-linecap:round;opacity:.6}
+.gear{fill:none;stroke:var(--green);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.hud{fill:none;stroke:var(--cyan);stroke-width:1.3;opacity:.7}
+.node{fill:var(--green)}
+.ring{fill:none;stroke:var(--green);stroke-width:1.1;opacity:.55}
+text{font-family:"JetBrains Mono",monospace;font-size:9px;fill:var(--dimmer);letter-spacing:.12em}
+.pulse{fill:none;stroke:var(--green);stroke-width:1.8;stroke-dasharray:110 640;stroke-dashoffset:110;animation:trace 4.5s linear infinite}
+@keyframes trace{to{stroke-dashoffset:-640}}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="scan" width="6" height="6" patternUnits="userSpaceOnUse"><line class="scanline" x1="0" y1="0" x2="6" y2="0"/></pattern>
+  <clipPath id="bodyclip"><ellipse cx="200" cy="72" rx="30" ry="39"/><path d="M170 70 C170 34 181 20 200 20 C221 20 230 36 230 70 C227 54 223 46 218 42 C207 52 186 56 177 50 C173 54 171 62 170 70 Z"/><path d="M200 124 C178 126 162 133 153 146 C147 155 146 165 147 175 L152 232 L150 286 C168 296 232 296 250 286 L248 232 L253 175 C254 165 253 155 247 146 C238 133 222 126 200 124 Z"/>
+    <path d="M152 152 L134 246 L140 334 l16 -3 L150 246 L166 155 Z"/>
+    <path d="M248 152 L266 246 L260 334 l-16 -3 L250 246 L234 155 Z"/>
+    <path d="M169 288 L165 430 L169 592 h22 L191 430 L191 288 Z"/>
+    <path d="M209 288 L209 430 L209 592 h22 L235 430 L231 288 Z"/></clipPath>
+
+  <symbol id="figA" viewBox="0 0 400 660">
+    <g class="hud"><path d="M14 14 h30 M14 14 v30"/><path d="M386 14 h-30 M386 14 v30"/><path d="M14 646 h30 M14 646 v-30"/><path d="M386 646 h-30 M386 646 v-30"/></g>
+    <path class="limbOut" d="M152 152 L134 246 L140 334"/><path class="limbOut" d="M248 152 L266 246 L260 334"/><path class="limbOut" d="M180 288 L176 430 L180 588"/><path class="limbOut" d="M220 288 L224 430 L220 588"/><path class="limbIn" d="M152 152 L134 246 L140 334"/><path class="limbIn" d="M248 152 L266 246 L260 334"/><path class="limbIn" d="M180 288 L176 430 L180 588"/><path class="limbIn" d="M220 288 L224 430 L220 588"/>
+    <g class="wire"><ellipse cx="200" cy="72" rx="30" ry="39"/><path d="M170 70 C170 34 181 20 200 20 C221 20 230 36 230 70 C227 54 223 46 218 42 C207 52 186 56 177 50 C173 54 171 62 170 70 Z"/><ellipse cx="170" cy="76" rx="4" ry="7"/><ellipse cx="230" cy="76" rx="4" ry="7"/><path d="M184 126 C192 137 208 137 216 126 L219 142 C207 154 193 154 181 142 Z"/><path d="M200 124 C178 126 162 133 153 146 C147 155 146 165 147 175 L152 232 L150 286 C168 296 232 296 250 286 L248 232 L253 175 C254 165 253 155 247 146 C238 133 222 126 200 124 Z"/><ellipse cx="139" cy="348" rx="9" ry="12"/><ellipse cx="261" cy="348" rx="9" ry="12"/><ellipse cx="180" cy="596" rx="14" ry="8"/><ellipse cx="220" cy="596" rx="14" ry="8"/></g>
+    <g class="thin"><path d="M158 196 C180 207 220 207 242 196"/><path d="M154 246 C177 257 223 257 246 246"/></g>
+    <g class="gear"><circle cx="187" cy="76" r="10.5"/><circle cx="213" cy="76" r="10.5"/><path d="M197.5 76 h5"/><path d="M176.5 74 h-6 M223.5 74 h6"/><rect x="164" y="69" width="6" height="12" rx="2"/><rect x="230" y="69" width="6" height="12" rx="2"/><path class="strap" d="M171 66 C184 52 216 52 229 66" stroke-dasharray="3 4"/><path class="face" d="M200 80 v10 M196 96 h8"/></g><g class="gear"><rect x="264" y="316" width="16" height="28" rx="3"/><path d="M268 340 h8"/></g><g class="gear"><rect x="131" y="322" width="18" height="14" rx="4"/></g><g class="gear"><path d="M184 130 C192 140 208 140 216 130"/></g><g class="gear"><rect x="228" y="72" width="8" height="12" rx="3"/></g><circle class="node" cx="200" cy="76" r="3.4"/><circle class="ring" cx="200" cy="76" r="9.5"/><circle class="node" cx="233" cy="78" r="3.4"/><circle class="ring" cx="233" cy="78" r="9.5"/><circle class="node" cx="200" cy="134" r="3.4"/><circle class="ring" cx="200" cy="134" r="9.5"/><circle class="node" cx="140" cy="332" r="3.4"/><circle class="ring" cx="140" cy="332" r="9.5"/><circle class="node" cx="272" cy="330" r="3.4"/><circle class="ring" cx="272" cy="330" r="9.5"/>
+    <text x="18" y="640">FIG.1 · WIREFRAME</text>
+  </symbol>
+
+  <symbol id="figB" viewBox="0 0 400 660">
+    <g class="hud"><path d="M14 14 h30 M14 14 v30"/><path d="M386 14 h-30 M386 14 v30"/><path d="M14 646 h30 M14 646 v-30"/><path d="M386 646 h-30 M386 646 v-30"/></g>
+    <path class="limbMass" d="M152 152 L134 246 L140 334"/><path class="limbMass" d="M248 152 L266 246 L260 334"/><path class="limbMass" d="M180 288 L176 430 L180 588"/><path class="limbMass" d="M220 288 L224 430 L220 588"/>
+    <g class="mass"><ellipse cx="200" cy="72" rx="30" ry="39"/><path d="M170 70 C170 34 181 20 200 20 C221 20 230 36 230 70 C227 54 223 46 218 42 C207 52 186 56 177 50 C173 54 171 62 170 70 Z"/><path d="M184 126 C192 137 208 137 216 126 L219 142 C207 154 193 154 181 142 Z"/><path d="M200 124 C178 126 162 133 153 146 C147 155 146 165 147 175 L152 232 L150 286 C168 296 232 296 250 286 L248 232 L253 175 C254 165 253 155 247 146 C238 133 222 126 200 124 Z"/><ellipse cx="139" cy="348" rx="9" ry="12"/><ellipse cx="261" cy="348" rx="9" ry="12"/><ellipse cx="180" cy="596" rx="14" ry="8"/><ellipse cx="220" cy="596" rx="14" ry="8"/></g>
+    <g clip-path="url(#bodyclip)"><rect width="400" height="660" fill="url(#scan)"/></g>
+    <path class="limbEdge" d="M152 152 L134 246 L140 334"/><path class="limbEdge" d="M248 152 L266 246 L260 334"/><path class="limbEdge" d="M180 288 L176 430 L180 588"/><path class="limbEdge" d="M220 288 L224 430 L220 588"/>
+    <g class="edge"><ellipse cx="200" cy="72" rx="30" ry="39"/><path d="M170 70 C170 34 181 20 200 20 C221 20 230 36 230 70 C227 54 223 46 218 42 C207 52 186 56 177 50 C173 54 171 62 170 70 Z"/><path d="M184 126 C192 137 208 137 216 126 L219 142 C207 154 193 154 181 142 Z"/><path d="M200 124 C178 126 162 133 153 146 C147 155 146 165 147 175 L152 232 L150 286 C168 296 232 296 250 286 L248 232 L253 175 C254 165 253 155 247 146 C238 133 222 126 200 124 Z"/><ellipse cx="139" cy="348" rx="9" ry="12"/><ellipse cx="261" cy="348" rx="9" ry="12"/><ellipse cx="180" cy="596" rx="14" ry="8"/><ellipse cx="220" cy="596" rx="14" ry="8"/></g>
+    <path class="pulse" d="M156 206 h20 l5 -11 l6 24 l6 -32 l6 40 l6 -21 h26 l5 -10 l6 22 l6 -30 l6 38 l6 -19 h20"/><g class="gear"><circle cx="187" cy="76" r="10.5"/><circle cx="213" cy="76" r="10.5"/><path d="M197.5 76 h5"/><path d="M176.5 74 h-6 M223.5 74 h6"/><rect x="164" y="69" width="6" height="12" rx="2"/><rect x="230" y="69" width="6" height="12" rx="2"/><path class="strap" d="M171 66 C184 52 216 52 229 66" stroke-dasharray="3 4"/><path class="face" d="M200 80 v10 M196 96 h8"/></g><g class="gear"><rect x="264" y="316" width="16" height="28" rx="3"/><path d="M268 340 h8"/></g><g class="gear"><rect x="131" y="322" width="18" height="14" rx="4"/></g><g class="gear"><path d="M184 130 C192 140 208 140 216 130"/></g><g class="gear"><rect x="228" y="72" width="8" height="12" rx="3"/></g><circle class="node" cx="200" cy="76" r="3.4"/><circle class="ring" cx="200" cy="76" r="9.5"/><circle class="node" cx="233" cy="78" r="3.4"/><circle class="ring" cx="233" cy="78" r="9.5"/><circle class="node" cx="200" cy="134" r="3.4"/><circle class="ring" cx="200" cy="134" r="9.5"/><circle class="node" cx="140" cy="332" r="3.4"/><circle class="ring" cx="140" cy="332" r="9.5"/><circle class="node" cx="272" cy="330" r="3.4"/><circle class="ring" cx="272" cy="330" r="9.5"/>
+    <text x="18" y="640">FIG.2 · SILHOUETTE + SCAN</text>
+  </symbol>
+
+  <symbol id="figC" viewBox="0 0 400 660">
+    <g class="hud"><path d="M14 14 h30 M14 14 v30"/><path d="M386 14 h-30 M386 14 v30"/><path d="M14 646 h30 M14 646 v-30"/><path d="M386 646 h-30 M386 646 v-30"/></g>
+    <g class="contour" clip-path="url(#bodyclip)">
+          <path d="M40 24 C140 16 260 32 360 24"/>
+          <path d="M40 34 C140 26 260 42 360 34"/>
+          <path d="M40 44 C140 36 260 52 360 44"/>
+          <path d="M40 54 C140 46 260 62 360 54"/>
+          <path d="M40 64 C140 56 260 72 360 64"/>
+          <path d="M40 74 C140 66 260 82 360 74"/>
+          <path d="M40 84 C140 76 260 92 360 84"/>
+          <path d="M40 94 C140 86 260 102 360 94"/>
+          <path d="M40 104 C140 96 260 112 360 104"/>
+          <path d="M40 114 C140 106 260 122 360 114"/>
+          <path d="M40 124 C140 116 260 132 360 124"/>
+          <path d="M40 134 C140 126 260 142 360 134"/>
+          <path d="M40 144 C140 136 260 152 360 144"/>
+          <path d="M40 154 C140 146 260 162 360 154"/>
+          <path d="M40 164 C140 156 260 172 360 164"/>
+          <path d="M40 174 C140 166 260 182 360 174"/>
+          <path d="M40 184 C140 176 260 192 360 184"/>
+          <path d="M40 194 C140 186 260 202 360 194"/>
+          <path d="M40 204 C140 196 260 212 360 204"/>
+          <path d="M40 214 C140 206 260 222 360 214"/>
+          <path d="M40 224 C140 216 260 232 360 224"/>
+          <path d="M40 234 C140 226 260 242 360 234"/>
+          <path d="M40 244 C140 236 260 252 360 244"/>
+          <path d="M40 254 C140 246 260 262 360 254"/>
+          <path d="M40 264 C140 256 260 272 360 264"/>
+          <path d="M40 274 C140 266 260 282 360 274"/>
+          <path d="M40 284 C140 276 260 292 360 284"/>
+          <path d="M40 294 C140 286 260 302 360 294"/>
+          <path d="M40 304 C140 296 260 312 360 304"/>
+          <path d="M40 314 C140 306 260 322 360 314"/>
+          <path d="M40 324 C140 316 260 332 360 324"/>
+          <path d="M40 334 C140 326 260 342 360 334"/>
+          <path d="M40 344 C140 336 260 352 360 344"/>
+          <path d="M40 354 C140 346 260 362 360 354"/>
+          <path d="M40 364 C140 356 260 372 360 364"/>
+          <path d="M40 374 C140 366 260 382 360 374"/>
+          <path d="M40 384 C140 376 260 392 360 384"/>
+          <path d="M40 394 C140 386 260 402 360 394"/>
+          <path d="M40 404 C140 396 260 412 360 404"/>
+          <path d="M40 414 C140 406 260 422 360 414"/>
+          <path d="M40 424 C140 416 260 432 360 424"/>
+          <path d="M40 434 C140 426 260 442 360 434"/>
+          <path d="M40 444 C140 436 260 452 360 444"/>
+          <path d="M40 454 C140 446 260 462 360 454"/>
+          <path d="M40 464 C140 456 260 472 360 464"/>
+          <path d="M40 474 C140 466 260 482 360 474"/>
+          <path d="M40 484 C140 476 260 492 360 484"/>
+          <path d="M40 494 C140 486 260 502 360 494"/>
+          <path d="M40 504 C140 496 260 512 360 504"/>
+          <path d="M40 514 C140 506 260 522 360 514"/>
+          <path d="M40 524 C140 516 260 532 360 524"/>
+          <path d="M40 534 C140 526 260 542 360 534"/>
+          <path d="M40 544 C140 536 260 552 360 544"/>
+          <path d="M40 554 C140 546 260 562 360 554"/>
+          <path d="M40 564 C140 556 260 572 360 564"/>
+          <path d="M40 574 C140 566 260 582 360 574"/>
+          <path d="M40 584 C140 576 260 592 360 584"/>
+          <path d="M40 594 C140 586 260 602 360 594"/>
+          <path d="M40 604 C140 596 260 612 360 604"/>
+    </g>
+    <g class="gear"><circle cx="187" cy="76" r="10.5"/><circle cx="213" cy="76" r="10.5"/><path d="M197.5 76 h5"/><path d="M176.5 74 h-6 M223.5 74 h6"/><rect x="164" y="69" width="6" height="12" rx="2"/><rect x="230" y="69" width="6" height="12" rx="2"/><path class="strap" d="M171 66 C184 52 216 52 229 66" stroke-dasharray="3 4"/><path class="face" d="M200 80 v10 M196 96 h8"/></g><g class="gear"><rect x="264" y="316" width="16" height="28" rx="3"/><path d="M268 340 h8"/></g><g class="gear"><rect x="131" y="322" width="18" height="14" rx="4"/></g><g class="gear"><path d="M184 130 C192 140 208 140 216 130"/></g><g class="gear"><rect x="228" y="72" width="8" height="12" rx="3"/></g><circle class="node" cx="200" cy="76" r="3.4"/><circle class="ring" cx="200" cy="76" r="9.5"/><circle class="node" cx="233" cy="78" r="3.4"/><circle class="ring" cx="233" cy="78" r="9.5"/><circle class="node" cx="200" cy="134" r="3.4"/><circle class="ring" cx="200" cy="134" r="9.5"/><circle class="node" cx="140" cy="332" r="3.4"/><circle class="ring" cx="140" cy="332" r="9.5"/><circle class="node" cx="272" cy="330" r="3.4"/><circle class="ring" cx="272" cy="330" r="9.5"/>
+    <text x="18" y="640">FIG.3 · CONTOUR SCAN</text>
+  </symbol>
+</defs></svg>
+
+<section>
+  <p class="mono">draft · body figure for the gallery map</p>
+  <h1>Three ways to draw you</h1>
+  <p class="note">Hand-drawn vector referencing your two photos — round wire glasses, the swept fringe,
+  the turtleneck-and-jacket shoulders. The eyewear from the second photo (side modules + head strap)
+  is what the “glasses” device looks like. Green dots are the five sensing sites that become the
+  hotspots. Nothing is wired into the site yet.</p>
+  <div class="row">
+    <div class="card"><h2>A · Wireframe</h2><p>Outline only — quietest, reads as a lab schematic.</p>
+      <svg class="fig" viewBox="0 0 400 660"><use href="#figA"/></svg></div>
+    <div class="card"><h2>B · Silhouette + scan</h2><p>Filled mass, bright edge, scan lines, a PPG trace across the chest.</p>
+      <svg class="fig" viewBox="0 0 400 660"><use href="#figB"/></svg></div>
+    <div class="card"><h2>C · Contour scan</h2><p>Body described only by the beam sweeping across it — most sci-fi, least literal.</p>
+      <svg class="fig" viewBox="0 0 400 660"><use href="#figC"/></svg></div>
+  </div>
+</section>
+
+<section class="light">
+  <p class="mono">the same three on the daylight palette</p>
+  <div class="row">
+    <div class="card"><h2>A</h2><svg class="fig" viewBox="0 0 400 660"><use href="#figA"/></svg></div>
+    <div class="card"><h2>B</h2><svg class="fig" viewBox="0 0 400 660"><use href="#figB"/></svg></div>
+    <div class="card"><h2>C</h2><svg class="fig" viewBox="0 0 400 660"><use href="#figC"/></svg></div>
+  </div>
+</section>
+</body>
+</html>

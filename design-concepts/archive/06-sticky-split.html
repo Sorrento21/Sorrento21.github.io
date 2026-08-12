@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06 · Sticky Split — Jiacheng Liu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --panel:#141C2B;      /* deep navy left column */
+  --panel-2:#1D2739;
+  --paper:#FCFCFD;
+  --ink:#131722;
+  --dim:#5D6577;
+  --dimmer:#9AA1B1;
+  --line:#E6E8EE;
+  --accent:#E0A458;     /* amber */
+  --accent-2:#4C8CF5;
+  --pad:clamp(22px,3.4vw,52px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.k{font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+
+.shell{display:grid;grid-template-columns:minmax(300px,38%) 1fr;min-height:100vh}
+
+/* ── left, fixed ── */
+aside{position:sticky;top:0;height:100vh;background:var(--panel);color:#fff;
+  padding:var(--pad);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+aside::before{content:"";position:absolute;inset:auto -40% -35% -40%;height:70%;
+  background:radial-gradient(ellipse at 50% 100%,rgba(224,164,88,.28),transparent 62%);pointer-events:none}
+.brandmark{width:44px;height:44px;border-radius:12px;background:var(--accent);color:var(--panel);
+  display:grid;place-items:center;font-weight:700;font-size:17px;letter-spacing:-.03em}
+.who{position:relative;z-index:1}
+.who .k{color:var(--accent);margin-bottom:14px}
+.who h1{font-size:clamp(30px,3.3vw,46px);font-weight:600;letter-spacing:-.035em;line-height:1.05}
+.who h1 span{display:block;font-weight:300;color:rgba(255,255,255,.42);font-size:.52em;letter-spacing:.16em;margin-top:12px}
+.who p{color:rgba(255,255,255,.62);font-weight:300;margin-top:16px;max-width:34ch;font-size:14.5px}
+.portrait{margin-top:24px;width:118px;height:118px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.14)}
+.portrait img{width:100%;height:100%;object-fit:cover}
+.sidenav{position:relative;z-index:1;display:flex;flex-direction:column;gap:2px;margin:26px 0}
+.sidenav a{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;
+  color:rgba(255,255,255,.55);font-size:14px;transition:.22s}
+.sidenav a .n{font-size:10.5px;letter-spacing:.1em;color:rgba(255,255,255,.28)}
+.sidenav a:hover,.sidenav a.on{background:rgba(255,255,255,.07);color:#fff}
+.sidenav a.on{box-shadow:inset 2px 0 0 var(--accent)}
+.aside-foot{position:relative;z-index:1;display:flex;flex-direction:column;gap:16px}
+.socials{display:flex;gap:9px}
+.socials a{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.07);display:grid;place-items:center;transition:.22s}
+.socials a:hover{background:var(--accent)}
+.socials img{width:14px;height:14px;object-fit:contain;filter:invert(1)}
+.cvbtn{display:inline-flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 16px;border-radius:12px;background:#fff;color:var(--panel);font-weight:500;font-size:14px;transition:.22s}
+.cvbtn:hover{transform:translateY(-2px);box-shadow:0 12px 26px -14px rgba(0,0,0,.8)}
+.aside-foot small{color:rgba(255,255,255,.28);font-size:11.5px}
+
+/* ── right, scrolls ── */
+main{padding:clamp(40px,7vh,88px) var(--pad) 60px;max-width:860px}
+section+section{margin-top:clamp(44px,7vh,84px)}
+.sec-k{display:flex;align-items:center;gap:12px;margin-bottom:22px;color:var(--dimmer)}
+.sec-k::after{content:"";flex:1;height:1px;background:var(--line)}
+h2{font-size:clamp(21px,2.3vw,28px);font-weight:600;letter-spacing:-.03em;margin-bottom:16px}
+.prose{color:var(--dim);font-weight:300;max-width:64ch}
+.prose p+p{margin-top:13px}
+.prose b{color:var(--ink);font-weight:500}
+.prose a{color:var(--accent-2);border-bottom:1px solid transparent;transition:.2s}
+.prose a:hover{border-color:var(--accent-2)}
+
+.qbox{border:1px solid var(--line);border-radius:16px;padding:24px;background:#fff;
+  display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:22px;align-items:center}
+.qbox p{font-size:clamp(16px,1.7vw,20px);line-height:1.42;letter-spacing:-.02em;font-weight:400}
+.qbox b{color:var(--accent-2);font-weight:600}
+
+.upd{display:flex;flex-direction:column}
+.upd li{list-style:none;display:grid;grid-template-columns:96px 1fr;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.upd li:first-child{border-top:1px solid var(--line)}
+.upd time{font-size:11.5px;letter-spacing:.08em;color:var(--dimmer)}
+.upd p{color:var(--dim);font-weight:300;font-size:14.5px}
+.upd strong{color:var(--ink);font-weight:500}
+
+.pub{display:block;border:1px solid var(--line);border-radius:16px;padding:18px;background:#fff;
+  display:grid;grid-template-columns:132px 1fr;gap:18px;align-items:center;transition:.28s}
+.pub+.pub{margin-top:12px}
+.pub:hover{border-color:var(--accent);transform:translateX(4px);box-shadow:0 14px 30px -22px rgba(19,23,34,.7)}
+.pub .ph{width:132px;height:88px;border-radius:10px;overflow:hidden;background:#F3F4F7;display:grid;place-items:center}
+.pub .ph img{width:100%;height:100%;object-fit:cover}
+.pub h3{font-size:16px;font-weight:500;letter-spacing:-.02em;line-height:1.32}
+.pub .au{font-size:12.5px;color:var(--dimmer);font-weight:300;margin-top:6px}
+.pub .au u{text-decoration:none;color:var(--dim);font-weight:600}
+.pub .row{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.pub .v{font-size:11px;letter-spacing:.09em;text-transform:uppercase;padding:4px 9px;border-radius:6px;
+  background:#F1F3F8;color:var(--dim)}
+.pub .v.hot{background:rgba(224,164,88,.16);color:#96631E}
+.pub .lk{font-size:12px;color:var(--accent-2)}
+.note{font-size:12.5px;color:var(--dimmer);margin-bottom:14px}
+
+footer{padding:26px var(--pad) 40px;color:var(--dimmer);font-size:12px;max-width:860px}
+
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr}
+  aside{position:static;height:auto;gap:24px}
+  .sidenav{flex-direction:row;flex-wrap:wrap;margin:18px 0}
+  .sidenav a .n{display:none}
+  .qbox{grid-template-columns:1fr}
+  .pub{grid-template-columns:1fr}
+  .pub .ph{width:100%;height:150px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <aside>
+    <div>
+      <div class="brandmark">JL</div>
+      <div class="who" style="margin-top:26px">
+        <p class="k">Ph.D. Student · Cornell</p>
+        <h1>Jiacheng Liu<span>刘 佳 成</span></h1>
+        <p>AI-assisted sensing in wearable form factors. SciFi Lab, Information Science.</p>
+        <div class="portrait"><img src="../../src/images/black_selfie.jpg" alt="Portrait of Jiacheng Liu"></div>
+      </div>
+      <nav class="sidenav">
+        <a class="on" href="#about"><span class="n">01</span>About</a>
+        <a href="#interests"><span class="n">02</span>Research interests</a>
+        <a href="#updates"><span class="n">03</span>Updates</a>
+        <a href="#work"><span class="n">04</span>Publications</a>
+        <a href="#"><span class="n">05</span>Projects</a>
+        <a href="#"><span class="n">06</span>Gallery</a>
+        <a href="#"><span class="n">07</span>Contact</a>
+      </nav>
+    </div>
+    <div class="aside-foot">
+      <a class="cvbtn" href="#">Curriculum Vitae <span>↓</span></a>
+      <div class="socials">
+        <a href="#"><img src="../../src/images/icons/github-mark-dark.png" alt="GitHub"></a>
+        <a href="#"><img src="../../src/images/icons/google-scholar.png" alt="Scholar"></a>
+        <a href="#"><img src="../../src/images/icons/linkedin.png" alt="LinkedIn"></a>
+      </div>
+      <small>© 2025 Jiacheng Liu · Concept 06</small>
+    </div>
+  </aside>
+
+  <div>
+  <main>
+    <section id="about">
+      <p class="sec-k k">01 — About</p>
+      <h2>Sensing systems that stay out of the way.</h2>
+      <div class="prose">
+        <p>I am a first-year Ph.D. student at the <a href="#">SciFi Lab</a> at <a href="#">Cornell University</a>, advised by <a href="#">Prof. Cheng Zhang</a>. My research centers on <b>AI-assisted sensing technologies</b>, with a particular emphasis on <b>wearable form factors</b>. My work focuses on <b>activity-detection systems and assistive devices</b> that provide unobtrusive, seamless monitoring and support.</p>
+        <p>Before Cornell, I earned a Bachelor of Engineering in <a href="#">Creative Design and Intelligent Engineering</a> at <a href="#">Xinya College, Tsinghua University</a>. I gained research experience in multiple labs, including <a href="#">the PI Lab</a> and <a href="#">the Future Lab</a>.</p>
+      </div>
+    </section>
+
+    <section id="interests">
+      <p class="sec-k k">02 — Research interests</p>
+      <div class="qbox">
+        <p>How can we integrate <b>AI with sensing systems</b> to develop early-detection systems and assistive devices for everyday use, providing unobtrusive and seamless health support for individuals with diverse health conditions?</p>
+        <img src="../../src/images/research_interests.png" alt="Research interests diagram">
+      </div>
+    </section>
+
+    <section id="updates">
+      <p class="sec-k k">03 — Updates</p>
+      <ul class="upd">
+        <li><time>2025.06.20</time><p>🏆 Awarded the <strong>Outstanding Undergraduate Thesis</strong>.</p></li>
+        <li><time>2025.06.20</time><p>🏵 Awarded the <strong>Xinya College Academic Excellence Award</strong>.</p></li>
+        <li><time>2025.04.03</time><p>🎉 Joining the <strong>SciFi Lab at Cornell University</strong> as a Ph.D. student in Information Science.</p></li>
+        <li><time>2025.02.01</time><p>📩 Submitted <strong>PPG-based Authentication on Smartwatches in Daily Scenarios</strong> to IMWUT'25.</p></li>
+      </ul>
+    </section>
+
+    <section id="work">
+      <p class="sec-k k">04 — Selected research</p>
+      <p class="note">* indicates co-first author.</p>
+
+      <a class="pub" href="#">
+        <span class="ph"><img src="../../src/images/research/bridge.png" alt=""></span>
+        <span>
+          <h3>PPG as a Bridge: Cross-Device Identity Transfer with Photoplethysmography</h3>
+          <p class="au"><u>Jiacheng Liu*</u>, Jiankai Tang*, Ruichen Gui, Songqin Cheng, Taiting Lu, Mahanth Gowda, Yuanchun Shi, Yuntao Wang</p>
+          <span class="row"><span class="v hot">CHI '26 · submitted</span></span>
+        </span>
+      </a>
+      <a class="pub" href="#">
+        <span class="ph"><img src="../../src/images/research/speech.png" alt=""></span>
+        <span>
+          <h3>NeckVoice: Voice Synthesis for Laryngectomees with On-body Sound Actuation</h3>
+          <p class="au">Ruidong Zhang, <u>Jiacheng Liu</u>, Justin Xiang, Ke Li, Babak Sadoughi, Sam Tilsen, François Guimbretière, Cheng Zhang</p>
+          <span class="row"><span class="v hot">Nature Electronics · submitted</span></span>
+        </span>
+      </a>
+      <a class="pub" href="#">
+        <span class="ph"><img src="../../src/images/research/PPG_authen.jpg" alt=""></span>
+        <span>
+          <h3>Exploring Reliable PPG Authentication on Smartwatches in Daily Scenarios</h3>
+          <p class="au">Jiankai Tang*, <u>Jiacheng Liu*</u>, Renling Tong, Kai Zhu, Zhe Li, Junliang Xing, Yuanchun Shi, Yuntao Wang</p>
+          <span class="row"><span class="v">arXiv '25</span><span class="lk">Paper ↗</span><span class="lk">DOI ↗</span></span>
+        </span>
+      </a>
+      <a class="pub" href="#">
+        <span class="ph"><img src="../../src/images/research/odoragent.png" alt=""></span>
+        <span>
+          <h3>OdorAgent: Generate Odor Sequences for Movies Based on Large Language Model</h3>
+          <p class="au">Yu Zhang, Peizhong Gao, Fangzhou Kang, Jiaxiang Li, <u>Jiacheng Liu</u>, Qi Lu, Yingqing Xu</p>
+          <span class="row"><span class="v">IEEE VR '24</span><span class="lk">Paper ↗</span><span class="lk">DOI ↗</span></span>
+        </span>
+      </a>
+      <a class="pub" href="#">
+        <span class="ph"><img src="../../src/images/research/camera.png" alt=""></span>
+        <span>
+          <h3>Camera-Based Remote Physiology Sensing for Hundreds of Subjects Across Skin Tones</h3>
+          <p class="au">Jiankai Tang, Xinyi Li, <u>Jiacheng Liu</u>, Xiyuxing Zhang, Zeyu Wang, Yuntao Wang</p>
+          <span class="row"><span class="v">CHI '24 Workshop</span><span class="lk">Paper ↗</span><span class="lk">DOI ↗</span></span>
+        </span>
+      </a>
+    </section>
+  </main>
+  <footer>Concept 06 — Sticky Split · prototype</footer>
+  </div>
+</div>
+
+<script>
+// highlight the section currently in view
+const links=[...document.querySelectorAll('.sidenav a')].filter(a=>a.hash);
+const map=new Map(links.map(a=>[a.hash.slice(1),a]));
+document.querySelectorAll('section[id]').forEach(s=>{
+  new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){links.forEach(a=>a.classList.remove('on'));map.get(e.target.id)?.classList.add('on');}
+  }),{rootMargin:'-20% 0px -70% 0px'}).observe(s);
+});
+</script>
+</body>
+</html>

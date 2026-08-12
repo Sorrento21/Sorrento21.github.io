@@ -1,18 +1,44 @@
 {
   "title": "Jiacheng Liu 刘佳成",
   "name": "Jiacheng Liu",
+  "email": "jl4596@cornell.edu",
+  "description": "Jiacheng Liu (刘佳成) — Ph.D. student at the SciFi Lab, Cornell University, working on AI-assisted sensing technologies in wearable form factors.",
   "footer": "Copyright © 2025 Jiacheng Liu All Rights Reserved.",
   "nav": [
-    { "label": "PROJECTS", "url": "projects.html" },
-    { "label": "PUBLICATIONS", "url": "publications.html" },
-    { "label": "CV", "url": "docs/Jiacheng_Liu_CV.pdf" },
-    { "label": "GALLERY", "url": "gallery.html" },
-    { "label": "CONTACT", "url": "contact.html" }
+    {
+      "label": "PUBLICATIONS",
+      "url": "publications.html"
+    },
+    {
+      "label": "CV",
+      "url": "docs/Jiacheng_Liu_CV.pdf",
+      "external": true
+    },
+    {
+      "label": "CONTACT",
+      "url": "contact.html"
+    }
   ],
   "socials": [
-    { "alt": "GitHub", "url": "https://github.com/Sorrento21", "icon": "images/icons/github-mark-dark.png" },
-    { "alt": "Google Scholar", "url": "https://scholar.google.com/citations?user=_mc1WWgAAAAJ&hl=en", "icon": "images/icons/google-scholar.png" },
-    { "alt": "ORCID iD", "url": "https://orcid.org/0009-0007-4525-0352", "icon": "https://orcid.org/sites/default/files/images/orcid_16x16.png" },
-    { "alt": "Linkedin", "url": "https://www.linkedin.com/in/jiacheng-liu-26859038a/", "icon": "images/icons/linkedin.png" }
+    {
+      "alt": "GitHub",
+      "url": "https://github.com/Sorrento21",
+      "icon": "images/icons/github-mark-dark.png"
+    },
+    {
+      "alt": "Google Scholar",
+      "url": "https://scholar.google.com/citations?user=_mc1WWgAAAAJ&hl=en",
+      "icon": "images/icons/google-scholar.png"
+    },
+    {
+      "alt": "ORCID",
+      "url": "https://orcid.org/0009-0007-4525-0352",
+      "icon": "https://orcid.org/sites/default/files/images/orcid_16x16.png"
+    },
+    {
+      "alt": "LinkedIn",
+      "url": "https://www.linkedin.com/in/jiacheng-liu-26859038a/",
+      "icon": "images/icons/linkedin.png"
+    }
   ]
 }

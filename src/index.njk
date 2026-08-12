@@ -1,68 +1,83 @@
 ---
 layout: layouts/base.njk
 permalink: /index.html
+shellPath: personal-site
+currentPage: index.html
+description: "Jiacheng Liu (刘佳成) — Ph.D. student at the SciFi Lab, Cornell University. AI-assisted sensing technologies in wearable form factors: activity-detection systems and assistive devices."
 ---
-{%- from "partials/macros.njk" import projectCard %}
-        <section class="intro">
-            <div class="content">
-                <div class="text-container">
-                    <h2>🐉 Hi, I'm Jiacheng Liu 刘佳成<br><br></h2>
-                    <p>I am a first-year Ph.D. student at the <a href="https://www.scifilab.org/">SciFi Lab</a> at <a href="https://www.cornell.edu/">Cornell University</a>, advised by <a href="https://www.cs.cornell.edu/~zheng/">Prof. Cheng Zhang</a>. My research centers on <b>AI-assisted sensing technologies</b>, with a particular emphasis on <b>wearable form factors</b>. My work focuses on <b>activity-detection systems and assistive devices</b> that provide unobtrusive, seamless monitoring and support.</p><br>
+{%- from "partials/macros.njk" import cmd, pubBrowser, tile, logLine %}
 
-<p>Before Cornell, I earned a Bachelor of Engineering in <a href="https://www.xyc.tsinghua.edu.cn/en/info/1111/1374.htm">Creative Design and Intelligent Engineering</a> (CDIE) at <a href="https://www.xyc.tsinghua.edu.cn/en/">Xinya College</a>, <a href="https://www.tsinghua.edu.cn/en/index.htm">Tsinghua University</a>. I gained research experience in multiple labs, including <a href="https://pi.cs.tsinghua.edu.cn/">the PI Lab</a> and <a href="https://thfl.tsinghua.edu.cn/en/">the Future Lab</a> at Tsinghua University.</p>
-
-                    <div class="links">
+            <div class="line"><span class="pr"></span><span class="cmd" data-typed="whoami --verbose"></span><span class="cursor"></span></div>
+            <div class="out who">
+                <figure data-full="/images/black_selfie.jpg" data-cap="Jiacheng Liu — Ithaca, NY">
+                    <img src="/images/black_selfie.jpg" alt="Portrait of Jiacheng Liu">
+                    <figcaption>./black_selfie.jpg</figcaption>
+                </figure>
+                <div>
+                    <h1>Jiacheng Liu <span class="cn">刘佳成</span></h1>
+                    <dl class="kv">
+                        <dt>role</dt><dd>Ph.D. student, Information Science <span class="c-d">(year 1)</span></dd>
+                        <dt>lab</dt><dd><a class="link" href="https://www.scifilab.org/">SciFi Lab</a>, <a class="link" href="https://www.cornell.edu/">Cornell University</a></dd>
+                        <dt>advisor</dt><dd><a class="link" href="https://www.cs.cornell.edu/~zheng/">Prof. Cheng Zhang</a></dd>
+                        <dt>focus</dt><dd><span class="c-g">wearable sensing</span> · <span class="c-g">activity detection</span> · <span class="c-g">assistive devices</span></dd>
+                        <dt>location</dt><dd>Gates Hall 239, Ithaca, NY</dd>
+                    </dl>
+                    <p class="prose">My research centers on <b>AI-assisted sensing technologies</b>, with a particular emphasis on <b>wearable form factors</b>. My work focuses on <b>activity-detection systems and assistive devices</b> that provide unobtrusive, seamless monitoring and support.</p>
+                    <p class="prose">Before Cornell, I earned a Bachelor of Engineering in <a href="https://www.xyc.tsinghua.edu.cn/en/info/1111/1374.htm">Creative Design and Intelligent Engineering</a> (CDIE) at <a href="https://www.xyc.tsinghua.edu.cn/en/">Xinya College</a>, <a href="https://www.tsinghua.edu.cn/en/index.htm">Tsinghua University</a>. I gained research experience in multiple labs, including <a href="https://pi.cs.tsinghua.edu.cn/">the PI Lab</a> and <a href="https://thfl.tsinghua.edu.cn/en/">the Future Lab</a>.</p>
+                    <div class="chips">
                         {%- for s in site.socials %}
-                        <div class="link_unit">
-                            <a href="{{ s.url }}" target="_blank">
-                                <picture>
-                                    <img src="{{ s.icon }}" alt="{{ s.alt }}" />
-                                </picture>
-                            </a>
-                        </div>
+                        <a href="{{ s.url }}" target="_blank" rel="noopener">--{{ s.alt | lower | replace(" ", "") }}</a>
                         {%- endfor %}
+                        <a href="/docs/Jiacheng_Liu_CV.pdf" target="_blank" rel="noopener">--cv.pdf</a>
                     </div>
                 </div>
-                <img src="images/black_selfie.jpg" alt="portrait">
             </div>
-        </section>
 
-        <section class="interests">
-            <div class="content">
-                <div class="dot-separator"></div>
-                <h2>Research Interests</h2>
-                <div class="interest_container">
-                    <img src="images/research_interests.png" alt="interests">
-                    <p>
-                        How can we integrate <b>AI with sensing systems</b> to develop <b>early detection systems and assistive devices</b> for everyday use, providing <b>unobtrusive and seamless</b> health support for individuals with diverse health conditions?
-                    </p>
-                </div>
+{{ cmd("tail -n " + (updates | length | string) + " updates.log") }}
+            <ul class="out log" data-rv>
+                {%- for u in updates %}{{ logLine(u) }}{%- endfor %}
+            </ul>
+
+{{ cmd("cat research_question.md") }}
+            <div class="out two-col" data-rv>
+                <p class="stmt">How can we integrate <b>AI with sensing systems</b> to develop early-detection systems and assistive devices for everyday use, providing <b>unobtrusive and seamless</b> health support for individuals with diverse health conditions?</p>
+                <img class="fig" src="/images/research_interests.png" alt="Research interests: wearable sensing and ubiquitous computing, human-centered AI, accessible interaction and health applications"
+                     data-full="/images/research_interests.png" data-cap="Research interests">
             </div>
-        </section>
 
-        <section class="updates">
-            <div class="content">
-                <div class="dot-separator"></div>
-                <h2>Updates</h2>
-                <div class="news_list">
-                    {%- for u in updates %}
-                    <div class="update">
-                        <time datetime="{{ u.date }}">{{ u.date }}</time>
-                        <p>{{ u.html | safe }}</p>
-                    </div>
+{{ cmd("open publications/ --preview") }}
+            <div class="out" data-rv>
+                <p class="hint">{{ research | length }} items · <kbd>↑</kbd> <kbd>↓</kbd> or <kbd>j</kbd> / <kbd>k</kbd> to browse · click a row to open the paper · * indicates co-first author</p>
+                {{ pubBrowser(research) }}
+                <p class="hint" style="padding:12px 0 0"><a class="link" href="/publications.html">→ full publication list, by year</a></p>
+            </div>
+
+{{ cmd("cat service.log", "reviewing and programme committees") }}
+            <div class="out" data-rv>
+                <ul class="svc">
+                    {%- for s in service %}
+                    <li>
+                        <span class="role">{{ s.role }}</span>
+                        <span class="svc-body">
+                            <span class="venue"{% if s.full %} title="{{ s.full }}"{% endif %}>{{ s.venue }}</span>
+                            <span class="years">· {{ s.years | join(", ") }}</span>
+                            {%- if s.note %} <span class="note">{{ s.note }}</span>{% endif %}
+                        </span>
+                    </li>
                     {%- endfor %}
+                </ul>
+            </div>
+
+{{ cmd("ls projects/ --thumbnails") }}
+            <div class="out" data-rv id="projects">
+                <div class="tiles">
+                    {%- for p in other_projects %}{{ tile(p, "", "/projects/" + p.slug + ".html") }}{%- endfor %}
                 </div>
             </div>
-        </section>
 
-        <section class="projects">
-            <div class="content">
-                <div class="dot-separator"></div>
-                <h2>Research Projects</h2>
-                <p>* indicates co-first author.</p>
-
-                <div class="display_row">
-                    {%- for p in research %}{{ projectCard(p) }}{%- endfor %}
+{{ cmd("open gallery/", "painting, ink, design") }}
+            <div class="out" data-rv>
+                <div class="tiles">
+                    {%- for item in gallery | galleryImages(6) %}{{ tile(item, "tall") }}{%- endfor %}
                 </div>
             </div>
-        </section>

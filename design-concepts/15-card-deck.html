@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>15 · Card Deck — Jiacheng Liu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EAE7E1;--paper:#FFFFFF;--ink:#16161A;--dim:#5C5C66;--dimmer:#9B9BA5;--line:#DAD6CE;
+  --accent:#3A2FE0;--accent-2:#FF7043;--pad:clamp(18px,4.4vw,64px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+.dis{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;letter-spacing:-.035em}
+.mono{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer);font-weight:500}
+
+[data-rv]{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+[data-rv].in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){[data-rv]{opacity:1;transform:none;transition:none}}
+
+nav{position:sticky;top:0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:14px var(--pad);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px)}
+nav .b{font-family:"Bricolage Grotesque";font-weight:800;letter-spacing:-.03em;font-size:17px}
+nav ul{display:flex;gap:18px;list-style:none}
+nav ul a{font-size:13px;color:var(--dim);transition:.2s}
+nav ul a:hover{color:var(--accent)}
+
+/* hero */
+header{padding:clamp(24px,5vh,56px) var(--pad) clamp(16px,3vh,30px);display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(22px,4vw,52px);align-items:center}
+h1{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(34px,6.2vw,82px);line-height:.95;letter-spacing:-.045em}
+h1 span{color:var(--dimmer);font-weight:400}
+header .lede{color:var(--dim);max-width:52ch;margin-top:16px}
+header .lede b{color:var(--ink);font-weight:600}
+header .lede a{color:var(--accent);font-weight:500}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;align-items:center}
+.btn{padding:11px 20px;border-radius:12px;font-size:13.5px;font-weight:600;transition:.24s;border:1.5px solid var(--ink)}
+.btn.p{background:var(--ink);color:var(--bg)}
+.btn.p:hover{background:var(--accent);border-color:var(--accent)}
+.btn.s:hover{background:var(--ink);color:var(--bg)}
+.ico{display:flex;gap:7px}
+.ico a{width:36px;height:36px;border-radius:10px;border:1.5px solid var(--line);background:#fff;display:grid;place-items:center;transition:.22s}
+.ico a:hover{transform:translateY(-2px);border-color:var(--ink)}
+.ico img{width:15px;height:15px;object-fit:contain;opacity:.72}
+.pt{position:relative;border-radius:22px;overflow:hidden;border:6px solid #fff;box-shadow:0 26px 50px -30px rgba(22,22,26,.6);
+  transform:rotate(-2deg);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.pt:hover{transform:rotate(0deg) scale(1.01)}
+.pt img{width:100%;aspect-ratio:4/5;object-fit:cover}
+
+/* ── the deck ── */
+.deck-sec{padding:clamp(20px,4vh,44px) var(--pad) clamp(34px,6vh,72px)}
+.deck-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.deck-head h2{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(22px,2.8vw,36px);letter-spacing:-.035em}
+.deck-wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(22px,4vw,54px);align-items:center}
+.deck{position:relative;height:clamp(300px,42vw,470px);perspective:1200px;touch-action:pan-y}
+.dcard{position:absolute;inset:0;border-radius:20px;overflow:hidden;background:var(--paper);border:1px solid var(--line);
+  box-shadow:0 26px 56px -34px rgba(22,22,26,.7);cursor:grab;
+  transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .45s,box-shadow .45s;transform-origin:50% 120%}
+.dcard.grab{cursor:grabbing;transition:none}
+.dcard .m{position:absolute;inset:0;overflow:hidden;background:#F1EFEA}
+.dcard .m img,.dcard .m video{width:100%;height:100%;object-fit:cover}
+.dcard .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,16,20,0) 40%,rgba(16,16,20,.84))}
+.dcard .b{position:absolute;left:0;right:0;bottom:0;padding:20px 22px 22px;color:#fff}
+.dcard h3{font-family:"Bricolage Grotesque";font-weight:600;font-size:clamp(16px,1.8vw,23px);letter-spacing:-.025em;line-height:1.24}
+.dcard .au{font-size:12px;color:rgba(255,255,255,.72);margin-top:8px;font-weight:300}
+.dcard .au u{text-decoration:none;color:#fff;font-weight:500}
+.dcard .flag{position:absolute;top:14px;left:14px;display:flex;gap:6px;z-index:2}
+.tag{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:99px;
+  background:rgba(255,255,255,.92);color:var(--ink)}
+.tag.hot{background:var(--accent-2);color:#fff}
+.tag.gif{background:var(--accent);color:#fff}
+.dcard .zoom{position:absolute;top:12px;right:12px;z-index:3;background:rgba(255,255,255,.92);border-radius:10px;
+  padding:7px 11px;font-size:12px;font-weight:600}
+
+.deck-side .n{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(40px,6vw,84px);letter-spacing:-.05em;line-height:.9;color:var(--ink)}
+.deck-side .n small{color:var(--dimmer);font-size:.4em}
+.deck-side .venue{margin-top:14px;display:inline-flex;padding:6px 14px;border-radius:99px;background:var(--ink);color:var(--bg);
+  font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.deck-side p.sum{color:var(--dim);margin-top:16px;max-width:44ch}
+.deck-side .ctrls{display:flex;gap:10px;margin-top:22px;align-items:center}
+.deck-side .ctrls button{width:46px;height:46px;border-radius:14px;border:1.5px solid var(--ink);background:transparent;
+  cursor:pointer;font-size:17px;display:grid;place-items:center;transition:.22s;color:var(--ink)}
+.deck-side .ctrls button:hover{background:var(--ink);color:var(--bg)}
+.deck-side .hint{color:var(--dimmer);font-size:12px;margin-left:6px}
+.progress{display:flex;gap:6px;margin-top:18px}
+.progress i{height:4px;flex:1;background:var(--line);border-radius:99px;display:block;transition:background .3s}
+.progress i.on{background:var(--accent)}
+
+/* sections */
+section{padding:clamp(30px,6vh,74px) var(--pad)}
+.head{display:flex;align-items:baseline;gap:16px;margin-bottom:20px}
+.head h2{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(22px,2.8vw,36px);letter-spacing:-.035em}
+.head .rule{flex:1;height:1.5px;background:var(--line)}
+
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.pgrid a{border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--line);display:block;
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+.pgrid a:hover{transform:translateY(-5px) rotate(-.6deg);box-shadow:0 24px 44px -28px rgba(22,22,26,.6)}
+.pgrid .m{aspect-ratio:4/3;overflow:hidden;background:#F1EFEA}
+.pgrid img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.pgrid a:hover img{transform:scale(1.06)}
+.pgrid .c{padding:14px 16px 17px}
+.pgrid h4{font-family:"Bricolage Grotesque";font-weight:600;font-size:15px;letter-spacing:-.02em}
+.pgrid p{font-size:11.5px;color:var(--dimmer);margin-top:3px}
+
+.qbox{background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(22px,3vw,40px);
+  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(20px,3vw,44px);align-items:center}
+.qbox p{font-family:"Bricolage Grotesque";font-weight:600;font-size:clamp(17px,2.1vw,27px);line-height:1.32;letter-spacing:-.025em}
+.qbox b{color:var(--accent)}
+.qbox img{border-radius:14px;cursor:zoom-in}
+
+.upd{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.upd .u{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;transition:transform .3s}
+.upd .u:hover{transform:translateY(-4px)}
+.upd time{display:block;margin-bottom:8px}
+.upd p{color:var(--dim);font-size:14px}
+.upd strong{color:var(--ink);font-weight:600}
+
+#lb{position:fixed;inset:0;z-index:200;background:rgba(22,22,26,.9);backdrop-filter:blur(12px);
+  display:grid;place-items:center;padding:5vh 5vw;opacity:0;pointer-events:none;transition:opacity .3s}
+#lb.on{opacity:1;pointer-events:auto}
+#lb figure{max-width:1150px;transform:scale(.96);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+#lb.on figure{transform:none}
+#lb img{max-height:78vh;width:auto;border-radius:14px;background:#fff}
+#lb figcaption{margin-top:14px;color:rgba(255,255,255,.78);font-size:13px;text-align:center}
+#lb .x{position:absolute;top:22px;right:26px;font-size:26px;color:#fff;opacity:.8}
+
+footer{padding:26px var(--pad) 40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--dimmer);font-size:12px}
+
+@media(max-width:900px){
+  header,.deck-wrap,.qbox{grid-template-columns:1fr}
+  .pt{order:-1;max-width:300px;margin:0 auto}
+  nav ul{display:none}
+  .deck{height:min(78vw,420px)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="b" href="#">Jiacheng Liu</a>
+  <ul>
+    <li><a href="#deck">Research</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#">CV</a></li>
+    <li><a href="#">Gallery</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<header>
+  <div>
+    <p class="mono">Ph.D. Student · SciFi Lab · Cornell University</p>
+    <h1 style="margin-top:12px">Jiacheng Liu<br><span>刘佳成</span></h1>
+    <p class="lede">I build <b>AI-assisted sensing technologies</b> in <b>wearable form factors</b> — activity-detection systems and assistive devices offering unobtrusive, seamless monitoring and support. Advised by <a href="#">Prof. Cheng Zhang</a>.</p>
+    <div class="row">
+      <a class="btn p" href="#deck">Flip through the work</a>
+      <a class="btn s" href="#">CV ↓</a>
+      <span class="ico">
+        <a href="#"><img src="../src/images/icons/github-mark-dark.png" alt="GitHub"></a>
+        <a href="#"><img src="../src/images/icons/google-scholar.png" alt="Scholar"></a>
+        <a href="#"><img src="../src/images/icons/linkedin.png" alt="LinkedIn"></a>
+      </span>
+    </div>
+  </div>
+  <figure class="pt"><img src="../src/images/black_selfie.jpg" alt="Portrait of Jiacheng Liu"></figure>
+</header>
+
+<div class="deck-sec" id="deck">
+  <div class="deck-head">
+    <h2>Selected research</h2>
+    <span class="mono">drag a card · ← → · click to enlarge · * co-first author</span>
+  </div>
+
+  <div class="deck-wrap">
+    <div class="deck" id="deckEl">
+      <article class="dcard" data-full="../src/images/research/bridge.png" data-cap="PPG as a Bridge — system pipeline"
+        data-venue="CHI '26 · submitted" data-sum="Transferring an identity model learned on one PPG device to another, so a watch and a ring recognise the same person without re-enrolment.">
+        <span class="flag"><span class="tag hot">CHI '26</span><span class="tag gif">GIF</span></span>
+        <span class="zoom">⤢</span>
+        <span class="m"><img src="../src/images/research/bridge.png" alt=""></span>
+        <span class="veil"></span>
+        <span class="b">
+          <h3>PPG as a Bridge: Cross-Device Identity Transfer with Photoplethysmography</h3>
+          <span class="au"><u>Jiacheng Liu*</u>, Jiankai Tang*, Ruichen Gui, Songqin Cheng, Taiting Lu, Mahanth Gowda, Yuanchun Shi, Yuntao Wang</span>
+        </span>
+      </article>
+
+      <article class="dcard" data-full="../src/images/research/speech.png" data-cap="NeckVoice — on-body sound actuation"
+        data-venue="Nature Electronics · submitted" data-sum="Giving people who have lost their larynx a voice again, by actuating sound on the body and reconstructing speech from what the neck still carries.">
+        <span class="flag"><span class="tag hot">Nature Elec.</span></span>
+        <span class="zoom">⤢</span>
+        <span class="m"><img src="../src/images/research/speech.png" alt=""></span>
+        <span class="veil"></span>
+        <span class="b">
+          <h3>NeckVoice: Voice Synthesis for Laryngectomees with On-body Sound Actuation</h3>
+          <span class="au">Ruidong Zhang, <u>Jiacheng Liu</u>, Justin Xiang, Ke Li, Babak Sadoughi, Sam Tilsen, François Guimbretière, Cheng Zhang</span>
+        </span>
+      </article>
+
+      <article class="dcard" data-full="../src/images/research/PPG_authen.jpg" data-cap="PPG authentication on smartwatches"
+        data-venue="arXiv '25" data-sum="How well does heartbeat-shaped light identify you once people start walking, drinking, and wearing the watch differently every day?">
+        <span class="flag"><span class="tag">arXiv '25</span></span>
+        <span class="zoom">⤢</span>
+        <span class="m"><img src="../src/images/research/PPG_authen.jpg" alt=""></span>
+        <span class="veil"></span>
+        <span class="b">
+          <h3>Exploring Reliable PPG Authentication on Smartwatches in Daily Scenarios</h3>
+          <span class="au">Jiankai Tang*, <u>Jiacheng Liu*</u>, Renling Tong, Kai Zhu, Zhe Li, Junliang Xing, Yuanchun Shi, Yuntao Wang</span>
+        </span>
+      </article>
+
+      <article class="dcard" data-full="../src/images/research/odoragent.png" data-cap="OdorAgent — pipeline"
+        data-venue="IEEE VR '24" data-sum="An LLM agent that reads a film and scores it for smell, generating odor sequences timed to what is on screen.">
+        <span class="flag"><span class="tag">IEEE VR '24</span></span>
+        <span class="zoom">⤢</span>
+        <span class="m"><img src="../src/images/research/odoragent.png" alt=""></span>
+        <span class="veil"></span>
+        <span class="b">
+          <h3>OdorAgent: Generate Odor Sequences for Movies Based on Large Language Model</h3>
+          <span class="au">Yu Zhang, Peizhong Gao, Fangzhou Kang, Jiaxiang Li, <u>Jiacheng Liu</u>, Qi Lu, Yingqing Xu</span>
+        </span>
+      </article>
+
+      <article class="dcard" data-full="../src/images/research/camera.png" data-cap="Remote physiology across skin tones"
+        data-venue="CHI '24 Workshop" data-sum="Whether a camera can read your pulse should not depend on your skin tone. A large multi-subject evaluation of where current methods fail.">
+        <span class="flag"><span class="tag">CHI '24 WS</span></span>
+        <span class="zoom">⤢</span>
+        <span class="m"><img src="../src/images/research/camera.png" alt=""></span>
+        <span class="veil"></span>
+        <span class="b">
+          <h3>Camera-Based Remote Physiology Sensing for Hundreds of Subjects Across Skin Tones</h3>
+          <span class="au">Jiankai Tang, Xinyi Li, <u>Jiacheng Liu</u>, Xiyuxing Zhang, Zeyu Wang, Yuntao Wang</span>
+        </span>
+      </article>
+    </div>
+
+    <div class="deck-side">
+      <p class="n" id="dNum">01<small>/05</small></p>
+      <span class="venue" id="dVenue"></span>
+      <p class="sum" id="dSum"></p>
+      <div class="ctrls">
+        <button id="dPrev" aria-label="previous">←</button>
+        <button id="dNext" aria-label="next">→</button>
+        <span class="hint">or drag the card away</span>
+      </div>
+      <div class="progress" id="dProg"></div>
+    </div>
+  </div>
+</div>
+
+<section id="projects">
+  <div class="head" data-rv><h2>Design &amp; course projects</h2><div class="rule"></div></div>
+  <div class="pgrid" data-rv>
+    <a href="#" data-full="../src/images/projects/magnet.png" data-cap="TagMagnet"><span class="m"><img src="../src/images/projects/magnet.png" alt=""></span><span class="c"><h4>TagMagnet</h4><p>Album app · UI + interaction · 2023</p></span></a>
+    <a href="#" data-full="../src/images/projects/canvas.png" data-cap="CanvaSphere"><span class="m"><img src="../src/images/projects/canvas.png" alt=""></span><span class="c"><h4>CanvaSphere</h4><p>Urban art festival · 2023</p></span></a>
+    <a href="#" data-full="../src/images/projects/wave.png" data-cap="Water Ripples"><span class="m"><img src="../src/images/projects/wave.png" alt=""></span><span class="c"><h4>Water Ripples</h4><p>Wooden mechanism · 2024</p></span></a>
+    <a href="#" data-full="../src/images/projects/charm.png" data-cap="Charm Clicker"><span class="m"><img src="../src/images/projects/charm.png" alt=""></span><span class="c"><h4>Charm Clicker</h4><p>Photo guide app · 2024</p></span></a>
+    <a href="#" data-full="../src/images/projects/guide.png" data-cap="Guide system"><span class="m"><img src="../src/images/projects/guide.png" alt=""></span><span class="c"><h4>Guide System</h4><p>Wayfinding redesign · 2024</p></span></a>
+    <a href="#" data-full="../src/images/projects/car.jpg" data-cap="Line-following robot"><span class="m"><img src="../src/images/projects/car.jpg" alt=""></span><span class="c"><h4>Line Robot</h4><p>Electronics + design · 2023</p></span></a>
+  </div>
+</section>
+
+<section>
+  <div class="head" data-rv><h2>Research interests</h2><div class="rule"></div></div>
+  <div class="qbox" data-rv>
+    <p>How can we integrate <b>AI with sensing systems</b> to develop early-detection systems and assistive devices for everyday use — unobtrusive, seamless health support for individuals with diverse health conditions?</p>
+    <img src="../src/images/research_interests.png" alt="Research interests diagram" data-full="../src/images/research_interests.png" data-cap="Research interests">
+  </div>
+</section>
+
+<section>
+  <div class="head" data-rv><h2>Updates</h2><div class="rule"></div><span class="mono">2025</span></div>
+  <div class="upd" data-rv>
+    <div class="u"><time class="mono">2025.06.20</time><p>🏆 Awarded the <strong>Outstanding Undergraduate Thesis</strong>.</p></div>
+    <div class="u"><time class="mono">2025.06.20</time><p>🏵 Awarded the <strong>Xinya College Academic Excellence Award</strong>.</p></div>
+    <div class="u"><time class="mono">2025.04.03</time><p>🎉 Joining the <strong>SciFi Lab at Cornell University</strong> as a Ph.D. student.</p></div>
+    <div class="u"><time class="mono">2025.02.01</time><p>📩 Submitted <strong>PPG-based Authentication on Smartwatches</strong> to IMWUT'25.</p></div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Jiacheng Liu</span>
+  <span>Concept 15 — Card Deck</span>
+</footer>
+
+<div id="lb"><span class="x">✕</span><figure><img alt=""><figcaption></figcaption></figure></div>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.1});
+document.querySelectorAll('[data-rv]').forEach(el=>io.observe(el));
+
+/* ── the deck ── */
+const cards=[...document.querySelectorAll('.dcard')],
+      dNum=document.getElementById('dNum'),dVenue=document.getElementById('dVenue'),
+      dSum=document.getElementById('dSum'),dProg=document.getElementById('dProg');
+cards.forEach(()=>dProg.appendChild(document.createElement('i')));
+const bars=[...dProg.children];
+let topIdx=0;
+function layout(){
+  cards.forEach((c,i)=>{
+    const p=(i-topIdx+cards.length)%cards.length;      // 0 = front
+    c.style.zIndex=cards.length-p;
+    c.style.opacity=p>3?0:1;
+    c.style.transform=`translate3d(${p*14}px,${p*-10}px,0) scale(${1-p*.045}) rotate(${p*1.4}deg)`;
+    c.style.pointerEvents=p===0?'auto':'none';
+  });
+  const c=cards[topIdx];
+  dNum.innerHTML=String(topIdx+1).padStart(2,'0')+'<small>/'+String(cards.length).padStart(2,'0')+'</small>';
+  dVenue.textContent=c.dataset.venue;
+  dSum.textContent=c.dataset.sum;
+  bars.forEach((b,i)=>b.classList.toggle('on',i===topIdx));
+}
+function advance(dir){topIdx=(topIdx+dir+cards.length)%cards.length;layout()}
+document.getElementById('dNext').addEventListener('click',()=>advance(1));
+document.getElementById('dPrev').addEventListener('click',()=>advance(-1));
+addEventListener('keydown',e=>{
+  if(document.getElementById('lb').classList.contains('on'))return;
+  if(e.key==='ArrowRight')advance(1);
+  if(e.key==='ArrowLeft')advance(-1);
+});
+
+// drag the front card away
+let drag=null;
+cards.forEach(c=>{
+  c.addEventListener('pointerdown',e=>{
+    if(c.style.pointerEvents==='none')return;
+    drag={c,x0:e.clientX,y0:e.clientY,dx:0};c.classList.add('grab');c.setPointerCapture(e.pointerId);
+  });
+  c.addEventListener('pointermove',e=>{
+    if(!drag||drag.c!==c)return;
+    drag.dx=e.clientX-drag.x0;const dy=e.clientY-drag.y0;
+    c.style.transform=`translate3d(${drag.dx}px,${dy*.3}px,0) rotate(${drag.dx*.04}deg)`;
+  });
+  const end=()=>{
+    if(!drag||drag.c!==c)return;
+    c.classList.remove('grab');
+    const far=Math.abs(drag.dx)>90;
+    if(far){
+      c.style.transition='transform .45s ease,opacity .45s';
+      c.style.transform=`translate3d(${drag.dx>0?600:-600}px,0,0) rotate(${drag.dx>0?18:-18}deg)`;
+      setTimeout(()=>{c.style.transition='';advance(drag.dx>0?1:-1)},260);
+    }else{layout()}
+    drag=null;
+  };
+  c.addEventListener('pointerup',end);c.addEventListener('pointercancel',end);
+  // click (not drag) opens the figure
+  c.addEventListener('click',e=>{
+    if(drag&&Math.abs(drag.dx)>6)return;
+    e.preventDefault();openLb(c.dataset.full,c.dataset.cap);
+  });
+});
+layout();
+
+/* lightbox */
+const lb=document.getElementById('lb'),lbi=lb.querySelector('img'),lbc=lb.querySelector('figcaption');
+function openLb(src,cap){lbi.src=src;lbc.textContent=cap||'';lb.classList.add('on')}
+document.querySelectorAll('[data-full]:not(.dcard)').forEach(el=>el.addEventListener('click',ev=>{
+  ev.preventDefault();openLb(el.dataset.full,el.dataset.cap);
+}));
+lb.addEventListener('click',()=>lb.classList.remove('on'));
+addEventListener('keydown',e=>e.key==='Escape'&&lb.classList.remove('on'));
+</script>
+</body>
+</html>

@@ -1,61 +1,120 @@
 [
   {
-    "image": "images/research/bridge.png",
-    "alt": "bridge",
-    "title": "PPG as a Bridge: Cross-Device Identity Transfer with Photoplethysmography",
-    "meta": [
-      { "cls": "author", "text": "<u>Jiacheng Liu*</u>, Jiankai Tang*, Ruichen Gui, Songqin Cheng, Taiting Lu, Mahanth Gowda, Yuanchun Shi, Yuntao Wang" },
-      { "cls": "state", "text": "2025, CHI'26 (Submitted)" }
+    "slug": "ppg-as-a-bridge",
+    "title": "PPG as a Bridge: Cross-Device Authentication for Smart Wearables with Photoplethysmography",
+    "image": "images/research/ppg_bridge.gif",
+    "still": "images/research/bridge.png",
+    "alt": "PPGTransID transfers a phone's face-authentication status to co-worn wearables using PPG",
+    "authors": "<u>Jiacheng Liu*</u>, Jiankai Tang*, Guangye Zhao, Ruichen Gui, Songqin Cheng, Taiting Lu, Jian Liu, Weiqiang Wang, Mahanth Gowda, Yuanchun Shi, Yuntao Wang",
+    "venue": "IMWUT 2026",
+    "status": "Accepted",
+    "year": "2026",
+    "abstract": "As smart wearable devices become increasingly powerful and pervasive, protecting user privacy on these devices has emerged as a critical challenge. While existing authentication mechanisms are available for interaction-rich devices such as smartwatches, enabling on-device authentication (ODA) on interaction-limited wearables, including rings, earphones, glasses, and wristbands, remains difficult. Moreover, as users increasingly own multiple smart devices, relying on device-specific authentication methods becomes redundant and burdensome. To address these challenges, we present PPGTransID, a ubiquitous and unobtrusive cross-device authentication (CDA) approach that leverages the real-time physiological consistency of photoplethysmography (PPG) signals across the human body. PPGTransID utilizes the widely available PPG sensors on wearable devices to capture users' physiological signals and compares them with remote PPG (rPPG) signals extracted from a smartphone camera, where robust face-based authentication is already established. In doing so, PPGTransID securely transfers the reliable authentication status of the smartphone to nearby wearable devices without requiring additional user interaction. An evaluation (N=33) shows that PPGTransID achieves a balanced accuracy of 95.5% and generalizes across multiple wearable form factors. Robustness experiments (N=10) demonstrate resilience to variations in lighting, camera placement, and user behavior, while a real-time usability study (N=14) confirms reliable performance with minimal interaction burden. Finally, a deployment on commercial hardware (N=10) confirms the practicability of PPGTransID in out-of-lab scenarios and its resistance to synchronized rPPG injection attacks.",
+    "keywords": [
+      "Authentication",
+      "Wearable Device",
+      "Smart Sensing",
+      "Photoplethysmography"
     ],
-    "links": []
+    "links": [
+      {
+        "label": "Google Scholar",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=_mc1WWgAAAAJ&citation_for_view=_mc1WWgAAAAJ:UeHWp8X0CEIC"
+      }
+    ],
+    "type": "J"
   },
   {
+    "slug": "revoice",
+    "title": "ReVoice: AI-Powered Wearable Acoustic Sensing Restores Natural Voice for Laryngectomees",
     "image": "images/research/speech.png",
-    "alt": "speech",
-    "title": "NeckVoice: Voice Synthesis for Laryngectomees with On-body Sound Actuation",
-    "meta": [
-      { "cls": "author", "text": "Ruidong Zhang, <u>Jiacheng Liu</u>, Justin Xiang, Ke Li, Babak Sadoughi, Sam Tilsen, François Guimbretière, Cheng Zhang" },
-      { "cls": "state", "text": "2025, Nature Electronics (Submitted)" }
-    ],
-    "links": []
+    "alt": "ReVoice reconstructs speech for laryngectomees from on-body acoustic sensing",
+    "authors": "Ruidong Zhang, <u>Jiacheng Liu</u>, Justin Xiang, Ke Li, Babak Sadoughi, Sam Tilsen, François Guimbretière, Cheng Zhang",
+    "venue": "CHI 2027",
+    "status": "In preparation",
+    "year": "2027",
+    "abstract": "",
+    "links": [],
+    "type": "C"
   },
   {
-    "image": "images/research/PPG_authen.jpg",
-    "alt": "ppg_authen",
+    "slug": "reliable-ppg-authentication",
     "title": "Exploring Reliable PPG Authentication on Smartwatches in Daily Scenarios",
-    "meta": [
-      { "cls": "author", "text": "Jiankai Tang*, <u>Jiacheng Liu*</u>, RENLING TONG, Kai Zhu, Zhe Li, Junliang Xing, Yuanchun Shi, Yuntao Wang" },
-      { "cls": "state", "text": "2025, arXiv'25" }
+    "image": "images/research/PPG_authen.jpg",
+    "alt": "MTL-RAPID evaluated across activities and across days",
+    "authors": "Jiankai Tang*, <u>Jiacheng Liu*</u>, Renling Tong, Kai Zhu, Zhe Li, Xin Yi, Junliang Xing, Yuanchun Shi, Yuntao Wang",
+    "venue": "arXiv 2025",
+    "year": "2025",
+    "abstract": "Photoplethysmography (PPG) Sensors, widely deployed in smartwatches, offer a simple and non-invasive authentication approach for daily use. However, PPG authentication faces reliability issues due to motion artifacts from physical activity and physiological variability over time. To address these challenges, we propose MTL-RAPID, an efficient and reliable PPG authentication model, that employs a multitask joint training strategy, simultaneously assessing signal quality and verifying user identity. The joint optimization of these two tasks in MTL-RAPID results in a structure that outperforms models trained on individual tasks separately, achieving stronger performance with fewer parameters. In our comprehensive user studies regarding motion artifacts (N = 30), time variations (N = 32), and user preferences (N = 16), MTL-RAPID achieves a best AUC of 99.2% and an EER of 3.5%, outperforming existing baselines. We open-source our PPG authentication dataset along with the MTL-RAPID model to facilitate future research on GitHub.",
+    "keywords": [
+      "Photoplethysmography",
+      "Smartwatch authentication",
+      "Multi-task Learning"
     ],
     "links": [
-      { "label": "Paper", "url": "docs/_CHI_IMWUT_2025__Robust_and_Efficient_PPG_authentification.pdf" },
-      { "label": "DOI", "url": "https://doi.org/10.48550/arXiv.2503.23930" }
-    ]
+      {
+        "label": "Paper",
+        "url": "docs/_CHI_IMWUT_2025__Robust_and_Efficient_PPG_authentification.pdf"
+      },
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.48550/arXiv.2503.23930"
+      }
+    ],
+    "type": "P"
   },
   {
-    "image": "images/research/odoragent.png",
-    "alt": "odoragent",
+    "slug": "odoragent",
     "title": "OdorAgent: Generate Odor Sequences for Movies Based on Large Language Model",
-    "meta": [
-      { "cls": "author", "text": "Yu Zhang, Peizhong Gao, Fangzhou Kang, Jiaxiang Li, <u>Jiacheng Liu</u>, Qi Lu, Yingqing Xu" },
-      { "cls": "state", "text": "2024, IEEE VR'24" }
+    "image": "images/research/odoragent.png",
+    "alt": "OdorAgent pipeline: image information extraction and scent selection",
+    "authors": "Yu Zhang, Peizhong Gao, Fangzhou Kang, Jiaxiang Li, <u>Jiacheng Liu</u>, Qi Lu, Yingqing Xu",
+    "venue": "IEEE VR 2024",
+    "status": "Published",
+    "year": "2024",
+    "abstract": "Numerous studies have shown that integrating scents into movies enhances viewer engagement and immersion. However, creating such olfactory experiences often requires professional perfumers to match scents, limiting their widespread use. To address this, we propose OdorAgent which combines a LLM with a text-image model to automate video-odor matching. The generation framework is in four dimensions: subject matter, emotion, space, and time. We applied it to a specific movie and conducted user studies to evaluate and compare the effectiveness of different system elements. The results indicate that OdorAgent possesses significant scene adaptability and enables inexperienced individuals to design odor experiences for video and images.",
+    "keywords": [
+      "Human-centered computing",
+      "Interaction design",
+      "Systems and tools for interaction design"
     ],
     "links": [
-      { "label": "Paper", "url": "docs/OdorAgent_Generate_Odor_Sequences_for_Movies_Based_on_Large_Language_Model.pdf" },
-      { "label": "DOI", "url": "https://ieeexplore.ieee.org/abstract/document/10494179" }
-    ]
+      {
+        "label": "Paper",
+        "url": "docs/OdorAgent_Generate_Odor_Sequences_for_Movies_Based_on_Large_Language_Model.pdf"
+      },
+      {
+        "label": "DOI",
+        "url": "https://ieeexplore.ieee.org/abstract/document/10494179"
+      }
+    ],
+    "type": "C"
   },
   {
-    "image": "images/research/camera.png",
-    "alt": "camera",
+    "slug": "remote-physiology-skin-tones",
     "title": "Camera-Based Remote Physiology Sensing for Hundreds of Subjects Across Skin Tones",
-    "meta": [
-      { "cls": "author", "text": "Jiankai Tang, Xinyi Li, <u>Jiacheng Liu</u>, Xiyuxing Zhang, Zeyu Wang, Yuntao Wang" },
-      { "cls": "state", "text": "2024, CHI'24 Workshop PhysioCHI" }
+    "image": "images/research/camera.png",
+    "alt": "Analysis of the VitalVideo rPPG dataset across Fitzpatrick skin tones",
+    "authors": "Jiankai Tang, Xinyi Li, <u>Jiacheng Liu</u>, Xiyuxing Zhang, Zeyu Wang, Yuntao Wang",
+    "venue": "CHI 2024 Workshop PhysioCHI",
+    "status": "Published",
+    "year": "2024",
+    "abstract": "Remote photoplethysmography (rPPG) emerges as a promising method for non-invasive, convenient measurement of vital signs, utilizing the widespread presence of cameras. Despite advancements, existing datasets fall short in terms of size and diversity, limiting comprehensive evaluation under diverse conditions. This paper presents an in-depth analysis of the VitalVideo dataset, the largest real-world rPPG dataset to date, encompassing 893 subjects and 6 Fitzpatrick skin tones. Our experimentation with six unsupervised methods and three supervised models demonstrates that datasets comprising a few hundred subjects (i.e., 300 for UBFC-rPPG, 500 for PURE, and 700 for MMPD-Simple) are sufficient for effective rPPG model training. Our findings highlight the importance of diversity and consistency in skin tones for precise performance evaluation across different datasets.",
+    "keywords": [
+      "rPPG",
+      "Physiological Sensing",
+      "VitalVideo"
     ],
     "links": [
-      { "label": "Paper", "url": "docs/Camera-Based Remote Physiology Sensing.pdf" },
-      { "label": "DOI", "url": "https://doi.org/10.48550/arXiv.2404.05003" }
-    ]
+      {
+        "label": "Paper",
+        "url": "docs/Camera-Based Remote Physiology Sensing.pdf"
+      },
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.48550/arXiv.2404.05003"
+      }
+    ],
+    "type": "W"
   }
 ]

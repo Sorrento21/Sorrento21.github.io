@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12 · Filmstrip — Jiacheng Liu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F1EE;--ink:#141414;--dim:#5E5E5C;--dimmer:#9C9B96;--line:#DEDCD6;--card:#fff;
+  --accent:#1F4BFF;--accent-2:#FF5C35;--pad:clamp(18px,4.4vw,64px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:"Manrope",system-ui,sans-serif;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+.mono{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer)}
+
+[data-rv]{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+[data-rv].in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){[data-rv]{opacity:1;transform:none;transition:none}}
+
+nav{position:sticky;top:0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:14px var(--pad);background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .b{font-weight:700;letter-spacing:-.02em}
+nav ul{display:flex;gap:20px;list-style:none}
+nav ul a{font-size:13px;color:var(--dim);transition:.2s}
+nav ul a:hover{color:var(--accent)}
+
+/* hero */
+header{padding:clamp(30px,6vh,70px) var(--pad) clamp(20px,4vh,40px);
+  display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:end}
+h1{font-size:clamp(34px,6vw,80px);font-weight:800;letter-spacing:-.045em;line-height:.98}
+h1 span{color:var(--dimmer);font-weight:300}
+.lede{color:var(--dim);max-width:52ch;margin-top:18px}
+.lede b{color:var(--ink);font-weight:600}
+.lede a{color:var(--accent);font-weight:500}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:center}
+.btn{padding:11px 20px;border-radius:99px;font-size:13.5px;font-weight:600;transition:.24s;border:1px solid var(--ink)}
+.btn.p{background:var(--ink);color:var(--bg)}
+.btn.p:hover{background:var(--accent);border-color:var(--accent)}
+.btn.s:hover{background:var(--ink);color:var(--bg)}
+.ico{display:flex;gap:7px;margin-left:2px}
+.ico a{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;background:#fff;transition:.22s}
+.ico a:hover{transform:translateY(-2px)}
+.ico img{width:15px;height:15px;object-fit:contain;opacity:.7}
+.pt{position:relative;border-radius:18px;overflow:hidden}
+.pt img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.pt .k{position:absolute;left:14px;bottom:12px;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);
+  border-radius:99px;padding:6px 13px;font-size:12px;font-weight:600}
+
+/* ── the filmstrip ── */
+.strip-sec{padding:clamp(22px,4vh,44px) 0 clamp(30px,6vh,64px)}
+.strip-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:0 var(--pad);margin-bottom:18px;flex-wrap:wrap}
+.strip-head h2{font-size:clamp(22px,2.7vw,34px);font-weight:800;letter-spacing:-.035em}
+.ctrl{display:flex;gap:8px;align-items:center}
+.ctrl button{width:40px;height:40px;border-radius:50%;border:1px solid var(--ink);background:transparent;cursor:pointer;
+  font-size:16px;display:grid;place-items:center;transition:.22s;color:var(--ink)}
+.ctrl button:hover{background:var(--ink);color:var(--bg)}
+.ctrl button:disabled{opacity:.28;cursor:default}
+.ctrl button:disabled:hover{background:transparent;color:var(--ink)}
+
+.film{display:flex;gap:clamp(12px,1.6vw,22px);overflow-x:auto;padding:6px var(--pad) 22px;
+  scroll-snap-type:x mandatory;cursor:grab;scrollbar-width:none}
+.film.drag{cursor:grabbing;scroll-snap-type:none}
+.film::-webkit-scrollbar{display:none}
+.slide{flex:0 0 clamp(280px,52vw,760px);scroll-snap-align:center;background:var(--card);border:1px solid var(--line);
+  border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s}
+.slide.active{box-shadow:0 30px 60px -34px rgba(20,20,20,.5)}
+.slide .m{position:relative;aspect-ratio:16/9;overflow:hidden;background:#EDEDEA}
+.slide .m img,.slide .m video{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.slide:hover .m img{transform:scale(1.04)}
+.slide .no{position:absolute;left:0;top:0;z-index:2;background:var(--ink);color:var(--bg);
+  font-family:"JetBrains Mono";font-size:11px;letter-spacing:.1em;padding:7px 12px}
+.slide .flag{position:absolute;right:12px;top:12px;z-index:2;display:flex;gap:6px}
+.tag{font-family:"JetBrains Mono";font-size:10px;letter-spacing:.09em;text-transform:uppercase;padding:5px 10px;border-radius:99px;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(6px);color:var(--ink)}
+.tag.hot{background:var(--accent-2);color:#fff}
+.tag.gif{background:var(--accent);color:#fff}
+.slide .zoom{position:absolute;right:12px;bottom:12px;z-index:2;background:rgba(255,255,255,.92);border-radius:99px;
+  padding:8px 14px;font-size:12px;font-weight:600;opacity:0;transform:translateY(6px);transition:.3s}
+.slide:hover .zoom{opacity:1;transform:none}
+.slide .b{padding:18px 22px 22px}
+.slide h3{font-size:clamp(16px,1.7vw,21px);font-weight:700;letter-spacing:-.025em;line-height:1.28}
+.slide .au{font-size:12.5px;color:var(--dimmer);margin-top:8px}
+.slide .au u{text-decoration:none;color:var(--dim);font-weight:600}
+.slide .foot{display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.slide .lk{font-size:12px;color:var(--accent);font-weight:600}
+
+.dots{display:flex;gap:7px;justify-content:center;padding-top:4px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--line);display:block;transition:.3s;cursor:pointer}
+.dots i.on{background:var(--ink);width:22px;border-radius:99px}
+
+/* sections */
+section{padding:clamp(34px,6vh,80px) var(--pad)}
+.head{display:flex;align-items:baseline;gap:16px;margin-bottom:22px}
+.head h2{font-size:clamp(22px,2.7vw,34px);font-weight:800;letter-spacing:-.035em}
+.head .rule{flex:1;height:1px;background:var(--line)}
+
+.qbox{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:clamp(22px,3vw,40px);
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(20px,3vw,44px);align-items:center}
+.qbox p{font-size:clamp(17px,2vw,26px);font-weight:600;letter-spacing:-.025em;line-height:1.35}
+.qbox b{color:var(--accent)}
+.qbox img{border-radius:12px;cursor:zoom-in}
+
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.gal a{overflow:hidden;border-radius:12px;display:block;background:#fff}
+.gal img{width:100%;aspect-ratio:1;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.gal a:hover img{transform:scale(1.07)}
+
+.upd li{list-style:none;display:grid;grid-template-columns:130px 1fr;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)}
+.upd li:first-child{border-top:1px solid var(--line)}
+.upd p{color:var(--dim);font-weight:400}
+.upd strong{color:var(--ink);font-weight:700}
+
+#lb{position:fixed;inset:0;z-index:200;background:rgba(20,20,20,.88);backdrop-filter:blur(12px);
+  display:grid;place-items:center;padding:5vh 5vw;opacity:0;pointer-events:none;transition:opacity .3s}
+#lb.on{opacity:1;pointer-events:auto}
+#lb figure{max-width:1150px;transform:scale(.96);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+#lb.on figure{transform:none}
+#lb img{max-height:78vh;width:auto;border-radius:12px;background:#fff}
+#lb figcaption{margin-top:14px;color:rgba(255,255,255,.75);font-size:13px;text-align:center}
+#lb .x{position:absolute;top:22px;right:26px;font-size:26px;color:#fff;opacity:.75}
+
+footer{padding:26px var(--pad) 40px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+@media(max-width:860px){
+  header,.qbox{grid-template-columns:1fr}
+  .pt{order:-1;max-width:340px}
+  nav ul{display:none}
+  .upd li{grid-template-columns:1fr;gap:2px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="b" href="#">Jiacheng Liu · 刘佳成</a>
+  <ul>
+    <li><a href="#work">Research</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#">CV</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<header>
+  <div>
+    <p class="mono" data-rv>Ph.D. Student · SciFi Lab · Cornell University</p>
+    <h1 data-rv style="margin-top:14px">Jiacheng Liu<br><span>刘佳成</span></h1>
+    <p class="lede" data-rv>I build <b>AI-assisted sensing technologies</b> in <b>wearable form factors</b> — activity-detection systems and assistive devices offering unobtrusive, seamless monitoring and support. Advised by <a href="#">Prof. Cheng Zhang</a> at the <a href="#">SciFi Lab</a>.</p>
+    <div class="row" data-rv>
+      <a class="btn p" href="#work">Browse the work</a>
+      <a class="btn s" href="#">CV ↓</a>
+      <span class="ico">
+        <a href="#"><img src="../src/images/icons/github-mark-dark.png" alt="GitHub"></a>
+        <a href="#"><img src="../src/images/icons/google-scholar.png" alt="Scholar"></a>
+        <a href="#"><img src="../src/images/icons/linkedin.png" alt="LinkedIn"></a>
+      </span>
+    </div>
+  </div>
+  <figure class="pt" data-rv>
+    <img src="../src/images/black_selfie.jpg" alt="Portrait of Jiacheng Liu">
+    <span class="k">Ithaca, NY</span>
+  </figure>
+</header>
+
+<div class="strip-sec" id="work">
+  <div class="strip-head">
+    <h2>Selected research</h2>
+    <div class="ctrl">
+      <span class="mono" style="margin-right:8px">drag · scroll · ← →</span>
+      <button id="prev" aria-label="previous">←</button>
+      <button id="next" aria-label="next">→</button>
+    </div>
+  </div>
+
+  <div class="film" id="film">
+    <article class="slide">
+      <div class="m">
+        <span class="no">01 / 05</span>
+        <span class="flag"><span class="tag hot">CHI '26 · submitted</span><span class="tag gif">GIF</span></span>
+        <img src="../src/images/research/bridge.png" alt="">
+        <span class="zoom" data-full="../src/images/research/bridge.png" data-cap="PPG as a Bridge — system pipeline">⤢ Enlarge</span>
+      </div>
+      <div class="b">
+        <h3>PPG as a Bridge: Cross-Device Identity Transfer with Photoplethysmography</h3>
+        <p class="au"><u>Jiacheng Liu*</u>, Jiankai Tang*, Ruichen Gui, Songqin Cheng, Taiting Lu, Mahanth Gowda, Yuanchun Shi, Yuntao Wang</p>
+        <div class="foot"><span class="mono">Co-first author</span></div>
+      </div>
+    </article>
+
+    <article class="slide">
+      <div class="m">
+        <span class="no">02 / 05</span>
+        <span class="flag"><span class="tag hot">Nature Electronics</span></span>
+        <img src="../src/images/research/speech.png" alt="">
+        <span class="zoom" data-full="../src/images/research/speech.png" data-cap="NeckVoice — denoising and adaptive warping">⤢ Enlarge</span>
+      </div>
+      <div class="b">
+        <h3>NeckVoice: Voice Synthesis for Laryngectomees with On-body Sound Actuation</h3>
+        <p class="au">Ruidong Zhang, <u>Jiacheng Liu</u>, Justin Xiang, Ke Li, Babak Sadoughi, Sam Tilsen, François Guimbretière, Cheng Zhang</p>
+        <div class="foot"><span class="mono">Submitted 2025</span></div>
+      </div>
+    </article>
+
+    <article class="slide">
+      <div class="m">
+        <span class="no">03 / 05</span>
+        <span class="flag"><span class="tag">arXiv '25</span></span>
+        <img src="../src/images/research/PPG_authen.jpg" alt="">
+        <span class="zoom" data-full="../src/images/research/PPG_authen.jpg" data-cap="PPG authentication — cross-activity evaluation">⤢ Enlarge</span>
+      </div>
+      <div class="b">
+        <h3>Exploring Reliable PPG Authentication on Smartwatches in Daily Scenarios</h3>
+        <p class="au">Jiankai Tang*, <u>Jiacheng Liu*</u>, Renling Tong, Kai Zhu, Zhe Li, Junliang Xing, Yuanchun Shi, Yuntao Wang</p>
+        <div class="foot"><a class="lk" href="#">Paper ↗</a><a class="lk" href="#">DOI ↗</a></div>
+      </div>
+    </article>
+
+    <article class="slide">
+      <div class="m">
+        <span class="no">04 / 05</span>
+        <span class="flag"><span class="tag">IEEE VR '24</span></span>
+        <img src="../src/images/research/odoragent.png" alt="">
+        <span class="zoom" data-full="../src/images/research/odoragent.png" data-cap="OdorAgent — pipeline">⤢ Enlarge</span>
+      </div>
+      <div class="b">
+        <h3>OdorAgent: Generate Odor Sequences for Movies Based on Large Language Model</h3>
+        <p class="au">Yu Zhang, Peizhong Gao, Fangzhou Kang, Jiaxiang Li, <u>Jiacheng Liu</u>, Qi Lu, Yingqing Xu</p>
+        <div class="foot"><a class="lk" href="#">Paper ↗</a><a class="lk" href="#">DOI ↗</a></div>
+      </div>
+    </article>
+
+    <article class="slide">
+      <div class="m">
+        <span class="no">05 / 05</span>
+        <span class="flag"><span class="tag">CHI '24 Workshop</span></span>
+        <img src="../src/images/research/camera.png" alt="">
+        <span class="zoom" data-full="../src/images/research/camera.png" data-cap="Remote physiology across skin tones">⤢ Enlarge</span>
+      </div>
+      <div class="b">
+        <h3>Camera-Based Remote Physiology Sensing for Hundreds of Subjects Across Skin Tones</h3>
+        <p class="au">Jiankai Tang, Xinyi Li, <u>Jiacheng Liu</u>, Xiyuxing Zhang, Zeyu Wang, Yuntao Wang</p>
+        <div class="foot"><a class="lk" href="#">Paper ↗</a><a class="lk" href="#">DOI ↗</a></div>
+      </div>
+    </article>
+  </div>
+  <div class="dots" id="dots"></div>
+</div>
+
+<section id="projects">
+  <div class="head" data-rv><h2>Design &amp; course projects</h2><div class="rule"></div><span class="mono">drag →</span></div>
+  <div class="film" id="film2" style="padding-left:0;padding-right:0">
+    <a class="slide" style="flex-basis:clamp(240px,30vw,380px)" href="#" data-full="../src/images/projects/magnet.png" data-cap="TagMagnet">
+      <span class="m"><img src="../src/images/projects/magnet.png" alt=""></span>
+      <span class="b"><h3 style="font-size:16px">TagMagnet</h3><p class="au">Personalized album app · UI + interaction · 2023</p></span></a>
+    <a class="slide" style="flex-basis:clamp(240px,30vw,380px)" href="#" data-full="../src/images/projects/canvas.png" data-cap="CanvaSphere">
+      <span class="m"><img src="../src/images/projects/canvas.png" alt=""></span>
+      <span class="b"><h3 style="font-size:16px">CanvaSphere</h3><p class="au">Urban art festival · concept design · 2023</p></span></a>
+    <a class="slide" style="flex-basis:clamp(240px,30vw,380px)" href="#" data-full="../src/images/projects/wave.png" data-cap="Water Ripples">
+      <span class="m"><img src="../src/images/projects/wave.png" alt=""></span>
+      <span class="b"><h3 style="font-size:16px">Water Ripples</h3><p class="au">Wooden mechanical structure · 2024</p></span></a>
+    <a class="slide" style="flex-basis:clamp(240px,30vw,380px)" href="#" data-full="../src/images/projects/charm.png" data-cap="Charm Clicker">
+      <span class="m"><img src="../src/images/projects/charm.png" alt=""></span>
+      <span class="b"><h3 style="font-size:16px">Charm Clicker</h3><p class="au">Photo guide app · interaction design · 2024</p></span></a>
+    <a class="slide" style="flex-basis:clamp(240px,30vw,380px)" href="#" data-full="../src/images/projects/guide.png" data-cap="Guide system redesign">
+      <span class="m"><img src="../src/images/projects/guide.png" alt=""></span>
+      <span class="b"><h3 style="font-size:16px">Guide System</h3><p class="au">Wayfinding redesign · 2024</p></span></a>
+    <a class="slide" style="flex-basis:clamp(240px,30vw,380px)" href="#" data-full="../src/images/projects/car.jpg" data-cap="Line-following robot">
+      <span class="m"><img src="../src/images/projects/car.jpg" alt=""></span>
+      <span class="b"><h3 style="font-size:16px">Line-Following Robot</h3><p class="au">Electronics · product design · 2023</p></span></a>
+  </div>
+</section>
+
+<section>
+  <div class="head" data-rv><h2>Research interests</h2><div class="rule"></div></div>
+  <div class="qbox" data-rv>
+    <p>How can we integrate <b>AI with sensing systems</b> to develop early-detection systems and assistive devices for everyday use — unobtrusive, seamless health support for individuals with diverse health conditions?</p>
+    <img src="../src/images/research_interests.png" alt="Research interests diagram" data-full="../src/images/research_interests.png" data-cap="Research interests">
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="head" data-rv><h2>Gallery</h2><div class="rule"></div><span class="mono">painting · ink · design</span></div>
+  <div class="gal" data-rv>
+    <a href="#" data-full="../src/images/interests/ink_painting.jpg" data-cap="Chinese ink painting"><img src="../src/images/interests/ink_painting.jpg" alt=""></a>
+    <a href="#" data-full="../src/images/interests/lotus.png" data-cap="Lotus — gouache"><img src="../src/images/interests/lotus.png" alt=""></a>
+    <a href="#" data-full="../src/images/interests/portrait.jpg" data-cap="Portrait study"><img src="../src/images/interests/portrait.jpg" alt=""></a>
+    <a href="#" data-full="../src/images/interests/sunrise.png" data-cap="Sunrise — vector"><img src="../src/images/interests/sunrise.png" alt=""></a>
+    <a href="#" data-full="../src/images/interests/tarot.png" data-cap="Tarot series"><img src="../src/images/interests/tarot.png" alt=""></a>
+    <a href="#" data-full="../src/images/interests/smoke.png" data-cap="Smoke study"><img src="../src/images/interests/smoke.png" alt=""></a>
+  </div>
+</section>
+
+<section>
+  <div class="head" data-rv><h2>Updates</h2><div class="rule"></div></div>
+  <ul class="upd" data-rv>
+    <li><time class="mono">June 20, 2025</time><p>🏆 Awarded the <strong>Outstanding Undergraduate Thesis</strong>.</p></li>
+    <li><time class="mono">June 20, 2025</time><p>🏵 Awarded the <strong>Xinya College Academic Excellence Award</strong>.</p></li>
+    <li><time class="mono">April 3, 2025</time><p>🎉 Joining the <strong>SciFi Lab at Cornell University</strong> as a Ph.D. student in Information Science.</p></li>
+    <li><time class="mono">Feb 1, 2025</time><p>📩 Submitted <strong>PPG-based Authentication on Smartwatches in Daily Scenarios</strong> to IMWUT'25.</p></li>
+  </ul>
+</section>
+
+<footer>
+  <span class="mono">© 2025 Jiacheng Liu</span>
+  <span class="mono">Concept 12 — Filmstrip</span>
+</footer>
+
+<div id="lb"><span class="x">✕</span><figure><img alt=""><figcaption></figcaption></figure></div>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.1});
+document.querySelectorAll('[data-rv]').forEach(el=>io.observe(el));
+
+// filmstrip: arrows, dots, active card, drag, wheel
+const film=document.getElementById('film'),slides=[...film.querySelectorAll('.slide')],
+      dots=document.getElementById('dots'),prev=document.getElementById('prev'),next=document.getElementById('next');
+slides.forEach((_,i)=>{const d=document.createElement('i');d.addEventListener('click',()=>go(i));dots.appendChild(d)});
+const dotEls=[...dots.children];
+function nearest(){
+  const c=film.scrollLeft+film.clientWidth/2;
+  let best=0,bd=1e9;
+  slides.forEach((s,i)=>{const sc=s.offsetLeft+s.offsetWidth/2,d=Math.abs(sc-c);if(d<bd){bd=d;best=i}});
+  return best;
+}
+function sync(){
+  const i=nearest();
+  slides.forEach((s,j)=>s.classList.toggle('active',j===i));
+  dotEls.forEach((d,j)=>d.classList.toggle('on',j===i));
+  prev.disabled=film.scrollLeft<8;
+  next.disabled=film.scrollLeft>film.scrollWidth-film.clientWidth-8;
+}
+function go(i){
+  const s=slides[Math.max(0,Math.min(slides.length-1,i))];
+  film.scrollTo({left:s.offsetLeft-(film.clientWidth-s.offsetWidth)/2,behavior:'smooth'});
+}
+prev.addEventListener('click',()=>go(nearest()-1));
+next.addEventListener('click',()=>go(nearest()+1));
+film.addEventListener('scroll',()=>requestAnimationFrame(sync),{passive:true});
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'){go(nearest()+1)}
+  if(e.key==='ArrowLeft'){go(nearest()-1)}
+});
+sync();
+
+// vertical wheel scrolls the strip horizontally while it is on screen
+film.addEventListener('wheel',e=>{
+  if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){film.scrollLeft+=e.deltaY;e.preventDefault()}
+},{passive:false});
+
+// drag both strips
+document.querySelectorAll('.film').forEach(s=>{
+  let down=false,x0=0,l0=0,moved=0;
+  s.addEventListener('pointerdown',e=>{down=true;moved=0;x0=e.clientX;l0=s.scrollLeft;s.classList.add('drag')});
+  s.addEventListener('pointermove',e=>{if(!down)return;moved+=Math.abs(e.movementX);s.scrollLeft=l0-(e.clientX-x0)});
+  const up=()=>{down=false;s.classList.remove('drag');sync()};
+  s.addEventListener('pointerup',up);s.addEventListener('pointerleave',up);
+  s.addEventListener('click',e=>{if(moved>6){e.preventDefault();e.stopPropagation()}},true);
+});
+
+// lightbox
+const lb=document.getElementById('lb'),lbi=lb.querySelector('img'),lbc=lb.querySelector('figcaption');
+document.querySelectorAll('[data-full]').forEach(el=>el.addEventListener('click',ev=>{
+  ev.preventDefault();ev.stopPropagation();lbi.src=el.dataset.full;lbc.textContent=el.dataset.cap||'';lb.classList.add('on');
+}));
+lb.addEventListener('click',()=>lb.classList.remove('on'));
+addEventListener('keydown',e=>e.key==='Escape'&&lb.classList.remove('on'));
+</script>
+</body>
+</html>

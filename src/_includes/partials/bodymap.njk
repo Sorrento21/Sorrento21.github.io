@@ -1,0 +1,99 @@
+{# ---------------------------------------------------------------------------
+   The body map, dressed as a BIOS setup screen: a title line, a menu bar of the
+   five sensing sites, then two panes — the work on the left, the body on the
+   right — over a status band.
+
+   The figure is src/images/bodymap.png, a dot-and-code-block halftone built by
+   design-concepts/tools/halftone.py from the render in design-concepts/refs/.
+   Everything that has to stay editable — markers, menu, panels — is drawn over
+   it in code, positioned in percentages of the image box (src/_data/body.json).
+
+   Selection has two handles on purpose: the menu buttons (obvious, keyboard
+   friendly) and the markers on the body (spatial). Both carry data-dev and
+   site.js wires whichever exist. With JavaScript off, every panel is simply
+   listed in order and nothing is hidden.
+   --------------------------------------------------------------------------- #}
+            <div class="bios" data-bodymap>
+                <p class="bios-title" aria-hidden="true">
+                    <b>BODYMAP BIOS (TM)</b><span>COPYRIGHT JIACHENG LIU 2026</span><span>WEARABLE SENSING</span><span>VER 1.03</span><span>SITES......{{ body | length }}</span>
+                </p>
+
+                <nav class="bios-menu" aria-label="Sensing sites">
+                    {%- for d in body %}
+                    <button type="button" class="bios-tab" data-dev="{{ d.id }}"
+                            aria-pressed="false" aria-controls="panel-{{ d.id }}">{{ d.short }}</button>
+                    {%- endfor %}
+                </nav>
+
+                <div class="bios-main">
+                    <div class="pane pane-work">
+                        <p class="pane-head"><span>WORK</span><span class="c-d" data-site>—</span></p>
+                        <div class="devpanels">
+                            {%- for d in body %}
+                            {%- set papers = research | bySlug(d.papers) %}
+                            <section class="devpanel" id="panel-{{ d.id }}" data-panel="{{ d.id }}"{% if not loop.first %} hidden{% endif %}>
+                                <p class="dp-row"><span class="k">SITE</span><span class="v">{{ d.label }}</span></p>
+                                <p class="dp-row"><span class="k">SENSING</span><span class="v">{{ d.sensing }}</span></p>
+                                <p class="dp-row"><span class="k">LINKED</span><span class="v">{{ papers | length }} publication{{ "s" if papers | length != 1 }}</span></p>
+                                <ol class="dp-list">
+                                    {%- for p in papers %}
+                                    <li>
+                                        <a class="devpaper" href="/papers/{{ p.slug }}.html">
+                                            <span class="m"><img src="/{{ p.image }}" alt="" loading="lazy"></span>
+                                            <span class="tx">
+                                                <span class="t">{{ p.title }}</span>
+                                                <span class="a">{{ p.authors | authors }}</span>
+                                                <span class="v">{{ p | venue }}</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    {%- endfor %}
+                                </ol>
+                            </section>
+                            {%- endfor %}
+                        </div>
+                        <p class="pane-foot" aria-hidden="true">ECHO  hover the body, or pick a site from the menu</p>
+                    </div>
+
+                    <div class="pane pane-body">
+                        <p class="pane-head"><span>BODY</span><span class="c-d">VITRUVIAN.MODERN</span></p>
+                        <div class="art">
+                            <img class="figure" src="/images/bodymap.png" width="1960" height="1934"
+                                 alt="A Vitruvian-Man study of Jiacheng Liu, rebuilt from dots and code blocks." decoding="async"
+                                 data-full="/images/bodymap.png" data-cap="Vitruvian.Modern — the body I keep putting sensors on">
+                            {#- on the light theme the figure is re-inked: the same file used as a
+                                mask over a flat colour, so it prints on the paper instead of
+                                needing a screen behind it #}
+                            <span class="ink" aria-hidden="true"></span>
+                            {%- for d in body %}
+                            <button class="hotspot" type="button"
+                                    data-dev="{{ d.id }}" aria-pressed="false"
+                                    aria-controls="panel-{{ d.id }}" aria-label="{{ d.label }}"
+                                    style="--x:{{ d.x }}%; --y:{{ d.y }}%">
+                                <span class="halo" aria-hidden="true"></span>
+                                <span class="dot" aria-hidden="true"></span>
+                                <span class="tip" aria-hidden="true">{{ d.short }}</span>
+                            </button>
+                            {%- endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bios-foot" aria-hidden="true">
+                    <div class="bank">
+                        {%- for d in body %}
+                        {%- set papers = research | bySlug(d.papers) %}
+                        <p data-bank="{{ d.id }}"><span class="bk">{{ d.short | upper }}</span><span class="bv">{{ papers | length }} PUB</span></p>
+                        {%- endfor %}
+                    </div>
+                    <div class="log">
+                        <p>MODE: COLS=80 LINES=25 · COLOR 0A</p>
+                        <p>FIGURE: 1960x1934 · 392x386 CELLS · DOTS+BLOCKS</p>
+                        <p>SOURCE: halftone.py · SITES: {{ body | length }}</p>
+                        <p>STATUS: OK</p>
+                    </div>
+                </div>
+
+                {#- the power-on self test, played by site.js when you arrive from a click #}
+                <div class="boot" data-boot hidden><pre data-boot-log></pre></div>
+            </div>

@@ -1,27 +1,18 @@
 ---
+# Disabled: the body map page is kept in the repo but no longer built or linked.
+# To bring it back, restore `permalink: /gallery.html` and the GALLERY nav entry
+# in src/_data/site.json.
 layout: layouts/base.njk
-permalink: /gallery.html
-extraStyles: ["projects.css", "gallery.css"]
+permalink: false
+shellPath: personal-site/gallery
+currentPage: gallery.html
+title: Gallery
+wide: true
+description: "A body map of Jiacheng Liu's wearable-sensing research — which device sits where, and the paper behind it."
 ---
-{%- from "partials/macros.njk" import galleryCard %}
-        {%- for block in gallery %}
-        {%- if block.type == "prose" %}
-        <section class="abstract">
-            <div class="content">
-                {%- if block.h2 %}<h2>{{ block.h2 }}</h2>{% endif %}
-                {%- if block.h3 %}<h3>{{ block.h3 }}</h3>{% endif %}
-                <p>{{ block.html | safe }}</p>
+{%- from "partials/macros.njk" import cmd %}
+
+{{ cmd("./bodymap --interactive", "where my research sits on the body") }}
+            <div class="out">
+{% include "partials/bodymap.njk" %}
             </div>
-        </section>
-        {%- elif block.type == "gallery" %}
-        <section class="projects">
-            <div class="content">
-                {%- for row in block.rows %}
-                <div class="display_row">
-                    {%- for item in row.items %}{{ galleryCard(item, row.variant) }}{%- endfor %}
-                </div>
-                {%- endfor %}
-            </div>
-        </section>
-        {%- endif %}
-        {%- endfor %}

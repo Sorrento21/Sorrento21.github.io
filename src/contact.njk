@@ -1,13 +1,34 @@
 ---
 layout: layouts/base.njk
 permalink: /contact.html
-extraStyles: ["projects.css", "contact.css"]
+shellPath: personal-site/contact
+currentPage: contact.html
+title: Contact
+description: "Get in touch with Jiacheng Liu — Gates Hall 239, Cornell University."
 ---
-        <section class="abstract">
-            <div class="content">
-                <h2>Contact</h2>
-                <h3>Feel free to reach out to me anytime!</h3>
-                <p>Whether you're interested in collaborating or just want to chat, feel free to reach out! You can find me in <b>Gates Hall 239</b> at Cornell University.</p>
-                <p>If you'd prefer to email me rather than meet in person, feel free to contact me at <a href="mailto:jl4596@cornell.edu">jl4596@cornell.edu</a>.</p>
+{%- from "partials/macros.njk" import cmd %}
+
+{{ cmd("cat contact.md") }}
+            <div class="out contact-grid">
+                <div>
+                    <h2 class="sec">Feel free to reach out anytime.</h2>
+                    <p class="prose">Whether you are interested in collaborating or just want to chat about sensing, health, or things worn on the body — I am happy to hear from you. You can find me in <b>Gates Hall 239</b> at Cornell University.</p>
+                    <p class="prose">If you would rather email than drop by, write to <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+                </div>
+                <div class="card">
+                    <dl>
+                        <div class="field"><dt>email</dt><dd><a href="mailto:{{ site.email }}">{{ site.email }}</a></dd></div>
+                        <div class="field"><dt>office</dt><dd>Gates Hall 239</dd></div>
+                        <div class="field"><dt>affiliation</dt><dd>SciFi Lab, Information Science<br>Cornell University</dd></div>
+                        <div class="field"><dt>cv</dt><dd><a href="/docs/Jiacheng_Liu_CV.pdf" target="_blank" rel="noopener">Jiacheng_Liu_CV.pdf</a></dd></div>
+                        {%- for s in site.socials %}
+                        <div class="field"><dt>{{ s.alt | lower }}</dt><dd><a href="{{ s.url }}" target="_blank" rel="noopener">open ↗</a></dd></div>
+                        {%- endfor %}
+                    </dl>
+                </div>
             </div>
-        </section>
+
+{{ cmd("mail --compose --to=" + site.email) }}
+            <div class="out">
+                <p class="prose"><a class="link" href="mailto:{{ site.email }}">→ start an email</a></p>
+            </div>

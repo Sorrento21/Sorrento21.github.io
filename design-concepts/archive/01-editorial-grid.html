@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 · Editorial Grid — Jiacheng Liu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF7;
+  --ink:#141414;
+  --ink-60:#5C5C5C;
+  --ink-25:#B9B7B1;
+  --rule:#DEDCD5;
+  --accent:#1B3BFF;
+  --measure:70ch;
+  --pad:clamp(20px,5vw,72px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:"Inter",system-ui,sans-serif;
+  font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+
+/* ── nav ── */
+nav{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding:14px var(--pad);
+  background:color-mix(in srgb,var(--paper) 95%,transparent);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--rule);
+}
+nav .brand{font-weight:500;letter-spacing:-.01em}
+nav ul{display:flex;gap:26px;list-style:none}
+nav ul a{color:var(--ink-60);position:relative;transition:color .2s}
+nav ul a:hover{color:var(--ink)}
+nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1px;background:var(--ink);transition:width .25s}
+nav ul a:hover::after{width:100%}
+.navtoggle{display:none;background:none;border:0;font-size:20px;cursor:pointer}
+
+/* ── hero ── */
+header.hero{padding:clamp(56px,11vh,130px) var(--pad) clamp(48px,8vh,90px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:end}
+.eyebrow{color:var(--ink-60);margin-bottom:22px}
+h1{
+  font-size:clamp(38px,6.2vw,86px);
+  line-height:1.02;letter-spacing:-.035em;font-weight:500;
+  margin-bottom:8px;
+}
+h1 .cn{color:var(--ink-25)}
+.role{font-size:clamp(16px,1.5vw,20px);color:var(--ink-60);font-weight:300;margin-bottom:34px}
+.bio{max-width:var(--measure);font-weight:300;color:#333}
+.bio p+p{margin-top:14px}
+.bio a{border-bottom:1px solid var(--ink-25);transition:border-color .2s,color .2s}
+.bio a:hover{color:var(--accent);border-color:var(--accent)}
+.bio b{font-weight:500;color:var(--ink)}
+.social{display:flex;gap:14px;margin-top:32px}
+.social a{
+  width:38px;height:38px;border:1px solid var(--rule);border-radius:50%;
+  display:grid;place-items:center;transition:border-color .2s,transform .2s,background .2s;
+}
+.social a:hover{border-color:var(--ink);transform:translateY(-2px)}
+.social img{width:16px;height:16px;object-fit:contain}
+.portrait{position:relative}
+.portrait img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1) contrast(1.03)}
+.portrait figcaption{margin-top:10px;color:var(--ink-25)}
+
+/* ── section scaffold ── */
+section{padding:clamp(44px,7vh,88px) var(--pad);border-top:1px solid var(--rule)}
+.sec-grid{display:grid;grid-template-columns:170px minmax(0,1fr);gap:clamp(20px,4vw,56px)}
+.sec-label{position:sticky;top:78px;align-self:start;color:var(--ink-60)}
+.sec-label span{display:block;color:var(--ink-25);margin-bottom:6px}
+h2{font-size:clamp(22px,2.4vw,30px);font-weight:500;letter-spacing:-.02em;margin-bottom:26px}
+
+/* ── statement ── */
+.statement{font-size:clamp(19px,2.1vw,27px);line-height:1.42;font-weight:300;letter-spacing:-.015em;max-width:26ch;}
+.statement b{font-weight:500}
+.interest-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);gap:clamp(24px,4vw,56px);align-items:center}
+.interest-row img{width:100%;mix-blend-mode:multiply}
+
+/* ── updates ── */
+.updates{list-style:none;border-top:1px solid var(--rule)}
+.updates li{
+  display:grid;grid-template-columns:120px 1fr;gap:20px;
+  padding:16px 0;border-bottom:1px solid var(--rule);
+  transition:padding-left .25s,background .25s;
+}
+.updates li:hover{padding-left:10px;background:linear-gradient(90deg,rgba(27,59,255,.04),transparent 60%)}
+.updates time{color:var(--ink-25)}
+.updates p{font-weight:300}
+.updates strong{font-weight:500}
+
+/* ── work list ── */
+.work{list-style:none;border-top:1px solid var(--rule)}
+.work li{border-bottom:1px solid var(--rule)}
+.work a.row{
+  display:grid;grid-template-columns:44px minmax(0,1fr) 190px;gap:24px;align-items:center;
+  padding:22px 0;transition:padding .3s,background .3s;
+}
+.work a.row:hover{padding-left:12px;padding-right:12px;background:#fff}
+.work .idx{color:var(--ink-25)}
+.work h3{font-size:clamp(16px,1.55vw,21px);font-weight:400;letter-spacing:-.015em;line-height:1.3}
+.work .authors{color:var(--ink-60);font-size:13.5px;font-weight:300;margin-top:6px}
+.work .authors u{text-decoration:none;color:var(--ink);font-weight:500}
+.work .venue{text-align:right;color:var(--ink-60)}
+.work .thumb{
+  width:0;overflow:hidden;height:78px;border-radius:2px;
+  transition:width .35s cubic-bezier(.2,.7,.2,1);
+}
+.work a.row:hover .thumb{width:118px}
+.work .thumb img{width:118px;height:78px;object-fit:cover}
+.note{color:var(--ink-25);margin-bottom:18px}
+
+footer{
+  padding:34px var(--pad);border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--ink-25);
+}
+
+@media(max-width:900px){
+  .hero-grid,.sec-grid,.interest-row{grid-template-columns:1fr}
+  .sec-label{position:static}
+  .portrait{order:-1;max-width:260px}
+  .work a.row{grid-template-columns:28px 1fr;gap:14px}
+  .work .venue{grid-column:2;text-align:left}
+  .work .thumb{display:none}
+  nav ul{display:none}
+  .navtoggle{display:block}
+  .updates li{grid-template-columns:1fr;gap:4px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#">Jiacheng Liu</a>
+  <ul class="mono">
+    <li><a href="#work">Projects</a></li>
+    <li><a href="#work">Publications</a></li>
+    <li><a href="#">CV</a></li>
+    <li><a href="#">Gallery</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <button class="navtoggle" aria-label="menu">☰</button>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow mono">Ph.D. Student · SciFi Lab · Cornell University</div>
+      <h1>Jiacheng Liu<br><span class="cn">刘佳成</span></h1>
+      <p class="role">AI-assisted sensing &amp; wearable systems for health.</p>
+      <div class="bio">
+        <p>I am a first-year Ph.D. student at the <a href="#">SciFi Lab</a> at <a href="#">Cornell University</a>, advised by <a href="#">Prof. Cheng Zhang</a>. My research centers on <b>AI-assisted sensing technologies</b>, with a particular emphasis on <b>wearable form factors</b> — <b>activity-detection systems and assistive devices</b> that provide unobtrusive, seamless monitoring and support.</p>
+        <p>Before Cornell, I earned a B.Eng. in <a href="#">Creative Design and Intelligent Engineering</a> at <a href="#">Xinya College, Tsinghua University</a>, with research experience in <a href="#">the PI Lab</a> and <a href="#">the Future Lab</a>.</p>
+      </div>
+      <div class="social">
+        <a href="#" title="GitHub"><img src="../../src/images/icons/github-mark-dark.png" alt="GitHub"></a>
+        <a href="#" title="Google Scholar"><img src="../../src/images/icons/google-scholar.png" alt="Google Scholar"></a>
+        <a href="#" title="LinkedIn"><img src="../../src/images/icons/linkedin.png" alt="LinkedIn"></a>
+      </div>
+    </div>
+    <figure class="portrait">
+      <img src="../../src/images/black_selfie.jpg" alt="Portrait of Jiacheng Liu">
+      <figcaption class="mono">Ithaca, NY — 2025</figcaption>
+    </figure>
+  </div>
+</header>
+
+<section id="interests">
+  <div class="sec-grid">
+    <div class="sec-label mono"><span>01</span>Research Interests</div>
+    <div class="interest-row">
+      <p class="statement">How can we integrate <b>AI with sensing systems</b> to build <b>early-detection systems and assistive devices</b> that give <b>unobtrusive, seamless</b> health support in everyday life?</p>
+      <img src="../../src/images/research_interests.png" alt="Research interests diagram">
+    </div>
+  </div>
+</section>
+
+<section id="updates">
+  <div class="sec-grid">
+    <div class="sec-label mono"><span>02</span>Updates</div>
+    <div>
+      <ul class="updates">
+        <li><time class="mono">2025.06.20</time><p>🏆 Awarded the <strong>Outstanding Undergraduate Thesis</strong>.</p></li>
+        <li><time class="mono">2025.06.20</time><p>🏵 Awarded the <strong>Xinya College Academic Excellence Award</strong>.</p></li>
+        <li><time class="mono">2025.04.03</time><p>🎉 Joining the <strong>SciFi Lab at Cornell University</strong> as a Ph.D. student in Information Science.</p></li>
+        <li><time class="mono">2025.02.01</time><p>📩 Submitted <strong>PPG-based Authentication on Smartwatches in Daily Scenarios</strong> to IMWUT'25.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="sec-grid">
+    <div class="sec-label mono"><span>03</span>Selected Research</div>
+    <div>
+      <p class="note mono">* indicates co-first author</p>
+      <ul class="work">
+        <li><a class="row" href="#">
+          <span class="idx mono">01</span>
+          <span>
+            <h3>PPG as a Bridge: Cross-Device Identity Transfer with Photoplethysmography</h3>
+            <p class="authors"><u>Jiacheng Liu*</u>, Jiankai Tang*, Ruichen Gui, Songqin Cheng, Taiting Lu, Mahanth Gowda, Yuanchun Shi, Yuntao Wang</p>
+          </span>
+          <span class="venue mono">CHI '26 · Submitted</span>
+          <span class="thumb"><img src="../../src/images/research/bridge.png" alt=""></span>
+        </a></li>
+        <li><a class="row" href="#">
+          <span class="idx mono">02</span>
+          <span>
+            <h3>NeckVoice: Voice Synthesis for Laryngectomees with On-body Sound Actuation</h3>
+            <p class="authors">Ruidong Zhang, <u>Jiacheng Liu</u>, Justin Xiang, Ke Li, Babak Sadoughi, Sam Tilsen, François Guimbretière, Cheng Zhang</p>
+          </span>
+          <span class="venue mono">Nature Electronics · Submitted</span>
+          <span class="thumb"><img src="../../src/images/research/speech.png" alt=""></span>
+        </a></li>
+        <li><a class="row" href="#">
+          <span class="idx mono">03</span>
+          <span>
+            <h3>Exploring Reliable PPG Authentication on Smartwatches in Daily Scenarios</h3>
+            <p class="authors">Jiankai Tang*, <u>Jiacheng Liu*</u>, Renling Tong, Kai Zhu, Zhe Li, Junliang Xing, Yuanchun Shi, Yuntao Wang</p>
+          </span>
+          <span class="venue mono">arXiv '25</span>
+          <span class="thumb"><img src="../../src/images/research/PPG_authen.jpg" alt=""></span>
+        </a></li>
+        <li><a class="row" href="#">
+          <span class="idx mono">04</span>
+          <span>
+            <h3>OdorAgent: Generate Odor Sequences for Movies Based on Large Language Model</h3>
+            <p class="authors">Yu Zhang, Peizhong Gao, Fangzhou Kang, Jiaxiang Li, <u>Jiacheng Liu</u>, Qi Lu, Yingqing Xu</p>
+          </span>
+          <span class="venue mono">IEEE VR '24</span>
+          <span class="thumb"><img src="../../src/images/research/odoragent.png" alt=""></span>
+        </a></li>
+        <li><a class="row" href="#">
+          <span class="idx mono">05</span>
+          <span>
+            <h3>Camera-Based Remote Physiology Sensing for Hundreds of Subjects Across Skin Tones</h3>
+            <p class="authors">Jiankai Tang, Xinyi Li, <u>Jiacheng Liu</u>, Xiyuxing Zhang, Zeyu Wang, Yuntao Wang</p>
+          </span>
+          <span class="venue mono">CHI '24 Workshop</span>
+          <span class="thumb"><img src="../../src/images/research/camera.png" alt=""></span>
+        </a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="mono">
+  <span>© 2025 Jiacheng Liu</span>
+  <span>Concept 01 — Editorial Grid</span>
+</footer>
+
+</body>
+</html>

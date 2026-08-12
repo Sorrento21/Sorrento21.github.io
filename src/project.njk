@@ -1,0 +1,53 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: other_projects
+  size: 1
+  alias: project
+permalink: "projects/{{ project.slug }}.html"
+eleventyComputed:
+  title: "{{ project.title }}"
+  description: "{{ project.description or project.context }} — a design project by Jiacheng Liu."
+  shellPath: "personal-site/projects/{{ project.slug }}"
+---
+{%- from "partials/macros.njk" import cmd %}
+
+{{ cmd("cd projects/" + project.slug) }}
+{{ cmd("cat readme.md") }}
+
+            <article class="paper">
+                <header class="paper-head">
+                    <p class="meta-line">
+                        <span class="vtag c-g">{{ project.context }}</span>
+                        {%- if project.role %}<span class="c-d">{{ project.role }}</span>{% endif %}
+                    </p>
+                    <h1>{{ project.title }}</h1>
+                    {%- if project.links and project.links.length %}
+                    <div class="paper-links">
+                        {%- for l in project.links %}{% if l.url %}
+                        <a href="{{ l.url | link }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>
+                        {%- endif %}{% endfor %}
+                    </div>
+                    {%- endif %}
+                </header>
+
+                {%- if project.image %}
+                <figure class="paper-fig" data-full="/{{ project.image }}" data-cap="{{ project.title }}">
+                    <img src="/{{ project.image }}" alt="{{ project.alt or project.title }}">
+                    <figcaption>{{ project.alt or project.title }} — click to enlarge</figcaption>
+                </figure>
+                {%- endif %}
+
+                <section class="paper-body">
+                    <h2 class="label">About</h2>
+                    {%- if project.description %}
+                    <p class="prose">{{ project.description | safe }}</p>
+                    {%- else %}
+                    <p class="prose c-d"><em>Write-up coming soon. For now: {{ project.context }}{% if project.role %}, {{ project.role | lower }}{% endif %}.</em></p>
+                    {%- endif %}
+                </section>
+
+                <nav class="paper-nav">
+                    <a class="link" href="/index.html#projects">← all projects</a>
+                </nav>
+            </article>

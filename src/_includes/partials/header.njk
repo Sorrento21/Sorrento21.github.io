@@ -1,10 +1,21 @@
-    <header>
-        <h1><a href="index.html">{{ site.name }}</a></h1>
-        <div class="menu-toggle">☰</div>
-        <nav>
+{# Title bar of the terminal window: traffic lights, the "path" of the current page,
+   and the nav. `shellPath` comes from each page's front matter.
+
+   Two ways home, because the path is hidden on narrow screens:
+     · the ~/… segment of the window path is a link (desktop)
+     · `cd ~` is the first nav item (always visible) #}
+    <header class="bar">
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="path">jiacheng-liu — <a href="/index.html" title="Back to the home page">~/{{ shellPath or "personal-site" }}</a> — zsh</span>
+        <button class="theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme">
+            <span class="glyph" aria-hidden="true">◐</span><span class="tt-label">theme</span>
+        </button>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle menu">☰</button>
+        <nav id="site-nav" aria-label="Main">
             <ul>
+                <li><a class="home" href="/index.html"{% if currentPage == "index.html" %} aria-current="page"{% endif %}>cd ~</a></li>
                 {%- for item in site.nav %}
-                <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+                <li><a href="{{ item.url | link }}"{% if item.url == currentPage %} aria-current="page"{% endif %}{% if item.external %} target="_blank" rel="noopener"{% endif %}>{{ item.label | lower }}</a></li>
                 {%- endfor %}
             </ul>
         </nav>

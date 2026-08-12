@@ -1,0 +1,64 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: research
+  size: 1
+  alias: paper
+permalink: "papers/{{ paper.slug }}.html"
+eleventyComputed:
+  title: "{{ paper.title }}"
+  description: "{{ paper.abstract | stripTags | truncate(180) }}"
+  shellPath: "personal-site/publications/{{ paper.slug }}"
+currentPage: publications.html
+---
+{%- from "partials/macros.njk" import cmd %}
+
+{{ cmd("cd publications/" + paper.slug) }}
+{{ cmd("cat paper.md") }}
+
+            <article class="paper">
+                <header class="paper-head">
+                    <p class="meta-line">
+                        <span class="vtag {{ paper | venue | venueTone }}">{{ paper | venue }}</span>
+                        {%- if paper.year %}<span class="c-d">{{ paper.year }}</span>{% endif %}
+                        {%- if paper | authors | isCoFirst %}<span class="c-d">* co-first author</span>{% endif %}
+                    </p>
+                    <h1>{{ paper.title }}</h1>
+                    <p class="authors">{{ paper.authors | safe }}</p>
+                    {%- if paper.links and paper.links.length %}
+                    <div class="paper-links">
+                        {%- for l in paper.links %}
+                        <a href="{{ l.url | link }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>
+                        {%- endfor %}
+                    </div>
+                    {%- endif %}
+                </header>
+
+                {%- if paper.image %}
+                <figure class="paper-fig" data-full="/{{ paper.image }}" data-cap="{{ paper.title }}">
+                    <img src="/{{ paper.image }}" alt="{{ paper.alt or paper.title }}">
+                    <figcaption>{{ paper.alt or paper.title }} — click to enlarge</figcaption>
+                </figure>
+                {%- endif %}
+
+                <section class="paper-body">
+                    <h2 class="label">Abstract</h2>
+                    {%- if paper.abstract %}
+                    <p class="prose abstract">{{ paper.abstract }}</p>
+                    {%- else %}
+                    <p class="prose c-d"><em>Abstract not available yet — this work is {{ paper.status | lower }}.</em></p>
+                    {%- endif %}
+
+                    {%- if paper.keywords and paper.keywords.length %}
+                    <h2 class="label" style="margin-top:26px">Keywords</h2>
+                    <div class="chips">
+                        {%- for k in paper.keywords %}<span class="chip-static">{{ k }}</span>{% endfor %}
+                    </div>
+                    {%- endif %}
+                </section>
+
+                <nav class="paper-nav">
+                    <a class="link" href="/publications.html">← all publications</a>
+                    <a class="link" href="/index.html">home</a>
+                </nav>
+            </article>

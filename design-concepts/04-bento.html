@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04 · Bento — Jiacheng Liu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EFEFF2;--tile:#FFFFFF;--tile-2:#F6F6F8;--text:#101013;--dim:#6B6B76;--dimmer:#A0A0AC;
+  --line:rgba(0,0,0,.07);--blue:#2E6BFF;--green:#12A46B;--amber:#E08A0B;--violet:#7A5AF8;
+  --r:20px;--pad:clamp(14px,2.6vw,32px);
+  --shadow:0 1px 2px rgba(16,16,19,.05),0 8px 24px -14px rgba(16,16,19,.22);
+  --shadow-l:0 2px 4px rgba(16,16,19,.06),0 26px 50px -24px rgba(16,16,19,.4);
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0C0C0F;--tile:#161619;--tile-2:#1D1D21;--text:#F2F2F5;--dim:#9C9CA8;--dimmer:#6A6A76;
+    --line:rgba(255,255,255,.08);--shadow:0 1px 2px rgba(0,0,0,.5),0 10px 30px -18px rgba(0,0,0,.9);
+    --shadow-l:0 2px 6px rgba(0,0,0,.6),0 30px 60px -28px #000}
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:"Inter",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+.mono{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--dimmer)}
+
+[data-rv]{opacity:0;transform:translateY(20px) scale(.985);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
+[data-rv].in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){[data-rv]{opacity:1;transform:none;transition:none}}
+
+nav{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:18px;
+  padding:12px var(--pad);background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px)}
+nav .brand{font-weight:600;letter-spacing:-.02em;font-size:15px}
+nav ul{display:flex;gap:4px;list-style:none}
+nav ul a{font-size:13px;color:var(--dim);padding:7px 12px;border-radius:10px;transition:.2s}
+nav ul a:hover{color:var(--text);background:var(--tile)}
+
+.wrap{max-width:1240px;margin:0 auto;padding:var(--pad) var(--pad) 60px}
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;grid-auto-flow:dense}
+.t{background:var(--tile);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);
+  position:relative;overflow:hidden;transition:transform .32s cubic-bezier(.2,.7,.2,1),box-shadow .32s}
+.t.link:hover{transform:translateY(-4px);box-shadow:var(--shadow-l)}
+.t .cap{margin-bottom:14px}
+.s2{grid-column:span 2}.s3{grid-column:span 3}.s4{grid-column:span 4}.s6{grid-column:span 6}
+
+/* hero */
+.hero{grid-column:span 4;display:flex;flex-direction:column;justify-content:space-between;min-height:290px}
+.hero h1{font-size:clamp(30px,4.2vw,50px);font-weight:600;letter-spacing:-.035em;line-height:1.06;margin:6px 0 12px}
+.hero h1 span{color:var(--dimmer);font-weight:300}
+.hero p{color:var(--dim);font-size:15px;max-width:52ch;font-weight:300}
+.hero p b{color:var(--text);font-weight:500}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.chip{font-size:12px;padding:6px 12px;border-radius:99px;background:var(--tile-2);border:1px solid var(--line);color:var(--dim)}
+.photo{grid-column:span 2;padding:0;min-height:290px;position:relative}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.photo:hover img{transform:scale(1.05)}
+
+.status{grid-column:span 2;background:linear-gradient(150deg,color-mix(in srgb,var(--blue) 12%,var(--tile)),var(--tile) 65%)}
+.status .now{display:flex;align-items:center;gap:8px;color:var(--blue);font-size:12px;font-weight:500;margin-bottom:10px}
+.status .now i{width:7px;height:7px;border-radius:50%;background:var(--blue);animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.25}}
+.status h3{font-size:19px;font-weight:500;letter-spacing:-.02em;line-height:1.3}
+.status p{color:var(--dim);font-size:13.5px;margin-top:8px}
+
+.stats{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stat{background:var(--tile);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+.stat .n{font-size:30px;font-weight:600;letter-spacing:-.04em;line-height:1}
+.stat .n.b{color:var(--blue)}.stat .n.g{color:var(--green)}.stat .n.a{color:var(--amber)}.stat .n.v{color:var(--violet)}
+.stat .k{font-size:11.5px;color:var(--dim);margin-top:6px}
+
+.links-tile{grid-column:span 2;display:flex;flex-direction:column;gap:8px;justify-content:center}
+.lrow{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;background:var(--tile-2);font-size:13.5px;color:var(--dim);transition:.2s}
+.lrow:hover{background:color-mix(in srgb,var(--blue) 10%,var(--tile-2));color:var(--text);transform:translateX(3px)}
+.lrow img{width:15px;height:15px;object-fit:contain;opacity:.75}
+.lrow .arrow{margin-left:auto;color:var(--dimmer)}
+
+/* ── media tiles: the picture IS the tile ── */
+.mt{padding:0;display:block;position:relative;min-height:210px}
+.mt .m{position:absolute;inset:0;overflow:hidden;background:var(--tile-2)}
+.mt .m img,.mt .m video{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.mt:hover .m img,.mt:hover .m video{transform:scale(1.06)}
+.mt .m.fit img{object-fit:contain;background:#fff;padding:14px}
+.mt .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,10,0) 30%,rgba(8,8,10,.72) 72%,rgba(8,8,10,.92));
+  transition:opacity .35s}
+.mt .txt{position:absolute;left:0;right:0;bottom:0;padding:18px;color:#fff}
+.mt h3{font-size:16px;font-weight:600;letter-spacing:-.02em;line-height:1.3}
+.mt.big h3{font-size:clamp(18px,2vw,26px);max-width:22ch}
+.mt .au{font-size:12px;color:rgba(255,255,255,.72);font-weight:300;line-height:1.5;
+  max-height:0;opacity:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.7,.2,1),opacity .3s,margin .3s}
+.mt:hover .au{max-height:74px;opacity:1;margin-top:8px}
+.mt .au u{text-decoration:none;color:#fff;font-weight:500}
+.mt .badges{position:absolute;top:14px;left:14px;display:flex;gap:6px;z-index:2}
+.mt .zoom{position:absolute;top:12px;right:12px;z-index:2;width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.9);color:#101013;display:grid;place-items:center;font-size:13px;
+  opacity:0;transform:scale(.8);transition:.28s}
+.mt:hover .zoom{opacity:1;transform:none}
+.badge{font-family:"JetBrains Mono";font-size:10px;letter-spacing:.09em;text-transform:uppercase;padding:5px 9px;border-radius:7px;
+  background:rgba(255,255,255,.92);color:#101013;font-weight:500}
+.badge.sub{background:var(--amber);color:#fff}
+.badge.gif{background:var(--violet);color:#fff}
+.mt.h1x{grid-column:span 3;min-height:250px}
+.mt.h2x{grid-column:span 6;min-height:clamp(240px,30vw,360px)}
+.mt.h3x{grid-column:span 2;min-height:210px}
+
+/* updates */
+.upd{grid-column:span 2}
+.upd ul{list-style:none;display:flex;flex-direction:column;gap:2px}
+.upd li{padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--dim);font-weight:300}
+.upd li:last-child{border:0}
+.upd strong{color:var(--text);font-weight:500}
+.upd time{display:block;font-family:"JetBrains Mono";font-size:10px;letter-spacing:.1em;color:var(--dimmer);margin-bottom:3px}
+
+.statement{grid-column:span 4;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:20px;align-items:center}
+.statement q{font-size:clamp(16px,1.8vw,21px);font-weight:400;letter-spacing:-.02em;line-height:1.4;quotes:none}
+.statement b{color:var(--blue);font-weight:600}
+.statement img{border-radius:12px;background:#fff;padding:8px}
+
+/* gallery mosaic */
+.gal{grid-column:span 3;padding:0;overflow:hidden;min-height:230px}
+.gal .g{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:2px;height:100%;position:absolute;inset:0}
+.gal .g a{overflow:hidden;display:block}
+.gal .g a:first-child{grid-row:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .6s,filter .4s}
+.gal a:hover img{transform:scale(1.08)}
+.gal .cap-over{position:absolute;left:14px;bottom:14px;padding:7px 13px;border-radius:99px;z-index:3;
+  background:rgba(8,8,10,.6);backdrop-filter:blur(8px);color:#fff;font-size:12px;pointer-events:none}
+
+/* lightbox */
+#lb{position:fixed;inset:0;z-index:200;background:rgba(10,10,12,.86);backdrop-filter:blur(14px);
+  display:grid;place-items:center;padding:5vh 5vw;opacity:0;pointer-events:none;transition:opacity .3s}
+#lb.on{opacity:1;pointer-events:auto}
+#lb figure{max-width:1100px;transform:scale(.96);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+#lb.on figure{transform:none}
+#lb img{max-height:76vh;width:auto;border-radius:12px;background:#fff}
+#lb figcaption{margin-top:14px;color:rgba(255,255,255,.7);font-size:13.5px;text-align:center}
+#lb .x{position:absolute;top:22px;right:26px;font-size:26px;color:rgba(255,255,255,.7)}
+
+footer{max-width:1240px;margin:0 auto;padding:0 var(--pad) 40px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media(max-width:980px){
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .hero,.statement,.s3,.s4,.s6,.mt.h1x,.mt.h2x,.gal{grid-column:span 2}
+  .photo{grid-column:span 2;min-height:240px}
+  .statement{grid-template-columns:1fr}
+  nav ul{display:none}
+  .mt .au{max-height:74px;opacity:1;margin-top:8px}
+}
+@media(max-width:600px){
+  .bento{grid-template-columns:1fr}
+  .hero,.photo,.status,.stats,.links-tile,.statement,.upd,.gal,.s2,.s3,.s4,.s6,.mt.h1x,.mt.h2x,.mt.h3x{grid-column:span 1}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#">Jiacheng Liu · 刘佳成</a>
+  <ul>
+    <li><a href="#">Publications</a></li>
+    <li><a href="#">Projects</a></li>
+    <li><a href="#">CV</a></li>
+    <li><a href="#">Gallery</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+  <div class="bento">
+
+    <div class="t hero" data-rv>
+      <div>
+        <p class="mono">Cornell University · SciFi Lab</p>
+        <h1>Jiacheng Liu<br><span>刘佳成</span></h1>
+        <p>First-year Ph.D. student in Information Science, advised by Prof. Cheng Zhang. I work on <b>AI-assisted sensing</b> in <b>wearable form factors</b> — activity-detection systems and assistive devices giving unobtrusive, seamless support.</p>
+      </div>
+      <div class="chips">
+        <span class="chip">Wearable sensing</span><span class="chip">Health AI</span><span class="chip">Assistive devices</span><span class="chip">HCI</span>
+      </div>
+    </div>
+
+    <div class="t photo link" data-rv><img src="../src/images/black_selfie.jpg" alt="Portrait of Jiacheng Liu"></div>
+
+    <div class="t status" data-rv>
+      <div class="now"><i></i>Now</div>
+      <h3>Building cross-device identity transfer from PPG signals.</h3>
+      <p>Ithaca, NY · open to collaborations on on-body sensing</p>
+    </div>
+
+    <div class="stats" data-rv>
+      <div class="stat"><div class="n b">5</div><div class="k">Papers</div></div>
+      <div class="stat"><div class="n g">2</div><div class="k">Co-first author</div></div>
+      <div class="stat"><div class="n a">6</div><div class="k">Design projects</div></div>
+      <div class="stat"><div class="n v">2</div><div class="k">Awards 2025</div></div>
+    </div>
+
+    <div class="t links-tile" data-rv>
+      <a class="lrow" href="#"><img src="../src/images/icons/github-mark-dark.png" alt="">GitHub<span class="arrow">↗</span></a>
+      <a class="lrow" href="#"><img src="../src/images/icons/google-scholar.png" alt="">Google Scholar<span class="arrow">↗</span></a>
+      <a class="lrow" href="#"><img src="../src/images/icons/linkedin.png" alt="">LinkedIn<span class="arrow">↗</span></a>
+      <a class="lrow" href="#">📄 Curriculum Vitae<span class="arrow">↗</span></a>
+    </div>
+
+    <div class="t s6" data-rv style="padding:16px 22px;display:flex;justify-content:space-between;align-items:center;gap:14px;background:var(--tile-2);box-shadow:none">
+      <span class="mono">Selected research · * co-first author</span>
+      <a href="#" class="mono" style="color:var(--blue)">View all publications ↗</a>
+    </div>
+
+    <a class="t mt big h2x link" data-rv href="#" data-full="../src/images/research/bridge.png" data-cap="PPG as a Bridge — cross-device identity transfer">
+      <span class="badges"><span class="badge sub">CHI '26 · submitted</span><span class="badge gif">GIF</span></span>
+      <span class="zoom">⤢</span>
+      <span class="m"><img src="../src/images/research/bridge.png" alt=""></span>
+      <span class="veil"></span>
+      <span class="txt">
+        <h3>PPG as a Bridge: Cross-Device Identity Transfer with Photoplethysmography</h3>
+        <span class="au"><u>Jiacheng Liu*</u>, Jiankai Tang*, Ruichen Gui, Songqin Cheng, Taiting Lu, Mahanth Gowda, Yuanchun Shi, Yuntao Wang</span>
+      </span>
+    </a>
+
+    <a class="t mt h1x link" data-rv href="#" data-full="../src/images/research/speech.png" data-cap="NeckVoice — on-body sound actuation">
+      <span class="badges"><span class="badge sub">Nature Electronics</span></span>
+      <span class="zoom">⤢</span>
+      <span class="m"><img src="../src/images/research/speech.png" alt=""></span>
+      <span class="veil"></span>
+      <span class="txt">
+        <h3>NeckVoice: Voice Synthesis for Laryngectomees</h3>
+        <span class="au">Ruidong Zhang, <u>Jiacheng Liu</u>, Justin Xiang, Ke Li, Babak Sadoughi, Sam Tilsen, François Guimbretière, Cheng Zhang</span>
+      </span>
+    </a>
+
+    <a class="t mt h1x link" data-rv href="#" data-full="../src/images/research/PPG_authen.jpg" data-cap="Reliable PPG authentication on smartwatches">
+      <span class="badges"><span class="badge">arXiv '25</span></span>
+      <span class="zoom">⤢</span>
+      <span class="m"><img src="../src/images/research/PPG_authen.jpg" alt=""></span>
+      <span class="veil"></span>
+      <span class="txt">
+        <h3>Reliable PPG Authentication on Smartwatches</h3>
+        <span class="au">Jiankai Tang*, <u>Jiacheng Liu*</u>, Renling Tong, Kai Zhu, Zhe Li, Junliang Xing, Yuanchun Shi, Yuntao Wang</span>
+      </span>
+    </a>
+
+    <a class="t mt h3x link" data-rv href="#" data-full="../src/images/research/odoragent.png" data-cap="OdorAgent — LLM odor sequences">
+      <span class="badges"><span class="badge">IEEE VR '24</span></span>
+      <span class="zoom">⤢</span>
+      <span class="m"><img src="../src/images/research/odoragent.png" alt=""></span>
+      <span class="veil"></span>
+      <span class="txt"><h3>OdorAgent</h3><span class="au">Yu Zhang, …, <u>Jiacheng Liu</u>, Qi Lu, Yingqing Xu</span></span>
+    </a>
+
+    <a class="t mt h3x link" data-rv href="#" data-full="../src/images/research/camera.png" data-cap="Camera-based remote physiology across skin tones">
+      <span class="badges"><span class="badge">CHI '24 WS</span></span>
+      <span class="zoom">⤢</span>
+      <span class="m"><img src="../src/images/research/camera.png" alt=""></span>
+      <span class="veil"></span>
+      <span class="txt"><h3>Camera-Based Remote Physiology</h3><span class="au">Jiankai Tang, Xinyi Li, <u>Jiacheng Liu</u>, …</span></span>
+    </a>
+
+    <a class="t mt h3x link" data-rv href="#" data-full="../src/images/research_interests.png" data-cap="Research interests overview">
+      <span class="badges"><span class="badge">Overview</span></span>
+      <span class="zoom">⤢</span>
+      <span class="m fit"><img src="../src/images/research_interests.png" alt=""></span>
+      <span class="veil" style="opacity:.55"></span>
+      <span class="txt"><h3>Where it all meets</h3></span>
+    </a>
+
+    <div class="t s6" data-rv style="padding:16px 22px;display:flex;justify-content:space-between;align-items:center;gap:14px;background:var(--tile-2);box-shadow:none">
+      <span class="mono">Design &amp; course projects</span>
+      <a href="#" class="mono" style="color:var(--blue)">View all projects ↗</a>
+    </div>
+
+    <a class="t mt h3x link" data-rv href="#" data-full="../src/images/projects/magnet.png" data-cap="TagMagnet — personalized album app">
+      <span class="m"><img src="../src/images/projects/magnet.png" alt=""></span><span class="veil"></span>
+      <span class="txt"><h3>TagMagnet</h3><span class="au">UI &amp; interaction design · 2023</span></span>
+    </a>
+    <a class="t mt h3x link" data-rv href="#" data-full="../src/images/projects/canvas.png" data-cap="CanvaSphere — urban art festival">
+      <span class="m"><img src="../src/images/projects/canvas.png" alt=""></span><span class="veil"></span>
+      <span class="txt"><h3>CanvaSphere</h3><span class="au">Concept &amp; interaction design · 2023</span></span>
+    </a>
+    <a class="t mt h3x link" data-rv href="#" data-full="../src/images/projects/wave.png" data-cap="Water Ripples — wooden mechanism">
+      <span class="m"><img src="../src/images/projects/wave.png" alt=""></span><span class="veil"></span>
+      <span class="txt"><h3>Water Ripples</h3><span class="au">Mechanical design · 2024</span></span>
+    </a>
+
+    <div class="t statement" data-rv>
+      <div>
+        <p class="cap mono">Research question</p>
+        <q>How can we integrate <b>AI with sensing systems</b> to build early-detection systems and assistive devices for everyday use — unobtrusive, seamless health support for people with diverse conditions?</q>
+      </div>
+      <img src="../src/images/research_interests.png" alt="Research interests diagram">
+    </div>
+
+    <div class="t upd" data-rv>
+      <p class="cap mono">Updates</p>
+      <ul>
+        <li><time>2025.06.20</time>🏆 Awarded the <strong>Outstanding Undergraduate Thesis</strong>.</li>
+        <li><time>2025.06.20</time>🏵 <strong>Xinya College Academic Excellence Award</strong>.</li>
+        <li><time>2025.04.03</time>🎉 Joining the <strong>SciFi Lab at Cornell</strong> as a Ph.D. student.</li>
+        <li><time>2025.02.01</time>📩 Submitted <strong>PPG Authentication on Smartwatches</strong> to IMWUT'25.</li>
+      </ul>
+    </div>
+
+    <div class="t gal" data-rv>
+      <div class="g">
+        <a href="#" data-full="../src/images/interests/ink_painting.jpg" data-cap="Chinese ink painting"><img src="../src/images/interests/ink_painting.jpg" alt=""></a>
+        <a href="#" data-full="../src/images/interests/lotus.png" data-cap="Lotus — gouache"><img src="../src/images/interests/lotus.png" alt=""></a>
+        <a href="#" data-full="../src/images/interests/portrait.jpg" data-cap="Portrait study"><img src="../src/images/interests/portrait.jpg" alt=""></a>
+        <a href="#" data-full="../src/images/interests/sunrise.png" data-cap="Sunrise — vector"><img src="../src/images/interests/sunrise.png" alt=""></a>
+        <a href="#" data-full="../src/images/interests/tarot.png" data-cap="Tarot series"><img src="../src/images/interests/tarot.png" alt=""></a>
+      </div>
+      <span class="cap-over">Gallery — painting &amp; design ↗</span>
+    </div>
+
+    <div class="t s3" data-rv style="display:flex;flex-direction:column;justify-content:center;gap:10px">
+      <p class="mono">Get in touch</p>
+      <h3 style="font-size:clamp(20px,2.6vw,30px);font-weight:500;letter-spacing:-.03em">Always happy to talk about sensing, health, and things worn on the body.</h3>
+      <a href="#" style="color:var(--blue);font-size:14px;font-weight:500">jl4596@cornell.edu ↗</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <span class="mono">© 2025 Jiacheng Liu</span>
+  <span class="mono">Concept 04 — Bento</span>
+</footer>
+
+<div id="lb"><span class="x">✕</span><figure><img alt=""><figcaption></figcaption></figure></div>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.1});
+document.querySelectorAll('[data-rv]').forEach((el,i)=>{el.style.transitionDelay=(i%4)*45+'ms';io.observe(el)});
+
+const lb=document.getElementById('lb'),lbi=lb.querySelector('img'),lbc=lb.querySelector('figcaption');
+document.querySelectorAll('[data-full]').forEach(el=>el.addEventListener('click',ev=>{
+  ev.preventDefault();lbi.src=el.dataset.full;lbc.textContent=el.dataset.cap||'';lb.classList.add('on');
+}));
+lb.addEventListener('click',()=>lb.classList.remove('on'));
+addEventListener('keydown',e=>e.key==='Escape'&&lb.classList.remove('on'));
+</script>
+</body>
+</html>

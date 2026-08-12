@@ -1,8 +1,12 @@
 [
   {
+    "slug": "tagmagnet",
     "image": "images/projects/magnet.png",
-    "alt": "magnet",
+    "alt": "TagMagnet album app screens",
     "title": "TagMagnet: Personalized Album App Based on Tags",
+    "role": "UI design, Interaction Design",
+    "context": "2023, Coursework of Interaction Design",
+    "description": "",
     "meta": [
       { "cls": "state", "text": "2023, Coursework of Interaction Design" },
       { "cls": "author", "text": "UI design, Interaction Design" }
@@ -12,9 +16,13 @@
     ]
   },
   {
+    "slug": "canvasphere",
     "image": "images/projects/canvas.png",
-    "alt": "canvas",
+    "alt": "CanvaSphere urban art festival key visual",
     "title": "CanvaSphere: Urban Art Festival Design",
+    "role": "Interaction Design, Concept Design",
+    "context": "2023, Coursework of Innovative Design and Practice - Basics",
+    "description": "",
     "meta": [
       { "cls": "state", "text": "2023, Coursework of Innovative Design and Practice - Basics" },
       { "cls": "author", "text": "Interaction Design, Concept Design" }
@@ -24,21 +32,27 @@
     ]
   },
   {
+    "slug": "line-following-robot",
     "image": "images/projects/car.jpg",
-    "alt": "car",
+    "alt": "Line-following robot built for the electronics course",
     "title": "Design and Construction of Line-Following Robot",
+    "role": "Electrical Engineering, Product Design",
+    "context": "2023, Coursework of Design Projects in Electronic Technology",
+    "description": "",
     "meta": [
       { "cls": "state", "text": "2023, Coursework of Design Projects in Electronic Technology" },
       { "cls": "author", "text": "Electrical Engineering, Product Design" }
     ],
-    "links": [
-      { "label": "Video", "url": "" }
-    ]
+    "links": []
   },
   {
+    "slug": "xinya-guide-system",
     "image": "images/projects/guide.png",
-    "alt": "guide",
+    "alt": "Redesigned wayfinding system for Xinya College",
     "title": "Redesigning the Guide System at Xinya College",
+    "role": "Interaction Design",
+    "context": "2024, Coursework of Innovative Design and Practice - Basics",
+    "description": "",
     "meta": [
       { "cls": "state", "text": "2024, Coursework of Innovative Design and Practice - Basics" },
       { "cls": "author", "text": "Interaction Design" }
@@ -46,9 +60,13 @@
     "links": []
   },
   {
+    "slug": "water-ripples",
     "image": "images/projects/wave.png",
-    "alt": "wave",
+    "alt": "Water Ripples wooden mechanical structure",
     "title": "Water Ripples: Pure Wooden Mechanical Structure",
+    "role": "Mechanical Design",
+    "context": "2024, Coursework of Fundamentals of Mechanical Design",
+    "description": "",
     "meta": [
       { "cls": "state", "text": "2024, Coursework of Fundamentals of Mechanical Design" },
       { "cls": "author", "text": "Mechanical Design" }
@@ -58,9 +76,13 @@
     ]
   },
   {
+    "slug": "charm-clicker",
     "image": "images/projects/charm.png",
-    "alt": "charm",
+    "alt": "Charm Clicker photo guide app key visual",
     "title": "Charm Clicker: A Photo Guide App for Girls, Designed for Boys",
+    "role": "Interaction Design, Computer Engineering",
+    "context": "2024, Coursework of Innovative Design and Practice - Basics",
+    "description": "",
     "meta": [
       { "cls": "state", "text": "2024, Coursework of Innovative Design and Practice - Basics" },
       { "cls": "author", "text": "Interaction Design, Computer Engineering" }

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>09 · Soft Gradient — Jiacheng Liu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBFAFF;--card:#FFFFFF;--ink:#1B1A2E;--dim:#6A6880;--dimmer:#A5A2BA;--line:#ECEAF6;
+  --lilac:#B8A6F5;--mint:#8EE3C8;--peach:#FFC4A3;--sky:#9CC4FF;--brand:#6E5AE6;
+  --pad:clamp(20px,5vw,72px);--r:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,sans-serif;line-height:1.62;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+.k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer);font-weight:600}
+
+[data-rv]{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.2,.7,.2,1),transform .65s cubic-bezier(.2,.7,.2,1)}
+[data-rv].in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){[data-rv]{opacity:1;transform:none;transition:none}}
+
+.mesh{position:fixed;inset:0;z-index:-1;pointer-events:none;filter:blur(70px);opacity:.75;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.mesh i{position:absolute;border-radius:50%;display:block}
+.mesh i:nth-child(1){width:46vw;height:46vw;background:var(--lilac);top:-12vw;left:-6vw;animation:float 24s ease-in-out infinite alternate}
+.mesh i:nth-child(2){width:36vw;height:36vw;background:var(--mint);top:8vh;right:-8vw;animation:float 30s ease-in-out infinite alternate-reverse}
+.mesh i:nth-child(3){width:32vw;height:32vw;background:var(--peach);top:78vh;left:6vw;animation:float 27s ease-in-out infinite alternate}
+.mesh i:nth-child(4){width:30vw;height:30vw;background:var(--sky);top:150vh;right:4vw;animation:float 33s ease-in-out infinite alternate-reverse}
+@keyframes float{to{transform:translate3d(4vw,5vh,0) scale(1.12)}}
+
+nav{position:sticky;top:14px;z-index:60;margin:14px auto 0;max-width:1180px;width:calc(100% - 2*var(--pad));
+  display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 10px 10px 20px;border-radius:99px;
+  background:rgba(255,255,255,.72);backdrop-filter:blur(16px) saturate(150%);
+  box-shadow:0 6px 24px -14px rgba(27,26,46,.34);border:1px solid rgba(255,255,255,.9)}
+nav .b{font-weight:700;letter-spacing:-.02em;font-size:15px}
+nav ul{display:flex;gap:2px;list-style:none;align-items:center}
+nav ul a{font-size:13.5px;color:var(--dim);padding:8px 14px;border-radius:99px;transition:.2s}
+nav ul a:hover{color:var(--ink);background:#F3F1FC}
+nav .cv{background:var(--brand);color:#fff;padding:10px 18px;border-radius:99px;font-size:13.5px;font-weight:500;transition:.22s}
+nav .cv:hover{filter:brightness(1.08);transform:translateY(-1px)}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--pad) 70px}
+
+/* hero */
+header{padding:clamp(34px,7vh,84px) 0 clamp(20px,4vh,44px);display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(26px,4vw,60px);align-items:center}
+.hello{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);
+  padding:7px 14px;border-radius:99px;font-size:13px;color:var(--dim);box-shadow:0 4px 14px -10px rgba(27,26,46,.4)}
+h1{font-size:clamp(32px,5vw,60px);font-weight:800;letter-spacing:-.04em;line-height:1.05;margin:20px 0 14px}
+h1 .grad{background:linear-gradient(100deg,var(--brand),#3FA9C9 60%,#4CC79B);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 .cn{display:block;font-size:.34em;font-weight:400;color:var(--dimmer);letter-spacing:.14em;margin-top:14px}
+.lede{color:var(--dim);max-width:56ch;font-size:15.5px}
+.lede b{color:var(--ink);font-weight:600}
+.lede a{color:var(--brand);font-weight:500}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;align-items:center}
+.btn{padding:12px 22px;border-radius:99px;font-size:14px;font-weight:600;transition:.24s}
+.btn.p{background:var(--ink);color:#fff}
+.btn.p:hover{transform:translateY(-2px);box-shadow:0 16px 30px -18px rgba(27,26,46,.9)}
+.btn.s{background:#fff;border:1px solid var(--line);color:var(--dim)}
+.btn.s:hover{color:var(--ink);transform:translateY(-2px)}
+.ico{display:flex;gap:8px;margin-left:4px}
+.ico a{width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center;transition:.22s}
+.ico a:hover{transform:translateY(-2px);box-shadow:0 10px 20px -14px rgba(27,26,46,.7)}
+.ico img{width:15px;height:15px;object-fit:contain;opacity:.7}
+
+/* hero visual stack */
+.stack{position:relative;perspective:1000px}
+.stack .p{position:relative;z-index:3;border-radius:32px;overflow:hidden;border:6px solid #fff;
+  box-shadow:0 34px 64px -34px rgba(27,26,46,.6);transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.stack .p img{width:100%;aspect-ratio:1;object-fit:cover}
+.stack .sm{position:absolute;width:44%;border-radius:20px;overflow:hidden;border:5px solid #fff;
+  box-shadow:0 22px 44px -26px rgba(27,26,46,.55);z-index:4;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.stack .sm img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.stack .s1{left:-13%;top:12%}
+.stack .s2{right:-11%;bottom:8%}
+.floaty{position:absolute;z-index:6;background:#fff;border-radius:16px;padding:10px 15px;font-size:13px;font-weight:600;
+  box-shadow:0 14px 30px -18px rgba(27,26,46,.6);display:flex;align-items:center;gap:8px;border:1px solid var(--line)}
+.floaty.a{left:6%;top:-16px;animation:bob 5s ease-in-out infinite}
+.floaty i{width:8px;height:8px;border-radius:50%;background:var(--mint);display:block}
+@keyframes bob{50%{transform:translateY(-9px)}}
+
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin:clamp(28px,5vh,58px) 0 20px}
+h2{font-size:clamp(22px,2.7vw,32px);font-weight:800;letter-spacing:-.03em}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 18px 40px -32px rgba(27,26,46,.55)}
+
+.qcard{padding:clamp(24px,3vw,40px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(22px,3vw,44px);align-items:center}
+.qcard p{font-size:clamp(17px,2vw,25px);line-height:1.4;font-weight:600;letter-spacing:-.02em}
+.qcard b{background:linear-gradient(transparent 60%,rgba(184,166,245,.5) 60%);font-weight:800}
+
+/* ── publications: big media, tilt on hover ── */
+.pgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.pc{grid-column:span 3;border-radius:var(--r);overflow:hidden;background:var(--card);border:1px solid var(--line);
+  box-shadow:0 18px 40px -32px rgba(27,26,46,.55);display:flex;flex-direction:column;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;transform-style:preserve-3d}
+.pc.feature{grid-column:span 6}
+.pc:hover{box-shadow:0 34px 60px -30px rgba(27,26,46,.55)}
+.pc .m{position:relative;aspect-ratio:16/9;overflow:hidden;background:#F7F6FD}
+.pc.feature .m{aspect-ratio:21/8}
+.pc .m img,.pc .m video{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.pc:hover .m img,.pc:hover .m video{transform:scale(1.05)}
+.pc .m::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(27,26,46,.55));opacity:0;transition:opacity .35s}
+.pc:hover .m::after{opacity:1}
+.pc .zoom{position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.92);
+  display:grid;place-items:center;font-size:14px;opacity:0;transform:scale(.85);transition:.28s;z-index:2}
+.pc:hover .zoom{opacity:1;transform:none}
+.pc .pills{position:absolute;left:14px;top:14px;display:flex;gap:6px;z-index:2}
+.pill{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:6px 12px;border-radius:99px;
+  background:rgba(255,255,255,.92);color:#1E8A67;backdrop-filter:blur(6px)}
+.pill.s{color:#B4643B}
+.pill.gif{background:var(--brand);color:#fff}
+.pc .b{padding:18px 20px 22px;display:flex;flex-direction:column;gap:9px;flex:1}
+.pc h3{font-size:16.5px;font-weight:700;letter-spacing:-.02em;line-height:1.32}
+.pc.feature h3{font-size:clamp(18px,2vw,24px);max-width:26ch}
+.pc .au{font-size:12.5px;color:var(--dimmer);line-height:1.5}
+.pc .au u{text-decoration:none;color:var(--dim);font-weight:600}
+
+/* projects rail */
+.rail{display:flex;gap:16px;overflow-x:auto;padding:4px 0 14px;scroll-snap-type:x mandatory;cursor:grab}
+.rail.drag{cursor:grabbing}
+.rail::-webkit-scrollbar{height:6px}
+.rail::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+.rc{flex:0 0 clamp(240px,28vw,340px);scroll-snap-align:start;border-radius:20px;overflow:hidden;background:#fff;
+  border:1px solid var(--line);box-shadow:0 16px 34px -28px rgba(27,26,46,.6);transition:transform .3s}
+.rc:hover{transform:translateY(-5px)}
+.rc .m{aspect-ratio:4/3;overflow:hidden;background:#F7F6FD}
+.rc img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.rc:hover img{transform:scale(1.07)}
+.rc .b{padding:14px 16px 18px}
+.rc h4{font-size:15px;font-weight:700;letter-spacing:-.02em}
+.rc p{font-size:12px;color:var(--dimmer);margin-top:4px}
+
+/* updates + stats */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.upd{padding:24px}
+.upd li{list-style:none;display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.upd li:last-child{border:0;padding-bottom:0}
+.upd .dot{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;flex:none;font-size:15px;background:#F5F3FE}
+.upd time{display:block;font-size:11px;letter-spacing:.1em;color:var(--dimmer);margin-bottom:2px;text-transform:uppercase}
+.upd p{font-size:14px;color:var(--dim)}
+.upd strong{color:var(--ink);font-weight:700}
+.gal{padding:0;overflow:hidden;position:relative;min-height:230px}
+.gal .g{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:3px;position:absolute;inset:0}
+.gal .g a:first-child{grid-row:span 2;grid-column:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.gal a:hover img{transform:scale(1.07)}
+.gal .over{position:absolute;left:16px;bottom:14px;z-index:3;background:rgba(27,26,46,.62);backdrop-filter:blur(8px);
+  color:#fff;font-size:12.5px;padding:7px 14px;border-radius:99px;pointer-events:none}
+
+/* lightbox */
+#lb{position:fixed;inset:0;z-index:200;background:rgba(27,26,46,.72);backdrop-filter:blur(16px);
+  display:grid;place-items:center;padding:5vh 5vw;opacity:0;pointer-events:none;transition:opacity .3s}
+#lb.on{opacity:1;pointer-events:auto}
+#lb figure{max-width:1100px;transform:scale(.96);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+#lb.on figure{transform:none}
+#lb img{max-height:76vh;width:auto;border-radius:16px;background:#fff}
+#lb figcaption{margin-top:14px;color:rgba(255,255,255,.85);font-size:13.5px;text-align:center}
+#lb .x{position:absolute;top:22px;right:26px;font-size:26px;color:#fff;opacity:.8}
+
+footer{padding:26px 0 0;color:var(--dimmer);font-size:12.5px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media(max-width:900px){
+  header,.qcard,.two{grid-template-columns:1fr}
+  .stack{order:-1;max-width:340px;margin:0 auto}
+  .stack .s1,.stack .s2{display:none}
+  nav ul{display:none}
+  .pc,.pc.feature{grid-column:span 6}
+}
+</style>
+</head>
+<body>
+<div class="mesh" id="mesh"><i></i><i></i><i></i><i></i></div>
+
+<nav>
+  <a class="b" href="#">Jiacheng Liu</a>
+  <ul>
+    <li><a href="#work">Publications</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#">Gallery</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a class="cv" href="#">CV</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+  <header>
+    <div>
+      <span class="hello">👋 Hi, I'm Jiacheng — first-year Ph.D. at Cornell</span>
+      <h1>Making sensing <span class="grad">gentle</span> enough to live with.<span class="cn">刘佳成</span></h1>
+      <p class="lede">I'm at the <a href="#">SciFi Lab</a>, <a href="#">Cornell University</a>, advised by <a href="#">Prof. Cheng Zhang</a>. My research centers on <b>AI-assisted sensing technologies</b> with an emphasis on <b>wearable form factors</b> — <b>activity-detection systems and assistive devices</b>.</p>
+      <div class="row">
+        <a class="btn p" href="#work">See my research</a>
+        <a class="btn s" href="#">Download CV</a>
+        <span class="ico">
+          <a href="#"><img src="../src/images/icons/github-mark-dark.png" alt="GitHub"></a>
+          <a href="#"><img src="../src/images/icons/google-scholar.png" alt="Scholar"></a>
+          <a href="#"><img src="../src/images/icons/linkedin.png" alt="LinkedIn"></a>
+        </span>
+      </div>
+    </div>
+
+    <div class="stack" id="stack">
+      <figure class="p" data-depth="8"><img src="../src/images/black_selfie.jpg" alt="Portrait of Jiacheng Liu"></figure>
+      <figure class="sm s1" data-depth="-20"><img src="../src/images/research/bridge.png" alt=""></figure>
+      <figure class="sm s2" data-depth="24"><img src="../src/images/research/speech.png" alt=""></figure>
+      <span class="floaty a"><i></i>Wearable sensing</span>
+    </div>
+  </header>
+
+  <div class="card qcard" data-rv>
+    <div>
+      <p class="k" style="margin-bottom:12px">Research question</p>
+      <p>How can we integrate <b>AI with sensing systems</b> to develop early-detection systems and assistive devices for everyday use — providing unobtrusive, seamless health support for individuals with diverse health conditions?</p>
+    </div>
+    <img src="../src/images/research_interests.png" alt="Research interests diagram" data-full="../src/images/research_interests.png" data-cap="Research interests" style="cursor:zoom-in">
+  </div>
+
+  <div class="sec-head" id="work"><h2>Selected research</h2><span class="k">* co-first author</span></div>
+  <div class="pgrid">
+
+    <a class="pc feature tilt" data-rv href="#" data-full="../src/images/research/bridge.png" data-cap="PPG as a Bridge — cross-device identity transfer">
+      <div class="m">
+        <span class="pills"><span class="pill s">CHI '26 · submitted</span><span class="pill gif">GIF</span></span>
+        <span class="zoom">⤢</span>
+        <img src="../src/images/research/bridge.png" alt="">
+      </div>
+      <div class="b">
+        <h3>PPG as a Bridge: Cross-Device Identity Transfer with Photoplethysmography</h3>
+        <p class="au"><u>Jiacheng Liu*</u>, Jiankai Tang*, Ruichen Gui, Songqin Cheng, Taiting Lu, Mahanth Gowda, Yuanchun Shi, Yuntao Wang</p>
+      </div>
+    </a>
+
+    <a class="pc tilt" data-rv href="#" data-full="../src/images/research/speech.png" data-cap="NeckVoice — on-body sound actuation">
+      <div class="m"><span class="pills"><span class="pill s">Nature Electronics</span></span><span class="zoom">⤢</span><img src="../src/images/research/speech.png" alt=""></div>
+      <div class="b">
+        <h3>NeckVoice: Voice Synthesis for Laryngectomees with On-body Sound Actuation</h3>
+        <p class="au">Ruidong Zhang, <u>Jiacheng Liu</u>, Justin Xiang, Ke Li, Babak Sadoughi, Sam Tilsen, François Guimbretière, Cheng Zhang</p>
+      </div>
+    </a>
+
+    <a class="pc tilt" data-rv href="#" data-full="../src/images/research/PPG_authen.jpg" data-cap="Reliable PPG authentication on smartwatches">
+      <div class="m"><span class="pills"><span class="pill">arXiv '25</span></span><span class="zoom">⤢</span><img src="../src/images/research/PPG_authen.jpg" alt=""></div>
+      <div class="b">
+        <h3>Exploring Reliable PPG Authentication on Smartwatches in Daily Scenarios</h3>
+        <p class="au">Jiankai Tang*, <u>Jiacheng Liu*</u>, Renling Tong, Kai Zhu, Zhe Li, Junliang Xing, Yuanchun Shi, Yuntao Wang</p>
+      </div>
+    </a>
+
+    <a class="pc tilt" data-rv href="#" data-full="../src/images/research/odoragent.png" data-cap="OdorAgent — LLM odor sequences">
+      <div class="m"><span class="pills"><span class="pill">IEEE VR '24</span></span><span class="zoom">⤢</span><img src="../src/images/research/odoragent.png" alt=""></div>
+      <div class="b">
+        <h3>OdorAgent: Generate Odor Sequences for Movies Based on Large Language Model</h3>
+        <p class="au">Yu Zhang, Peizhong Gao, Fangzhou Kang, Jiaxiang Li, <u>Jiacheng Liu</u>, Qi Lu, Yingqing Xu</p>
+      </div>
+    </a>
+
+    <a class="pc tilt" data-rv href="#" data-full="../src/images/research/camera.png" data-cap="Camera-based remote physiology across skin tones">
+      <div class="m"><span class="pills"><span class="pill">CHI '24 Workshop</span></span><span class="zoom">⤢</span><img src="../src/images/research/camera.png" alt=""></div>
+      <div class="b">
+        <h3>Camera-Based Remote Physiology Sensing Across Skin Tones</h3>
+        <p class="au">Jiankai Tang, Xinyi Li, <u>Jiacheng Liu</u>, Xiyuxing Zhang, Zeyu Wang, Yuntao Wang</p>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="sec-head" id="projects"><h2>Design &amp; course projects</h2><span class="k">drag to scroll →</span></div>
+  <div class="rail" data-rv>
+    <a class="rc" href="#" data-full="../src/images/projects/magnet.png" data-cap="TagMagnet"><span class="m"><img src="../src/images/projects/magnet.png" alt=""></span><span class="b"><h4>TagMagnet</h4><p>Personalized album app · 2023</p></span></a>
+    <a class="rc" href="#" data-full="../src/images/projects/canvas.png" data-cap="CanvaSphere"><span class="m"><img src="../src/images/projects/canvas.png" alt=""></span><span class="b"><h4>CanvaSphere</h4><p>Urban art festival · 2023</p></span></a>
+    <a class="rc" href="#" data-full="../src/images/projects/wave.png" data-cap="Water Ripples"><span class="m"><img src="../src/images/projects/wave.png" alt=""></span><span class="b"><h4>Water Ripples</h4><p>Wooden mechanism · 2024</p></span></a>
+    <a class="rc" href="#" data-full="../src/images/projects/charm.png" data-cap="Charm Clicker"><span class="m"><img src="../src/images/projects/charm.png" alt=""></span><span class="b"><h4>Charm Clicker</h4><p>Photo guide app · 2024</p></span></a>
+    <a class="rc" href="#" data-full="../src/images/projects/guide.png" data-cap="Guide system redesign"><span class="m"><img src="../src/images/projects/guide.png" alt=""></span><span class="b"><h4>Guide System</h4><p>Wayfinding redesign · 2024</p></span></a>
+    <a class="rc" href="#" data-full="../src/images/projects/car.jpg" data-cap="Line-following robot"><span class="m"><img src="../src/images/projects/car.jpg" alt=""></span><span class="b"><h4>Line-Following Robot</h4><p>Electronics + design · 2023</p></span></a>
+  </div>
+
+  <div class="sec-head"><h2>What's new</h2><span class="k">2025</span></div>
+  <div class="two">
+    <ul class="card upd" data-rv>
+      <li><span class="dot">🏆</span><span><time>June 20, 2025</time><p>Awarded the <strong>Outstanding Undergraduate Thesis</strong>.</p></span></li>
+      <li><span class="dot">🏵</span><span><time>June 20, 2025</time><p>Awarded the <strong>Xinya College Academic Excellence Award</strong>.</p></span></li>
+      <li><span class="dot">🎉</span><span><time>April 3, 2025</time><p>Joining the <strong>SciFi Lab at Cornell University</strong> as a Ph.D. student.</p></span></li>
+      <li><span class="dot">📩</span><span><time>Feb 1, 2025</time><p>Submitted <strong>PPG-based Authentication on Smartwatches</strong> to IMWUT'25.</p></span></li>
+    </ul>
+    <div class="card gal" data-rv>
+      <div class="g">
+        <a href="#" data-full="../src/images/interests/ink_painting.jpg" data-cap="Chinese ink painting"><img src="../src/images/interests/ink_painting.jpg" alt=""></a>
+        <a href="#" data-full="../src/images/interests/lotus.png" data-cap="Lotus — gouache"><img src="../src/images/interests/lotus.png" alt=""></a>
+        <a href="#" data-full="../src/images/interests/sunrise.png" data-cap="Sunrise — vector"><img src="../src/images/interests/sunrise.png" alt=""></a>
+        <a href="#" data-full="../src/images/interests/portrait.jpg" data-cap="Portrait study"><img src="../src/images/interests/portrait.jpg" alt=""></a>
+        <a href="#" data-full="../src/images/interests/tarot.png" data-cap="Tarot series"><img src="../src/images/interests/tarot.png" alt=""></a>
+      </div>
+      <span class="over">Gallery — painting &amp; design ↗</span>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2025 Jiacheng Liu</span>
+    <span>Concept 09 — Soft Gradient</span>
+  </footer>
+</div>
+
+<div id="lb"><span class="x">✕</span><figure><img alt=""><figcaption></figcaption></figure></div>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.1});
+document.querySelectorAll('[data-rv]').forEach(el=>io.observe(el));
+
+// hero stack parallax
+const stack=document.getElementById('stack'),mesh=document.getElementById('mesh');
+addEventListener('mousemove',e=>{
+  const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;
+  stack.querySelectorAll('[data-depth]').forEach(f=>{
+    const d=+f.dataset.depth;
+    f.style.transform=`translate3d(${x*d}px,${y*d}px,0) rotateY(${x*d*.1}deg) rotateX(${-y*d*.1}deg)`;
+  });
+  mesh.style.transform=`translate3d(${x*-22}px,${y*-18}px,0)`;
+},{passive:true});
+
+// card tilt
+document.querySelectorAll('.tilt').forEach(c=>{
+  c.addEventListener('pointermove',e=>{
+    const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    c.style.transform=`translateY(-5px) rotateX(${-y*4}deg) rotateY(${x*5}deg)`;
+  });
+  c.addEventListener('pointerleave',()=>c.style.transform='');
+});
+
+// lightbox
+const lb=document.getElementById('lb'),lbi=lb.querySelector('img'),lbc=lb.querySelector('figcaption');
+document.querySelectorAll('[data-full]').forEach(el=>el.addEventListener('click',ev=>{
+  ev.preventDefault();lbi.src=el.dataset.full;lbc.textContent=el.dataset.cap||'';lb.classList.add('on');
+}));
+lb.addEventListener('click',()=>lb.classList.remove('on'));
+addEventListener('keydown',e=>e.key==='Escape'&&lb.classList.remove('on'));
+
+// drag rail
+document.querySelectorAll('.rail').forEach(s=>{
+  let down=false,x0=0,l0=0,moved=0;
+  s.addEventListener('pointerdown',e=>{down=true;moved=0;x0=e.clientX;l0=s.scrollLeft;s.classList.add('drag')});
+  s.addEventListener('pointermove',e=>{if(!down)return;moved+=Math.abs(e.movementX);s.scrollLeft=l0-(e.clientX-x0)});
+  const up=()=>{down=false;s.classList.remove('drag')};
+  s.addEventListener('pointerup',up);s.addEventListener('pointerleave',up);
+  s.addEventListener('click',e=>{if(moved>6)e.preventDefault()},true);
+});
+</script>
+</body>
+</html>

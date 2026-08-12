@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 · Signal Lab — Jiacheng Liu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EFEDE6;
+  --card:#F8F7F3;
+  --ink:#16150F;
+  --ink-60:#59564B;
+  --ink-30:#A29E90;
+  --line:#16150F;
+  --hair:#D6D2C6;
+  --signal:#E4572E;   /* pulse orange */
+  --signal-2:#0B7A75; /* teal */
+  --pad:clamp(18px,4.5vw,64px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--hair) 1px,transparent 1px),linear-gradient(90deg,var(--hair) 1px,transparent 1px);
+  background-size:52px 52px;background-position:-1px -1px}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.mono{font-family:"IBM Plex Mono",monospace}
+.tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-60)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:0 var(--pad);height:56px;background:var(--paper);border-bottom:2px solid var(--line)}
+nav .brand{font-family:"IBM Plex Mono";font-weight:600;font-size:14px;letter-spacing:-.01em}
+nav .brand::before{content:"▍";color:var(--signal);margin-right:6px}
+nav ul{display:flex;list-style:none;height:100%}
+nav ul li{display:flex}
+nav ul a{display:flex;align-items:center;padding:0 16px;font-family:"IBM Plex Mono";font-size:11.5px;letter-spacing:.1em;
+  text-transform:uppercase;border-left:1px solid var(--hair);transition:.18s}
+nav ul a:hover{background:var(--ink);color:var(--paper)}
+
+/* frame helper */
+.box{background:var(--card);border:2px solid var(--line);box-shadow:5px 5px 0 var(--line)}
+.box.flat{box-shadow:none}
+
+/* hero */
+header{padding:clamp(28px,5vh,60px) var(--pad)}
+.hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:0;border:2px solid var(--line);box-shadow:7px 7px 0 var(--line);background:var(--card)}
+.hero .left{padding:clamp(24px,3.4vw,44px);border-right:2px solid var(--line)}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.meta-row span{border:1px solid var(--line);padding:3px 9px;font-family:"IBM Plex Mono";font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+.meta-row span.hot{background:var(--signal);color:#fff;border-color:var(--signal)}
+h1{font-size:clamp(34px,5.6vw,68px);font-weight:600;letter-spacing:-.04em;line-height:.98}
+h1 small{display:block;font-family:"IBM Plex Mono";font-size:clamp(13px,1.5vw,17px);font-weight:400;letter-spacing:.3em;color:var(--ink-30);margin-top:14px}
+.wave{width:100%;height:56px;margin:24px 0 22px;display:block}
+.wave path{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.wave .base{stroke:var(--ink);opacity:.16}
+.wave .trace{stroke:var(--signal);stroke-dasharray:180 1400;stroke-dashoffset:180;animation:trace 3.6s linear infinite}
+@keyframes trace{to{stroke-dashoffset:-1400}}
+.abstract{max-width:64ch;color:var(--ink-60);font-weight:300}
+.abstract p+p{margin-top:12px}
+.abstract b{color:var(--ink);font-weight:500;background:linear-gradient(transparent 62%,rgba(228,87,46,.22) 62%)}
+.abstract a{border-bottom:1.5px solid var(--signal);transition:background .2s}
+.abstract a:hover{background:rgba(228,87,46,.14)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.btn{font-family:"IBM Plex Mono";font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  padding:10px 16px;border:2px solid var(--line);transition:.18s;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:var(--ink);color:var(--paper);transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--signal)}
+.btn.fill{background:var(--signal);color:#fff;border-color:var(--signal)}
+.btn.fill:hover{background:var(--ink);border-color:var(--ink);box-shadow:3px 3px 0 var(--signal)}
+.hero .right{position:relative}
+.hero .right img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08)}
+.hero .right::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(228,87,46,.16));mix-blend-mode:multiply}
+.hero .stamp{position:absolute;left:0;bottom:0;background:var(--ink);color:var(--paper);
+  font-family:"IBM Plex Mono";font-size:10px;letter-spacing:.14em;padding:6px 10px;text-transform:uppercase}
+
+/* section */
+section{padding:clamp(26px,5vh,54px) var(--pad)}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.sec-head h2{font-size:clamp(19px,2.2vw,26px);font-weight:600;letter-spacing:-.025em;white-space:nowrap}
+.sec-head .id{font-family:"IBM Plex Mono";font-size:11px;background:var(--ink);color:var(--paper);padding:3px 8px;letter-spacing:.1em}
+.sec-head .fill{flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 6px,transparent 6px 12px)}
+
+/* interests */
+.interest{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.75fr);gap:0}
+.interest .q{padding:clamp(22px,3vw,40px);border-right:2px solid var(--line);display:flex;flex-direction:column;justify-content:center}
+.interest .q p{font-size:clamp(17px,1.9vw,24px);line-height:1.42;font-weight:400;letter-spacing:-.02em}
+.interest .q b{color:var(--signal);font-weight:600}
+.interest .q .tag{margin-bottom:14px;display:block}
+.interest .fig{padding:20px;display:grid;place-items:center;background:#fff}
+.interest .fig img{max-height:300px;object-fit:contain}
+
+/* updates: log lines */
+.log{font-family:"IBM Plex Mono";font-size:13px}
+.log div{display:grid;grid-template-columns:112px 76px 1fr;gap:14px;padding:11px 16px;border-bottom:1px solid var(--hair);align-items:baseline}
+.log div:last-child{border-bottom:0}
+.log div:hover{background:rgba(228,87,46,.07)}
+.log .d{color:var(--ink-30)}
+.log .k{font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--hair);padding:2px 6px;text-align:center;color:var(--ink-60)}
+.log .k.award{color:var(--signal-2);border-color:var(--signal-2)}
+.log .k.subm{color:var(--signal);border-color:var(--signal)}
+.log p{font-family:"IBM Plex Sans";font-weight:300;color:var(--ink-60)}
+.log strong{color:var(--ink);font-weight:500}
+
+/* publication table */
+.table{width:100%;border-collapse:collapse;font-size:14px}
+.table thead th{font-family:"IBM Plex Mono";font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;text-align:left;
+  padding:11px 16px;border-bottom:2px solid var(--line);color:var(--ink-60);font-weight:500}
+.table td{padding:16px;border-bottom:1px solid var(--hair);vertical-align:top}
+.table tbody tr{transition:background .2s}
+.table tbody tr:hover{background:rgba(228,87,46,.06)}
+.table tbody tr:last-child td{border-bottom:0}
+.table .idx{font-family:"IBM Plex Mono";color:var(--ink-30);width:52px}
+.table .thumb{width:104px}
+.table .thumb img{width:88px;height:62px;object-fit:cover;border:1.5px solid var(--line)}
+.table h3{font-size:15.5px;font-weight:500;letter-spacing:-.015em;line-height:1.35}
+.table .au{font-size:12.5px;color:var(--ink-30);font-weight:300;margin-top:6px}
+.table .au u{text-decoration:none;color:var(--ink-60);font-weight:600}
+.table .ven{font-family:"IBM Plex Mono";font-size:11px;letter-spacing:.06em;white-space:nowrap;color:var(--ink-60)}
+.table .ven b{display:inline-block;margin-top:6px;font-weight:500;color:var(--signal)}
+.table .dl a{font-family:"IBM Plex Mono";font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  border-bottom:1.5px solid var(--signal);white-space:nowrap}
+.note{font-family:"IBM Plex Mono";font-size:11px;color:var(--ink-30);margin-bottom:12px}
+
+footer{border-top:2px solid var(--line);margin-top:20px;padding:22px var(--pad);display:flex;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;font-family:"IBM Plex Mono";font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-60);background:var(--card)}
+
+@media(max-width:900px){
+  .hero,.interest{grid-template-columns:1fr}
+  .hero .left,.interest .q{border-right:0;border-bottom:2px solid var(--line)}
+  .hero .right{min-height:280px}
+  nav ul{display:none}
+  .table .thumb,.table .idx{display:none}
+  .table td{padding:12px}
+  .log div{grid-template-columns:1fr;gap:4px}
+  .log .k{justify-self:start;padding:2px 8px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#">JIACHENG_LIU</a>
+  <ul>
+    <li><a href="#work">Projects</a></li>
+    <li><a href="#work">Publications</a></li>
+    <li><a href="#">CV</a></li>
+    <li><a href="#">Gallery</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<header>
+  <div class="hero">
+    <div class="left">
+      <div class="meta-row">
+        <span class="hot">Ph.D. Year 1</span>
+        <span>SciFi Lab</span>
+        <span>Cornell University</span>
+        <span>Information Science</span>
+      </div>
+      <h1>Jiacheng Liu<small>刘 佳 成</small></h1>
+
+      <svg class="wave" viewBox="0 0 800 56" preserveAspectRatio="none" aria-hidden="true">
+        <path class="base" d="M0,34 L60,34 L72,30 L84,38 L96,10 L108,46 L120,26 L132,34 L200,34 L212,32 L224,36 L236,12 L248,44 L260,28 L272,34 L340,34 L352,30 L364,38 L376,10 L388,46 L400,26 L412,34 L480,34 L492,32 L504,36 L516,12 L528,44 L540,28 L552,34 L620,34 L632,30 L644,38 L656,10 L668,46 L680,26 L692,34 L800,34"/>
+        <path class="trace" d="M0,34 L60,34 L72,30 L84,38 L96,10 L108,46 L120,26 L132,34 L200,34 L212,32 L224,36 L236,12 L248,44 L260,28 L272,34 L340,34 L352,30 L364,38 L376,10 L388,46 L400,26 L412,34 L480,34 L492,32 L504,36 L516,12 L528,44 L540,28 L552,34 L620,34 L632,30 L644,38 L656,10 L668,46 L680,26 L692,34 L800,34"/>
+      </svg>
+
+      <div class="abstract">
+        <p>I build <b>AI-assisted sensing technologies</b> in <b>wearable form factors</b>: <b>activity-detection systems and assistive devices</b> that provide unobtrusive, seamless monitoring and support. Advised by <a href="#">Prof. Cheng Zhang</a> at the <a href="#">SciFi Lab</a>, <a href="#">Cornell University</a>.</p>
+        <p>Previously B.Eng. in <a href="#">Creative Design and Intelligent Engineering</a>, <a href="#">Xinya College, Tsinghua University</a> — with research in <a href="#">the PI Lab</a> and <a href="#">the Future Lab</a>.</p>
+      </div>
+
+      <div class="actions">
+        <a class="btn fill" href="#">Curriculum Vitae ↓</a>
+        <a class="btn" href="#"><img src="../../src/images/icons/github-mark-dark.png" alt="" style="width:13px;height:13px">GitHub</a>
+        <a class="btn" href="#"><img src="../../src/images/icons/google-scholar.png" alt="" style="width:13px;height:13px">Scholar</a>
+        <a class="btn" href="#">jl4596@cornell.edu</a>
+      </div>
+    </div>
+    <div class="right">
+      <img src="../../src/images/black_selfie.jpg" alt="Portrait of Jiacheng Liu">
+      <span class="stamp">Fig. 0 — the author</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head"><span class="id">01</span><h2>Research interests</h2><span class="fill"></span></div>
+  <div class="box interest">
+    <div class="q">
+      <span class="tag">Driving question</span>
+      <p>How can we integrate <b>AI with sensing systems</b> to develop early-detection systems and assistive devices for everyday use, providing <b>unobtrusive and seamless</b> health support for individuals with diverse health conditions?</p>
+    </div>
+    <div class="fig"><img src="../../src/images/research_interests.png" alt="Research interests diagram"></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="id">02</span><h2>Updates</h2><span class="fill"></span></div>
+  <div class="box log">
+    <div><span class="d">2025-06-20</span><span class="k award">Award</span><p>🏆 Awarded the <strong>Outstanding Undergraduate Thesis</strong>.</p></div>
+    <div><span class="d">2025-06-20</span><span class="k award">Award</span><p>🏵 Awarded the <strong>Xinya College Academic Excellence Award</strong>.</p></div>
+    <div><span class="d">2025-04-03</span><span class="k">News</span><p>🎉 Joining the <strong>SciFi Lab at Cornell University</strong> as a Ph.D. student in Information Science.</p></div>
+    <div><span class="d">2025-02-01</span><span class="k subm">Submit</span><p>📩 Submitted <strong>PPG-based Authentication on Smartwatches in Daily Scenarios</strong> to IMWUT'25 full paper track.</p></div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="sec-head"><span class="id">03</span><h2>Selected research</h2><span class="fill"></span></div>
+  <p class="note">* indicates co-first author</p>
+  <div class="box" style="overflow-x:auto">
+    <table class="table">
+      <thead><tr><th>#</th><th></th><th>Title / Authors</th><th>Venue</th><th>Links</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="idx">01</td>
+          <td class="thumb"><img src="../../src/images/research/bridge.png" alt=""></td>
+          <td><h3>PPG as a Bridge: Cross-Device Identity Transfer with Photoplethysmography</h3>
+            <p class="au"><u>Jiacheng Liu*</u>, Jiankai Tang*, Ruichen Gui, Songqin Cheng, Taiting Lu, Mahanth Gowda, Yuanchun Shi, Yuntao Wang</p></td>
+          <td class="ven">CHI '26<br><b>submitted</b></td>
+          <td class="dl">—</td>
+        </tr>
+        <tr>
+          <td class="idx">02</td>
+          <td class="thumb"><img src="../../src/images/research/speech.png" alt=""></td>
+          <td><h3>NeckVoice: Voice Synthesis for Laryngectomees with On-body Sound Actuation</h3>
+            <p class="au">Ruidong Zhang, <u>Jiacheng Liu</u>, Justin Xiang, Ke Li, Babak Sadoughi, Sam Tilsen, François Guimbretière, Cheng Zhang</p></td>
+          <td class="ven">Nature Electronics<br><b>submitted</b></td>
+          <td class="dl">—</td>
+        </tr>
+        <tr>
+          <td class="idx">03</td>
+          <td class="thumb"><img src="../../src/images/research/PPG_authen.jpg" alt=""></td>
+          <td><h3>Exploring Reliable PPG Authentication on Smartwatches in Daily Scenarios</h3>
+            <p class="au">Jiankai Tang*, <u>Jiacheng Liu*</u>, Renling Tong, Kai Zhu, Zhe Li, Junliang Xing, Yuanchun Shi, Yuntao Wang</p></td>
+          <td class="ven">arXiv '25</td>
+          <td class="dl"><a href="#">PDF</a> · <a href="#">DOI</a></td>
+        </tr>
+        <tr>
+          <td class="idx">04</td>
+          <td class="thumb"><img src="../../src/images/research/odoragent.png" alt=""></td>
+          <td><h3>OdorAgent: Generate Odor Sequences for Movies Based on Large Language Model</h3>
+            <p class="au">Yu Zhang, Peizhong Gao, Fangzhou Kang, Jiaxiang Li, <u>Jiacheng Liu</u>, Qi Lu, Yingqing Xu</p></td>
+          <td class="ven">IEEE VR '24</td>
+          <td class="dl"><a href="#">PDF</a> · <a href="#">DOI</a></td>
+        </tr>
+        <tr>
+          <td class="idx">05</td>
+          <td class="thumb"><img src="../../src/images/research/camera.png" alt=""></td>
+          <td><h3>Camera-Based Remote Physiology Sensing for Hundreds of Subjects Across Skin Tones</h3>
+            <p class="au">Jiankai Tang, Xinyi Li, <u>Jiacheng Liu</u>, Xiyuxing Zhang, Zeyu Wang, Yuntao Wang</p></td>
+          <td class="ven">CHI '24 Workshop<br>PhysioCHI</td>
+          <td class="dl"><a href="#">PDF</a> · <a href="#">DOI</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Jiacheng Liu</span>
+  <span>Concept 05 — Signal Lab</span>
+</footer>
+</body>
+</html>

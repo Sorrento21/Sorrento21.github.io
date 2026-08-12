@@ -3,22 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ site.title }}</title>
-    <link rel="icon" href="images/icons/favicon.png" type="image/png">
-    <link rel="stylesheet" href="styles/site.css" type="text/css">
+    <title>{% if title %}{{ title }} — {{ site.name }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="description" content="{{ description or site.description }}">
+    <meta name="color-scheme" content="dark light">
+    <meta name="theme-color" content="#0A0D10">
+    {# Set the theme before first paint: stored choice wins, otherwise follow the
+       OS. Inline and synchronous on purpose — a deferred script would flash. #}
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var theme = stored || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+          document.documentElement.setAttribute("data-theme", theme);
+          if (theme === "light") {
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (m) m.setAttribute("content", "#EFEDE6");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="icon" href="/images/icons/favicon.png" type="image/png">
+    <link rel="preload" href="/styles/fonts/jetbrains-mono-knk-6nFg.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/styles/fonts/inter-W0Q5n-wU.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/styles/site.css?v={{ build.time }}" type="text/css">
     {%- for css in extraStyles %}
-    <link rel="stylesheet" href="styles/{{ css }}">
+    <link rel="stylesheet" href="/styles/{{ css }}">
     {%- endfor %}
 </head>
 <body>
-    {% include "partials/header.njk" %}
-    <main>
-{{ content | safe }}
-    </main>
+    <a class="skip" href="#main">Skip to content</a>
 
-    <footer>
-        <p>{{ site.footer }}</p>
-    </footer>
-    <script src="js/menu.js" defer></script>
+    <div class="win{% if wide %} win-wide{% endif %}">
+        {% include "partials/header.njk" %}
+
+        <main class="body" id="main">
+{{ content | safe }}
+            <div class="line"><span class="pr"></span><span class="cmd c-d">_</span></div>
+        </main>
+
+        <footer class="win-foot">
+            <span>{{ site.footer }}</span>
+            <span>Built with <a href="https://www.11ty.dev/" target="_blank" rel="noopener">Eleventy</a></span>
+        </footer>
+    </div>
+
+    <div id="lb" role="dialog" aria-modal="true" aria-label="Enlarged figure" hidden>
+        <button class="x" type="button" aria-label="Close">✕</button>
+        <figure><img alt=""><figcaption></figcaption></figure>
+    </div>
+
+    <script src="/js/site.js?v={{ build.time }}" defer></script>
 </body>
 </html>

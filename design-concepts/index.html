@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design concepts — Jiacheng Liu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#101114;--card:#191A1E;--line:rgba(255,255,255,.1);
+  --text:#F0F1F4;--dim:#9A9FAC;--dimmer:#666B78;--accent:#6C8CFF;--good:#4ED6A5;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:"Inter",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.mono{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer)}
+.wrap{max-width:1220px;margin:0 auto;padding:clamp(28px,6vh,64px) clamp(18px,4vw,40px) 80px}
+
+header{margin-bottom:clamp(24px,4vh,44px);border-bottom:1px solid var(--line);padding-bottom:24px}
+h1{font-size:clamp(26px,3.6vw,42px);font-weight:600;letter-spacing:-.035em;margin:10px 0 12px}
+header p{color:var(--dim);max-width:78ch;font-weight:300}
+header p+p{margin-top:8px}
+header code{font-family:"JetBrains Mono";font-size:12.5px;background:var(--card);border:1px solid var(--line);padding:2px 6px;border-radius:5px;color:var(--text)}
+.notice{margin-top:20px;padding:14px 18px;border-radius:12px;background:rgba(108,140,255,.09);
+  border:1px solid rgba(108,140,255,.28);color:var(--dim);font-size:13.5px;font-weight:300;max-width:88ch}
+.notice strong{color:var(--text);font-weight:500}
+.notice code{font-family:"JetBrains Mono";font-size:12px;color:var(--text)}
+
+.brief{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:20px}
+.brief div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.brief h4{font-size:13px;font-weight:600;color:var(--good);margin-bottom:6px}
+.brief p{font-size:13px;color:var(--dim);font-weight:300}
+
+.batch{margin:38px 0 -2px;display:flex;align-items:center;gap:14px;color:var(--dimmer)}
+.batch::after{content:"";flex:1;height:1px;background:var(--line)}
+.batch b{color:var(--text);font-weight:500;letter-spacing:0;text-transform:none;font-size:14px;font-family:"Inter"}
+
+.list{display:flex;flex-direction:column;gap:22px;margin-top:18px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  display:grid;grid-template-columns:minmax(0,1fr) 420px}
+.item .info{padding:clamp(20px,2.6vw,32px);display:flex;flex-direction:column;gap:12px}
+.item h2{font-size:clamp(19px,2.2vw,26px);font-weight:600;letter-spacing:-.03em;line-height:1.2}
+.item h2 span{color:var(--dimmer);font-weight:400;margin-right:8px}
+.item h2 em{font-style:normal;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--good);
+  border:1px solid rgba(78,214,165,.4);border-radius:99px;padding:3px 9px;margin-left:10px;vertical-align:middle}
+.item h2 em.new{color:var(--accent);border-color:rgba(108,140,255,.45)}
+.item .desc{color:var(--dim);font-weight:300;font-size:14.5px}
+.item dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px;margin-top:2px}
+.item dt{color:var(--dimmer);font-family:"JetBrains Mono";font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding-top:3px}
+.item dd{color:var(--dim);font-weight:300}
+.swatches{display:flex;gap:7px;margin-top:4px}
+.swatches i{width:22px;height:22px;border-radius:6px;border:1px solid var(--line);display:block}
+.open{margin-top:auto;display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+  padding:10px 18px;border-radius:99px;background:var(--accent);color:#0C0D10;font-weight:500;font-size:14px;transition:.22s}
+.open:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.preview{position:relative;border-left:1px solid var(--line);background:var(--card);overflow:hidden;min-height:340px}
+.preview iframe{position:absolute;top:0;left:0;width:1440px;height:1800px;border:0;
+  transform:scale(.2917);transform-origin:0 0;pointer-events:none}
+.preview .veil{position:absolute;inset:0;cursor:pointer}
+.preview .veil:hover{box-shadow:inset 0 0 0 2px var(--accent)}
+
+footer{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);color:var(--dimmer);font-size:13px;font-weight:300}
+footer a{color:var(--accent)}
+
+@media(max-width:900px){
+  .item{grid-template-columns:1fr}
+  .preview{order:-1;height:260px;border-left:0;border-bottom:1px solid var(--line)}
+  .preview iframe{transform:scale(.42)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="mono">Personal site · redesign options · round 2</p>
+  <h1>Ten directions</h1>
+  <p>Five kept from round one and reworked, five brand new. Every option is a complete working homepage built from your real content, publications, project shots and paintings. Click a card to open it full size; resize the window to check the responsive behaviour. Nothing here touches the live site — these are standalone prototypes in <code>website/design-concepts/</code>.</p>
+
+  <div class="brief">
+    <div><h4>1 · Images lead</h4><p>Every paper and project is now an image card first — figures are large, croppable and open full-size in a lightbox. Each media slot also accepts a GIF or looping video.</p></div>
+    <div><h4>2 · Motion &amp; interaction</h4><p>Scroll reveals, parallax, drag-scroll rails, hover previews, keyboard navigation. Every effect degrades gracefully and respects <code>prefers-reduced-motion</code>.</p></div>
+    <div><h4>3 · Strong key visual, still usable</h4><p>One deliberate hero idea per concept — never at the cost of legibility, and never blocking the path to the CV, the papers or the contact details.</p></div>
+  </div>
+
+  <div class="notice">
+    <strong>Previews blank, or "Open full page" not working?</strong> This page needs a local server
+    running — the concepts load images from <code>../src/images/</code>. Double-click
+    <code>design-concepts/preview.command</code> in Finder: it starts the server, opens this page,
+    and keeps running until you close its Terminal window (Ctrl-C).
+  </div>
+</header>
+
+<p class="batch mono"><b>Kept &amp; reworked</b> · 02 · 04 · 07 · 09 · 10</p>
+
+<div class="list">
+
+  <article class="item">
+    <div class="info">
+      <h2><span>02</span>Aurora Dark<em>reworked</em></h2>
+      <p class="desc">The hero is now a floating collage — portrait plus three research figures that drift with your cursor in 3D. Papers became full-bleed image cards on a 12-column grid (one 21:8 feature, then halves and thirds); the author list unfolds on hover so the picture owns the card. Projects sit in a drag-scrollable rail.</p>
+      <dl>
+        <dt>Key visual</dt><dd>Drifting aurora + parallax collage</dd>
+        <dt>Interaction</dt><dd>Cursor parallax · scroll reveal · lightbox · drag rail</dd>
+        <dt>Risk</dt><dd>Dark themes date faster; figures must look good cropped</dd>
+      </dl>
+      <div class="swatches"><i style="background:#08090C"></i><i style="background:#7C6BFF"></i><i style="background:#3FD0C9"></i><i style="background:#FF7A6B"></i></div>
+      <a class="open" href="02-aurora-dark.html" target="_blank">Open full page ↗</a>
+    </div>
+    <div class="preview"><iframe src="02-aurora-dark.html" title="Aurora Dark preview" loading="lazy"></iframe><a class="veil" href="02-aurora-dark.html" target="_blank" aria-label="Open Aurora Dark"></a></div>
+  </article>
+
+  <article class="item">
+    <div class="info">
+      <h2><span>04</span>Bento<em>reworked</em></h2>
+      <p class="desc">Half the tiles are now pictures: a 21:8 feature paper, image tiles for every other paper and project, and a five-photo gallery mosaic. Text sits over the image and the authors slide in on hover, so the grid reads as a wall of work rather than a wall of cards. Still follows the system light/dark setting.</p>
+      <dl>
+        <dt>Key visual</dt><dd>Modular tile wall, image-filled</dd>
+        <dt>Interaction</dt><dd>Staggered reveal · hover lift · lightbox · auto dark mode</dd>
+        <dt>Risk</dt><dd>Bento is everywhere right now — least timeless</dd>
+      </dl>
+      <div class="swatches"><i style="background:#EFEFF2"></i><i style="background:#2E6BFF"></i><i style="background:#12A46B"></i><i style="background:#7A5AF8"></i></div>
+      <a class="open" href="04-bento.html" target="_blank">Open full page ↗</a>
+    </div>
+    <div class="preview"><iframe src="04-bento.html" title="Bento preview" loading="lazy"></iframe><a class="veil" href="04-bento.html" target="_blank" aria-label="Open Bento"></a></div>
+  </article>
+
+  <article class="item">
+    <div class="info">
+      <h2><span>07</span>Kinetic Type<em>reworked</em></h2>
+      <p class="desc">Keeps the 15vw name, but a full-bleed auto-scrolling image band now runs right under it (it pauses when you hover). Publications became an accordion: click a row and its figure unfolds at full width with a short plain-language summary. A cursor-following thumbnail still previews the closed rows.</p>
+      <dl>
+        <dt>Key visual</dt><dd>Giant type + moving image band</dd>
+        <dt>Interaction</dt><dd>Marquee · accordion figures · cursor preview · drag filmstrip</dd>
+        <dt>Risk</dt><dd>Loudest of the ten — reads designer more than researcher</dd>
+      </dl>
+      <div class="swatches"><i style="background:#0E0E0E"></i><i style="background:#F2F0EA"></i><i style="background:#D6FF3E"></i><i style="background:#8B8B85"></i></div>
+      <a class="open" href="07-kinetic-type.html" target="_blank">Open full page ↗</a>
+    </div>
+    <div class="preview"><iframe src="07-kinetic-type.html" title="Kinetic Type preview" loading="lazy"></iframe><a class="veil" href="07-kinetic-type.html" target="_blank" aria-label="Open Kinetic Type"></a></div>
+  </article>
+
+  <article class="item">
+    <div class="info">
+      <h2><span>09</span>Soft Gradient<em>reworked</em></h2>
+      <p class="desc">The hero is a photo stack — round portrait with two research figures floating beside it, all reacting to the cursor. Paper cards grew to 16:9 (one 21:8 feature) and tilt in 3D under the pointer. Projects run in a drag rail; the gallery is a mosaic. Same friendly pastel mesh, far more picture.</p>
+      <dl>
+        <dt>Key visual</dt><dd>Pastel mesh + floating photo stack</dd>
+        <dt>Interaction</dt><dd>Parallax · 3D card tilt · drag rail · lightbox</dd>
+        <dt>Risk</dt><dd>Reads slightly startup-ish; needs restraint to stay academic</dd>
+      </dl>
+      <div class="swatches"><i style="background:#FBFAFF"></i><i style="background:#B8A6F5"></i><i style="background:#8EE3C8"></i><i style="background:#6E5AE6"></i></div>
+      <a class="open" href="09-soft-gradient.html" target="_blank">Open full page ↗</a>
+    </div>
+    <div class="preview"><iframe src="09-soft-gradient.html" title="Soft Gradient preview" loading="lazy"></iframe><a class="veil" href="09-soft-gradient.html" target="_blank" aria-label="Open Soft Gradient"></a></div>
+  </article>
+
+  <article class="item">
+    <div class="info">
+      <h2><span>10</span>Terminal<em>reworked</em></h2>
+      <p class="desc">The <code>ls</code> became <code>open publications/ --preview</code>: a two-pane file browser where hovering or arrowing through the list cross-fades a large figure into the preview panel, with venue, authors and links underneath. Projects and paintings are thumbnail grids. Keyboard: ↑ ↓ or j / k.</p>
+      <dl>
+        <dt>Key visual</dt><dd>Terminal window + live preview pane</dd>
+        <dt>Interaction</dt><dd>Typed command · keyboard browsing · cross-fade · lightbox</dd>
+        <dt>Risk</dt><dd>A joke that has to stay funny for years; weakest for non-CS visitors</dd>
+      </dl>
+      <div class="swatches"><i style="background:#0A0D10"></i><i style="background:#5BE49B"></i><i style="background:#56C7E8"></i><i style="background:#E8C46A"></i></div>
+      <a class="open" href="10-terminal.html" target="_blank">Open full page ↗</a>
+    </div>
+    <div class="preview"><iframe src="10-terminal.html" title="Terminal preview" loading="lazy"></iframe><a class="veil" href="10-terminal.html" target="_blank" aria-label="Open Terminal"></a></div>
+  </article>
+
+</div>
+
+<p class="batch mono"><b>New this round</b> · 11 – 15</p>
+
+<div class="list">
+
+  <article class="item">
+    <div class="info">
+      <h2><span>11</span>Cinematic<em class="new">new</em></h2>
+      <p class="desc">A full-viewport portrait with a slow Ken Burns drift opens the page, then each paper takes an entire screen-height band: its figure fills the background at 60% brightness and moves at a different speed than the text as you scroll. Reads like film titles. Projects close it out as a mosaic.</p>
+      <dl>
+        <dt>Key visual</dt><dd>Full-bleed hero + full-width paper bands</dd>
+        <dt>Interaction</dt><dd>Ken Burns · scroll parallax · progress bar · lightbox</dd>
+        <dt>Risk</dt><dd>Long page; the figures must survive heavy cropping</dd>
+      </dl>
+      <div class="swatches"><i style="background:#08080A"></i><i style="background:#FF4D3D"></i><i style="background:#4DD4C0"></i><i style="background:#F4F5F7"></i></div>
+      <a class="open" href="11-cinematic.html" target="_blank">Open full page ↗</a>
+    </div>
+    <div class="preview"><iframe src="11-cinematic.html" title="Cinematic preview" loading="lazy"></iframe><a class="veil" href="11-cinematic.html" target="_blank" aria-label="Open Cinematic"></a></div>
+  </article>
+
+  <article class="item">
+    <div class="info">
+      <h2><span>12</span>Filmstrip<em class="new">new</em></h2>
+      <p class="desc">Papers live in a horizontal strip of large 16:9 cards you drag, wheel, arrow-key or step through with buttons; the centred card is highlighted and a dot row tracks position. Light warm paper background keeps it academic — the motion is in the strip, not in the page.</p>
+      <dl>
+        <dt>Key visual</dt><dd>Big horizontal cards on warm paper</dd>
+        <dt>Interaction</dt><dd>Snap scroll · drag · wheel-to-pan · arrow keys · lightbox</dd>
+        <dt>Risk</dt><dd>Horizontal scrolling is not everyone's instinct</dd>
+      </dl>
+      <div class="swatches"><i style="background:#F2F1EE"></i><i style="background:#141414"></i><i style="background:#1F4BFF"></i><i style="background:#FF5C35"></i></div>
+      <a class="open" href="12-filmstrip.html" target="_blank">Open full page ↗</a>
+    </div>
+    <div class="preview"><iframe src="12-filmstrip.html" title="Filmstrip preview" loading="lazy"></iframe><a class="veil" href="12-filmstrip.html" target="_blank" aria-label="Open Filmstrip"></a></div>
+  </article>
+
+  <article class="item">
+    <div class="info">
+      <h2><span>13</span>Media Wall<em class="new">new</em></h2>
+      <p class="desc">Everything you have made on one masonry wall — papers, design projects and paintings mixed, filtered by Research / Design / Art, with a couple of text panels woven in. Hovering dims everything else; clicking opens a lightbox with the full figure, the authors and the venue, and ← → walks the whole set.</p>
+      <dl>
+        <dt>Key visual</dt><dd>A single wall of everything you have made</dd>
+        <dt>Interaction</dt><dd>Filters · staggered entrance · hover dim · lightbox with prev/next</dd>
+        <dt>Risk</dt><dd>Flattens the hierarchy — a paper and a sketch look equally weighted</dd>
+      </dl>
+      <div class="swatches"><i style="background:#0F1013"></i><i style="background:#5B8DEF"></i><i style="background:#F5A524"></i><i style="background:#E0669A"></i></div>
+      <a class="open" href="13-media-wall.html" target="_blank">Open full page ↗</a>
+    </div>
+    <div class="preview"><iframe src="13-media-wall.html" title="Media Wall preview" loading="lazy"></iframe><a class="veil" href="13-media-wall.html" target="_blank" aria-label="Open Media Wall"></a></div>
+  </article>
+
+  <article class="item">
+    <div class="info">
+      <h2><span>14</span>Spotlight<em class="new">new</em></h2>
+      <p class="desc">The hero is a live canvas: a field of dots with a pulse wave travelling through it — your own subject matter as the key visual — and the dots push away from your cursor. Below, a warm spotlight follows the pointer inside each paper card. The animation pauses itself when scrolled out of view.</p>
+      <dl>
+        <dt>Key visual</dt><dd>Interactive sensor field (canvas)</dd>
+        <dt>Interaction</dt><dd>Cursor-reactive particles · per-card spotlight · reveal · lightbox</dd>
+        <dt>Risk</dt><dd>The only concept whose hero needs JS; canvas costs a little battery</dd>
+      </dl>
+      <div class="swatches"><i style="background:#07090C"></i><i style="background:#FF5E57"></i><i style="background:#4FC3F7"></i><i style="background:#EAEEF2"></i></div>
+      <a class="open" href="14-spotlight.html" target="_blank">Open full page ↗</a>
+    </div>
+    <div class="preview"><iframe src="14-spotlight.html" title="Spotlight preview" loading="lazy"></iframe><a class="veil" href="14-spotlight.html" target="_blank" aria-label="Open Spotlight"></a></div>
+  </article>
+
+  <article class="item">
+    <div class="info">
+      <h2><span>15</span>Card Deck<em class="new">new</em></h2>
+      <p class="desc">Papers are a physical deck: the top card shows one big figure, you flick it away with the mouse (or arrow keys, or the buttons) and the next slides up, while the panel beside it swaps the number, venue and a one-sentence summary. Clicking a card opens the figure full size.</p>
+      <dl>
+        <dt>Key visual</dt><dd>Stacked, throwable cards</dd>
+        <dt>Interaction</dt><dd>Drag-to-dismiss · keyboard · progress bar · lightbox</dd>
+        <dt>Risk</dt><dd>Only one paper visible at a time; needs a plain list elsewhere</dd>
+      </dl>
+      <div class="swatches"><i style="background:#EAE7E1"></i><i style="background:#16161A"></i><i style="background:#3A2FE0"></i><i style="background:#FF7043"></i></div>
+      <a class="open" href="15-card-deck.html" target="_blank">Open full page ↗</a>
+    </div>
+    <div class="preview"><iframe src="15-card-deck.html" title="Card Deck preview" loading="lazy"></iframe><a class="veil" href="15-card-deck.html" target="_blank" aria-label="Open Card Deck"></a></div>
+  </article>
+
+</div>
+
+<footer>
+  The five directions you did not pick (01 Editorial Grid, 03 Warm Serif, 05 Signal Lab, 06 Sticky Split, 08 Color Block)
+  are kept untouched in <code>archive/</code> — nothing was deleted.
+  See <code>README.md</code> for what still needs deciding before any of these ships.
+</footer>
+
+</div>
+</body>
+</html>

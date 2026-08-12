@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11 · Cinematic — Jiacheng Liu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08080A;--surface:#101116;--line:rgba(255,255,255,.1);--text:#F4F5F7;--dim:#9498A4;--dimmer:#5F6470;
+  --accent:#FF4D3D;--accent-2:#4DD4C0;--pad:clamp(18px,4.6vw,80px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:"Sora",system-ui,sans-serif;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+.mono{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer)}
+
+[data-rv]{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+[data-rv].in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){[data-rv]{opacity:1;transform:none;transition:none}}
+
+/* progress bar */
+#bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2));z-index:99;width:0}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;justify-content:space-between;align-items:center;
+  padding:18px var(--pad);mix-blend-mode:difference}
+nav .b{font-weight:600;letter-spacing:-.02em}
+nav ul{display:flex;gap:20px;list-style:none}
+nav ul a{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.75;transition:opacity .2s}
+nav ul a:hover{opacity:1}
+
+/* ── full-bleed hero ── */
+.hero{position:relative;height:100svh;min-height:520px;overflow:hidden;display:flex;align-items:flex-end}
+.hero .bgimg{position:absolute;inset:-6% -2%;z-index:0}
+.hero .bgimg img{width:100%;height:100%;object-fit:cover;object-position:74% 30%;
+  filter:grayscale(.5) contrast(1.06) brightness(.62);
+  animation:kenburns 26s ease-in-out infinite alternate;will-change:transform}
+@keyframes kenburns{from{transform:scale(1.06) translate3d(0,0,0)}to{transform:scale(1.18) translate3d(-2%,-2%,0)}}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(8,8,10,.6) 0%,rgba(8,8,10,.2) 26%,rgba(8,8,10,.9) 74%,var(--bg) 100%),
+             linear-gradient(96deg,rgba(8,8,10,.92) 0%,rgba(8,8,10,.62) 38%,rgba(8,8,10,.1) 68%)}
+.hero .in{position:relative;z-index:2;padding:0 var(--pad) clamp(34px,7vh,80px);width:100%}
+.hero h1{font-size:clamp(38px,7.4vw,104px);font-weight:600;letter-spacing:-.045em;line-height:.98;color:#fff;
+  text-shadow:0 6px 40px rgba(0,0,0,.55)}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .sub{display:flex;flex-wrap:wrap;gap:12px 26px;align-items:baseline;margin-top:18px}
+.hero .sub p{color:var(--dim);max-width:52ch;font-weight:300}
+.hero .sub b{color:var(--text);font-weight:500}
+.scroll-cue{position:absolute;right:var(--pad);bottom:clamp(34px,7vh,80px);z-index:3;display:flex;align-items:center;gap:10px}
+.scroll-cue i{display:block;width:1px;height:44px;background:linear-gradient(var(--dimmer),transparent);animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{50%{transform:scaleY(.5);transform-origin:top}}
+
+/* ── cinematic bands ── */
+.band{position:relative;min-height:clamp(420px,72vh,660px);display:grid;align-items:center;overflow:hidden;
+  border-top:1px solid var(--line)}
+.band .bg{position:absolute;inset:-12% 0;z-index:0}
+.band .bg img{width:100%;height:100%;object-fit:cover;filter:brightness(.5) grayscale(.25);will-change:transform}
+.band::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(8,8,10,.92) 8%,rgba(8,8,10,.55) 48%,rgba(8,8,10,.22))}
+.band.flip::after{background:linear-gradient(260deg,rgba(8,8,10,.92) 8%,rgba(8,8,10,.55) 48%,rgba(8,8,10,.22))}
+.band .content{position:relative;z-index:2;padding:clamp(34px,6vh,70px) var(--pad);max-width:min(720px,64vw)}
+.band.flip .content{margin-left:auto;text-align:right}
+.band .idx{color:var(--accent);margin-bottom:14px}
+.band h3{font-size:clamp(22px,3.2vw,44px);font-weight:600;letter-spacing:-.035em;line-height:1.08}
+.band .au{color:var(--dim);font-size:13px;font-weight:300;margin-top:14px;max-width:56ch}
+.band.flip .au{margin-left:auto}
+.band .au u{text-decoration:none;color:var(--text);font-weight:500}
+.band .row{display:flex;gap:12px;align-items:center;margin-top:20px;flex-wrap:wrap}
+.band.flip .row{justify-content:flex-end}
+.chip{border:1px solid var(--line);border-radius:99px;padding:6px 14px;font-family:"JetBrains Mono";font-size:10.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--dim);background:rgba(8,8,10,.5);backdrop-filter:blur(6px)}
+.chip.hot{border-color:var(--accent);color:var(--accent)}
+.chip.gif{background:var(--accent-2);color:#08080A;border-color:var(--accent-2);font-weight:700}
+.viewbtn{display:inline-flex;align-items:center;gap:9px;border-radius:99px;padding:11px 20px;font-size:13.5px;font-weight:500;
+  background:rgba(255,255,255,.1);border:1px solid var(--line);backdrop-filter:blur(8px);transition:.25s}
+.viewbtn:hover{background:#fff;color:#08080A;border-color:#fff}
+
+/* standard sections */
+section{padding:clamp(40px,8vh,96px) var(--pad)}
+.head{display:flex;align-items:baseline;gap:16px;margin-bottom:26px}
+.head h2{font-size:clamp(22px,2.6vw,34px);font-weight:600;letter-spacing:-.03em}
+.head .rule{flex:1;height:1px;background:var(--line)}
+
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(22px,4vw,56px);align-items:center}
+.split .q{font-size:clamp(18px,2.2vw,28px);font-weight:400;letter-spacing:-.025em;line-height:1.36}
+.split .q b{color:var(--accent-2);font-weight:600}
+.split img{border-radius:14px;background:#fff;padding:12px;cursor:zoom-in}
+
+/* project mosaic */
+.mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.mosaic a{position:relative;overflow:hidden;border-radius:14px;background:var(--surface);display:block;
+  grid-column:span 2;aspect-ratio:4/3}
+.mosaic a:nth-child(1){grid-column:span 4;aspect-ratio:16/9}
+.mosaic a:nth-child(4){grid-column:span 4;aspect-ratio:16/9}
+.mosaic img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1),filter .5s;filter:brightness(.72) grayscale(.3)}
+.mosaic a:hover img{transform:scale(1.07);filter:none}
+.mosaic .lab{position:absolute;left:16px;bottom:14px;z-index:2;transform:translateY(8px);opacity:.85;transition:.35s}
+.mosaic a:hover .lab{transform:none;opacity:1}
+.mosaic h4{font-size:15.5px;font-weight:500;letter-spacing:-.02em}
+.mosaic p{font-size:11.5px;color:var(--dim);margin-top:2px}
+
+.upd{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.upd .u{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--surface);transition:.3s}
+.upd .u:hover{transform:translateY(-4px);border-color:rgba(255,77,61,.5)}
+.upd time{display:block;margin-bottom:8px}
+.upd p{color:var(--dim);font-size:14px;font-weight:300}
+.upd strong{color:var(--text);font-weight:500}
+
+#lb{position:fixed;inset:0;z-index:200;background:rgba(6,6,8,.94);backdrop-filter:blur(14px);
+  display:grid;place-items:center;padding:5vh 5vw;opacity:0;pointer-events:none;transition:opacity .3s}
+#lb.on{opacity:1;pointer-events:auto}
+#lb figure{max-width:1150px;transform:scale(.96);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+#lb.on figure{transform:none}
+#lb img{max-height:78vh;width:auto;border-radius:10px;background:#fff}
+#lb figcaption{margin-top:14px;color:var(--dim);font-size:13px;text-align:center}
+#lb .x{position:absolute;top:22px;right:26px;font-size:26px;color:var(--dim)}
+
+footer{padding:30px var(--pad);border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+
+@media(max-width:860px){
+  nav ul{display:none}
+  .band .content,.band.flip .content{max-width:none;text-align:left;margin:0}
+  .band.flip .row{justify-content:flex-start}
+  .band.flip .au{margin-left:0}
+  .split{grid-template-columns:1fr}
+  .mosaic{grid-template-columns:repeat(2,1fr)}
+  .mosaic a,.mosaic a:nth-child(1),.mosaic a:nth-child(4){grid-column:span 2;aspect-ratio:16/10}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<nav>
+  <a class="b" href="#">Jiacheng Liu</a>
+  <ul>
+    <li><a href="#work">Research</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#">CV</a></li>
+    <li><a href="#">Gallery</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="bgimg"><img src="../src/images/black_selfie.jpg" alt="Portrait of Jiacheng Liu"></div>
+  <div class="in">
+    <p class="mono" data-rv>Ph.D. Student · SciFi Lab · Cornell University</p>
+    <h1 data-rv>Jiacheng Liu<br><em>刘佳成</em></h1>
+    <div class="sub" data-rv>
+      <p>I build <b>AI-assisted sensing technologies</b> in <b>wearable form factors</b> — activity-detection systems and assistive devices that provide unobtrusive, seamless monitoring and support.</p>
+      <a class="viewbtn" href="#work">Enter the work ↓</a>
+    </div>
+  </div>
+  <span class="scroll-cue mono">Scroll <i></i></span>
+</header>
+
+<main id="work">
+
+  <article class="band">
+    <div class="bg" data-par="0.16"><img src="../src/images/research/bridge.png" alt=""></div>
+    <div class="content" data-rv>
+      <p class="idx mono">01 — CHI '26 · submitted</p>
+      <h3>PPG as a Bridge: Cross-Device Identity Transfer with Photoplethysmography</h3>
+      <p class="au"><u>Jiacheng Liu*</u>, Jiankai Tang*, Ruichen Gui, Songqin Cheng, Taiting Lu, Mahanth Gowda, Yuanchun Shi, Yuntao Wang</p>
+      <div class="row">
+        <span class="chip hot">Co-first author</span><span class="chip gif">GIF</span>
+        <a class="viewbtn" href="#" data-full="../src/images/research/bridge.png" data-cap="PPG as a Bridge — system pipeline">View figure ⤢</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="band flip">
+    <div class="bg" data-par="0.16"><img src="../src/images/research/speech.png" alt=""></div>
+    <div class="content" data-rv>
+      <p class="idx mono">02 — Nature Electronics · submitted</p>
+      <h3>NeckVoice: Voice Synthesis for Laryngectomees with On-body Sound Actuation</h3>
+      <p class="au">Ruidong Zhang, <u>Jiacheng Liu</u>, Justin Xiang, Ke Li, Babak Sadoughi, Sam Tilsen, François Guimbretière, Cheng Zhang</p>
+      <div class="row">
+        <span class="chip">Assistive devices</span>
+        <a class="viewbtn" href="#" data-full="../src/images/research/speech.png" data-cap="NeckVoice — denoising and adaptive warping">View figure ⤢</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="band">
+    <div class="bg" data-par="0.16"><img src="../src/images/research/PPG_authen.jpg" alt=""></div>
+    <div class="content" data-rv>
+      <p class="idx mono">03 — arXiv '25</p>
+      <h3>Exploring Reliable PPG Authentication on Smartwatches in Daily Scenarios</h3>
+      <p class="au">Jiankai Tang*, <u>Jiacheng Liu*</u>, Renling Tong, Kai Zhu, Zhe Li, Junliang Xing, Yuanchun Shi, Yuntao Wang</p>
+      <div class="row">
+        <span class="chip hot">Co-first author</span>
+        <a class="viewbtn" href="#" data-full="../src/images/research/PPG_authen.jpg" data-cap="PPG authentication — cross-activity and cross-day evaluation">View figure ⤢</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="band flip">
+    <div class="bg" data-par="0.16"><img src="../src/images/research/odoragent.png" alt=""></div>
+    <div class="content" data-rv>
+      <p class="idx mono">04 — IEEE VR '24</p>
+      <h3>OdorAgent: Generate Odor Sequences for Movies Based on Large Language Model</h3>
+      <p class="au">Yu Zhang, Peizhong Gao, Fangzhou Kang, Jiaxiang Li, <u>Jiacheng Liu</u>, Qi Lu, Yingqing Xu</p>
+      <div class="row">
+        <span class="chip">Published</span>
+        <a class="viewbtn" href="#" data-full="../src/images/research/odoragent.png" data-cap="OdorAgent — pipeline">View figure ⤢</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="band">
+    <div class="bg" data-par="0.16"><img src="../src/images/research/camera.png" alt=""></div>
+    <div class="content" data-rv>
+      <p class="idx mono">05 — CHI '24 Workshop PhysioCHI</p>
+      <h3>Camera-Based Remote Physiology Sensing for Hundreds of Subjects Across Skin Tones</h3>
+      <p class="au">Jiankai Tang, Xinyi Li, <u>Jiacheng Liu</u>, Xiyuxing Zhang, Zeyu Wang, Yuntao Wang</p>
+      <div class="row">
+        <span class="chip">Published</span>
+        <a class="viewbtn" href="#" data-full="../src/images/research/camera.png" data-cap="Remote physiology across skin tones">View figure ⤢</a>
+      </div>
+    </div>
+  </article>
+
+</main>
+
+<section id="projects">
+  <div class="head" data-rv><h2>Design &amp; course projects</h2><div class="rule"></div><span class="mono">06 works</span></div>
+  <div class="mosaic" data-rv>
+    <a href="#" data-full="../src/images/projects/magnet.png" data-cap="TagMagnet — personalized album app">
+      <img src="../src/images/projects/magnet.png" alt=""><span class="lab"><h4>TagMagnet</h4><p>Personalized album app · 2023</p></span></a>
+    <a href="#" data-full="../src/images/projects/canvas.png" data-cap="CanvaSphere — urban art festival">
+      <img src="../src/images/projects/canvas.png" alt=""><span class="lab"><h4>CanvaSphere</h4><p>Urban art festival · 2023</p></span></a>
+    <a href="#" data-full="../src/images/projects/wave.png" data-cap="Water Ripples — wooden mechanism">
+      <img src="../src/images/projects/wave.png" alt=""><span class="lab"><h4>Water Ripples</h4><p>Mechanical design · 2024</p></span></a>
+    <a href="#" data-full="../src/images/projects/charm.png" data-cap="Charm Clicker — photo guide app">
+      <img src="../src/images/projects/charm.png" alt=""><span class="lab"><h4>Charm Clicker</h4><p>Photo guide app · 2024</p></span></a>
+    <a href="#" data-full="../src/images/projects/guide.png" data-cap="Xinya guide system redesign">
+      <img src="../src/images/projects/guide.png" alt=""><span class="lab"><h4>Guide System</h4><p>Wayfinding · 2024</p></span></a>
+    <a href="#" data-full="../src/images/projects/car.jpg" data-cap="Line-following robot">
+      <img src="../src/images/projects/car.jpg" alt=""><span class="lab"><h4>Line Robot</h4><p>Electronics · 2023</p></span></a>
+  </div>
+</section>
+
+<section>
+  <div class="head" data-rv><h2>Research interests</h2><div class="rule"></div></div>
+  <div class="split" data-rv>
+    <p class="q">How can we integrate <b>AI with sensing systems</b> to develop early-detection systems and assistive devices for everyday use — providing unobtrusive and seamless health support for individuals with diverse health conditions?</p>
+    <img src="../src/images/research_interests.png" alt="Research interests diagram" data-full="../src/images/research_interests.png" data-cap="Research interests">
+  </div>
+</section>
+
+<section>
+  <div class="head" data-rv><h2>Updates</h2><div class="rule"></div><span class="mono">2025</span></div>
+  <div class="upd" data-rv>
+    <div class="u"><time class="mono">2025.06.20</time><p>🏆 Awarded the <strong>Outstanding Undergraduate Thesis</strong>.</p></div>
+    <div class="u"><time class="mono">2025.06.20</time><p>🏵 Awarded the <strong>Xinya College Academic Excellence Award</strong>.</p></div>
+    <div class="u"><time class="mono">2025.04.03</time><p>🎉 Joining the <strong>SciFi Lab at Cornell University</strong> as a Ph.D. student.</p></div>
+    <div class="u"><time class="mono">2025.02.01</time><p>📩 Submitted <strong>PPG-based Authentication on Smartwatches</strong> to IMWUT'25.</p></div>
+  </div>
+</section>
+
+<footer>
+  <span class="mono">© 2025 Jiacheng Liu</span>
+  <span class="mono">Concept 11 — Cinematic</span>
+</footer>
+
+<div id="lb"><span class="x">✕</span><figure><img alt=""><figcaption></figcaption></figure></div>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.12});
+document.querySelectorAll('[data-rv]').forEach(el=>io.observe(el));
+
+// scroll progress + band parallax
+const bar=document.getElementById('bar'),pars=[...document.querySelectorAll('[data-par]')];
+let ticking=false;
+function frame(){
+  const h=document.documentElement.scrollHeight-innerHeight;
+  bar.style.width=(scrollY/h*100)+'%';
+  pars.forEach(p=>{
+    const r=p.parentElement.getBoundingClientRect();
+    if(r.bottom>-200&&r.top<innerHeight+200){
+      const mid=(r.top+r.height/2-innerHeight/2)/innerHeight;
+      p.style.transform=`translate3d(0,${mid*r.height*+p.dataset.par}px,0)`;
+    }
+  });
+  ticking=false;
+}
+addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(frame)}},{passive:true});
+frame();
+
+const lb=document.getElementById('lb'),lbi=lb.querySelector('img'),lbc=lb.querySelector('figcaption');
+document.querySelectorAll('[data-full]').forEach(el=>el.addEventListener('click',ev=>{
+  ev.preventDefault();lbi.src=el.dataset.full;lbc.textContent=el.dataset.cap||'';lb.classList.add('on');
+}));
+lb.addEventListener('click',()=>lb.classList.remove('on'));
+addEventListener('keydown',e=>e.key==='Escape'&&lb.classList.remove('on'));
+</script>
+</body>
+</html>

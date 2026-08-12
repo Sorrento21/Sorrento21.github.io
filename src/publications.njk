@@ -1,21 +1,57 @@
 ---
 layout: layouts/base.njk
 permalink: /publications.html
-extraStyles: ["projects.css", "publications.css"]
+shellPath: personal-site/publications
+currentPage: publications.html
+title: Publications
+description: "Publications by Jiacheng Liu — wearable sensing, PPG authentication, assistive voice synthesis, remote physiology."
 ---
-{%- from "partials/macros.njk" import pubItem %}
-        <section class="abstract">
-            <div class="content">
-                <h2>Publications</h2>
-                <p>* indicates co-first author. See full publication list at my <a href="https://scholar.google.com/citations?user=_mc1WWgAAAAJ&hl=en">Google Scholar Page</a>.</p>
-            </div>
-        </section>
+{%- from "partials/macros.njk" import cmd %}
 
-        {%- for section in publications %}
-        <section class="publication_list">
-            <div class="content">
-                <h3>{{ section.group }}</h3>
-                {%- for pub in section.items %}{{ pubItem(pub) }}{%- endfor %}
+{{ cmd("ls -l publications/ --sort=year") }}
+            <div class="out">
+                <p class="hint">
+                    <span class="c-g">C</span> conference · <span class="c-g">J</span> journal ·
+                    <span class="c-g">W</span> workshop / demo · <span class="c-g">P</span> preprint
+                    &nbsp;·&nbsp; * equal contribution &nbsp;·&nbsp; click a title for the abstract and figure
+                    &nbsp;·&nbsp; full list on <a class="link" href="https://scholar.google.com/citations?user=_mc1WWgAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+                </p>
+
+                {%- for group in research | withTags | byYear %}
+                <div class="year-head">
+                    <h2>{{ group.year }}</h2>
+                    <span class="rule"></span>
+                    <span class="n">{{ group.items | length }} item{{ "s" if group.items | length != 1 }}</span>
+                </div>
+                <ol class="publist">
+                    {%- for p in group.items %}
+                    <li>
+                        <span class="ptag">[{{ p.tag }}]</span>
+                        <a class="pthumb{% if not p.image %} empty{% endif %}" href="/papers/{{ p.slug }}.html" tabindex="-1" aria-hidden="true">
+                            {%- if p.image %}<img src="/{{ p.image }}" alt="" loading="lazy">{% else %}<span>no figure</span>{% endif %}
+                        </a>
+                        <div class="pbody">
+                            <h3><a href="/papers/{{ p.slug }}.html">{{ p.title }}</a></h3>
+                            <p class="au">{{ p.authors | safe }}</p>
+                            <p class="ven">
+                                <span class="c-d">{{ p.venue }}</span>
+                                {%- if p.status and p.status != "Published" %}
+                                <span class="{{ p | venue | venueTone }}">· {{ p.status | lower }}</span>
+                                {%- endif %}
+                            </p>
+                            {%- if p.links and p.links.length %}
+                            <p class="lk">
+                                {%- for l in p.links %}<span>[<a href="{{ l.url | link }}" target="_blank" rel="noopener">{{ l.label }}</a>]</span>{% endfor %}
+                            </p>
+                            {%- endif %}
+                        </div>
+                    </li>
+                    {%- endfor %}
+                </ol>
+                {%- endfor %}
             </div>
-        </section>
-        {%- endfor %}
+
+{{ cmd("cat citation_policy.txt") }}
+            <div class="out">
+                <p class="prose">Preprints are linked where the venue allows it. If a PDF you need is missing, email me at <a href="mailto:{{ site.email }}">{{ site.email }}</a> and I will send it.</p>
+            </div>

@@ -1,0 +1,64 @@
+[
+  {
+    "id": "glasses",
+    "label": "Smart glasses",
+    "sensing": "on-face acoustic + optical sensing",
+    "x": 50.0,
+    "y": 9.8,
+    "labelSide": "left",
+    "papers": [
+      "revoice",
+      "ppg-as-a-bridge"
+    ],
+    "short": "Glasses"
+  },
+  {
+    "id": "earphone",
+    "label": "Earphone",
+    "sensing": "PPG at the ear",
+    "x": 53.4,
+    "y": 10.1,
+    "labelSide": "right",
+    "papers": [
+      "ppg-as-a-bridge"
+    ],
+    "short": "Earphone"
+  },
+  {
+    "id": "neckband",
+    "label": "Neckband",
+    "sensing": "on-body sound actuation and pickup at the throat",
+    "x": 50.0,
+    "y": 17.6,
+    "labelSide": "left",
+    "papers": [
+      "revoice"
+    ],
+    "short": "Neckband"
+  },
+  {
+    "id": "wrist",
+    "label": "Smartwatch / wristband",
+    "sensing": "PPG at the wrist",
+    "x": 15.6,
+    "y": 25.1,
+    "labelSide": "left",
+    "papers": [
+      "ppg-as-a-bridge",
+      "reliable-ppg-authentication"
+    ],
+    "short": "Watch"
+  },
+  {
+    "id": "phone",
+    "label": "Smartphone",
+    "sensing": "rPPG from the front camera — the trusted device identity is transferred from",
+    "x": 89.1,
+    "y": 8.1,
+    "labelSide": "right",
+    "papers": [
+      "ppg-as-a-bridge"
+    ],
+    "short": "Phone"
+  }
+]
