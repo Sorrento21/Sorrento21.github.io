@@ -25,6 +25,31 @@
     "type": "J"
   },
   {
+    "slug": "sonispeech",
+    "title": "SoniSpeech: A Large-Scale Open-Vocabulary Tri-Modal Dataset for Wearable Silent Speech Interfaces",
+    "image": "images/research/sonispeech.png",
+    "alt": "SoniSpeech captures three synchronized modalities — inaudible echo profiles, audible voice and frontal video — in paired voiced and silent utterances",
+    "authors": "Ruidong Zhang, <u>Jiacheng Liu</u>, François Guimbretière, Cheng Zhang",
+    "venue": "Interspeech 2026",
+    "status": "Accepted",
+    "year": "2026",
+    "abstract": "Wearable silent speech interfaces (SSIs) are limited to small, closed vocabularies. Approaches achieving larger vocabularies require obtrusive hardware such as facial electrodes. We present SoniSpeech, the first large-scale, open-vocabulary, tri-modal dataset for wearable SSI using acoustic-sensing eyewear. It contains 34 hours across 18,000 utterances with three synchronized modalities: ultrasound echo profiles, voiced audio, and frontal video, in both voiced and silent modes. The corpus draws from the SODA dialogue dataset, providing contemporary conversational English with 5,356 unique words and full phoneme coverage. A CTC-based ResNet-34 baseline achieves 26.3% word error rate (WER) on open-vocabulary silent speech recognition, the first benchmark for this task.",
+    "keywords": [
+      "Silent Speech Interface",
+      "Acoustic Sensing",
+      "Dataset",
+      "Open Vocabulary",
+      "Wearable Computing"
+    ],
+    "links": [
+      {
+        "label": "Dataset",
+        "url": "https://ecommons.cornell.edu/entities/publication/6328648d-caa4-4314-9655-449c59e47918"
+      }
+    ],
+    "type": "C"
+  },
+  {
     "slug": "revoice",
     "title": "ReVoice: AI-Powered Wearable Acoustic Sensing Restores Natural Voice for Laryngectomees",
     "image": "images/research/speech.png",
@@ -44,6 +69,7 @@
     "alt": "MTL-RAPID evaluated across activities and across days",
     "authors": "Jiankai Tang*, <u>Jiacheng Liu*</u>, Renling Tong, Kai Zhu, Zhe Li, Xin Yi, Junliang Xing, Yuanchun Shi, Yuntao Wang",
     "venue": "arXiv 2025",
+    "status": "In preparation for IEEE T-BIOM",
     "year": "2025",
     "abstract": "Photoplethysmography (PPG) Sensors, widely deployed in smartwatches, offer a simple and non-invasive authentication approach for daily use. However, PPG authentication faces reliability issues due to motion artifacts from physical activity and physiological variability over time. To address these challenges, we propose MTL-RAPID, an efficient and reliable PPG authentication model, that employs a multitask joint training strategy, simultaneously assessing signal quality and verifying user identity. The joint optimization of these two tasks in MTL-RAPID results in a structure that outperforms models trained on individual tasks separately, achieving stronger performance with fewer parameters. In our comprehensive user studies regarding motion artifacts (N = 30), time variations (N = 32), and user preferences (N = 16), MTL-RAPID achieves a best AUC of 99.2% and an EER of 3.5%, outperforming existing baselines. We open-source our PPG authentication dataset along with the MTL-RAPID model to facilitate future research on GitHub.",
     "keywords": [

@@ -16,14 +16,14 @@ description: "Jiacheng Liu (刘佳成) — Ph.D. student at the SciFi Lab, Corne
                 <div>
                     <h1>Jiacheng Liu <span class="cn">刘佳成</span></h1>
                     <dl class="kv">
-                        <dt>role</dt><dd>Ph.D. student, Information Science <span class="c-d">(year 1)</span></dd>
+                        <dt>role</dt><dd>Ph.D. student, Information Science <span class="c-d">(year 2)</span></dd>
                         <dt>lab</dt><dd><a class="link" href="https://www.scifilab.org/">SciFi Lab</a>, <a class="link" href="https://www.cornell.edu/">Cornell University</a></dd>
                         <dt>advisor</dt><dd><a class="link" href="https://www.cs.cornell.edu/~zheng/">Prof. Cheng Zhang</a></dd>
                         <dt>focus</dt><dd><span class="c-g">wearable sensing</span> · <span class="c-g">activity detection</span> · <span class="c-g">assistive devices</span></dd>
                         <dt>location</dt><dd>Gates Hall 239, Ithaca, NY</dd>
                     </dl>
                     <p class="prose">My research centers on <b>AI-assisted sensing technologies</b>, with a particular emphasis on <b>wearable form factors</b>. My work focuses on <b>activity-detection systems and assistive devices</b> that provide unobtrusive, seamless monitoring and support.</p>
-                    <p class="prose">Before Cornell, I earned a Bachelor of Engineering in <a href="https://www.xyc.tsinghua.edu.cn/en/info/1111/1374.htm">Creative Design and Intelligent Engineering</a> (CDIE) at <a href="https://www.xyc.tsinghua.edu.cn/en/">Xinya College</a>, <a href="https://www.tsinghua.edu.cn/en/index.htm">Tsinghua University</a>. I gained research experience in multiple labs, including <a href="https://pi.cs.tsinghua.edu.cn/">the PI Lab</a> and <a href="https://thfl.tsinghua.edu.cn/en/">the Future Lab</a>.</p>
+                    <p class="prose">Before Cornell, I earned a Bachelor of Engineering in <a href="https://www.xyc.tsinghua.edu.cn/en/info/1111/1374.htm">Creative Design and Intelligent Engineering</a> (CDIE) at <a href="https://www.xyc.tsinghua.edu.cn/en/">Xinya College</a>, <a href="https://www.tsinghua.edu.cn/en/index.htm">Tsinghua University</a>. I gained research experience in multiple labs, including <a href="https://pi.cs.tsinghua.edu.cn/">the Pervasive HCI Group</a> and <a href="https://thfl.tsinghua.edu.cn/en/">the Future Lab</a>.</p>
                     <div class="chips">
                         {%- for s in site.socials %}
                         <a href="{{ s.url }}" target="_blank" rel="noopener">--{{ s.alt | lower | replace(" ", "") }}</a>
@@ -66,6 +66,40 @@ description: "Jiacheng Liu (刘佳成) — Ph.D. student at the SciFi Lab, Corne
                     </li>
                     {%- endfor %}
                 </ul>
+            </div>
+
+{{ cmd("cat teaching.log", "courses I have assisted") }}
+            <div class="out" data-rv>
+                <ul class="tch">
+                    {%- for t in teaching %}
+                    <li>
+                        <span class="code">{{ t.code }}</span>
+                        <span class="t">{{ t.title }}</span>
+                        <span class="when">{{ t.term }}</span>
+                        <span class="by">{{ t.role }} · Instructor: {{ t.instructor }}</span>
+                    </li>
+                    {%- endfor %}
+                </ul>
+            </div>
+
+{{ cmd("cat honors.log", "awards and research funding") }}
+            <div class="out" data-rv>
+                <div class="hon">
+                    {%- for g in honors %}
+                    <div class="grp">
+                        <h3>{{ g.group }}/</h3>
+                        <ul>
+                            {%- for h in g.items %}
+                            <li>
+                                <span class="t">{{ h.title }}</span>
+                                <span class="when">{{ h.date }}</span>
+                                {%- if h.note %}<span class="n">{{ h.note }}</span>{% endif %}
+                            </li>
+                            {%- endfor %}
+                        </ul>
+                    </div>
+                    {%- endfor %}
+                </div>
             </div>
 
 {{ cmd("ls projects/ --thumbnails") }}

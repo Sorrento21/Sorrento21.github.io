@@ -1,0 +1,47 @@
+[
+  {
+    "group": "awards",
+    "items": [
+      {
+        "title": "Outstanding Undergraduate Thesis",
+        "note": "Tsinghua University · awarded to a single student in the cohort",
+        "date": "Jul 2025"
+      },
+      {
+        "title": "Xinya College Academic Excellence Award",
+        "note": "Tsinghua University",
+        "date": "Jul 2025"
+      },
+      {
+        "title": "Tsinghua Friendship – Luo Yuehua Scholarship",
+        "note": "awarded to 3 students at the college level",
+        "date": "Nov 2024"
+      },
+      {
+        "title": "Tsinghua Friendship – Toyota Scholarship",
+        "note": "awarded to 1 student at the college level",
+        "date": "Oct 2023"
+      },
+      {
+        "title": "Passion for Reading Scholarship",
+        "note": "awarded to 2 students at the college level",
+        "date": "Oct 2022"
+      }
+    ]
+  },
+  {
+    "group": "grants",
+    "items": [
+      {
+        "title": "Tsinghua University Academic Advancement Plan",
+        "note": "research assistance fund",
+        "date": "Oct 2024"
+      },
+      {
+        "title": "Beijing Natural Science Foundation",
+        "note": "research assistance fund",
+        "date": "Oct 2023"
+      }
+    ]
+  }
+]

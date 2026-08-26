@@ -231,6 +231,41 @@ h3.sub{font-family:var(--sans);font-size:16px;font-weight:500;color:var(--dim);m
 .svc .years{color:var(--dim);font-size:13px}
 .svc .note{color:var(--amber);font-size:12.5px}
 
+/* ———————————————————— teaching ————————————————————
+   service, teaching and honours are three record lists in a row, so each one is
+   given a different anatomy and a different signal colour — otherwise they read
+   as one long undifferentiated pile. Teaching drops the role chip: the course
+   code leads in cyan and the term is pushed to the right edge. */
+.tch{list-style:none;display:grid;gap:2px;max-width:72ch}
+.tch li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:2px 14px;align-items:baseline;
+  padding:8px 0;border-bottom:1px solid var(--line-soft)}
+.tch li:last-child{border-bottom:0}
+.tch .code{color:var(--cyan);font-size:13px;letter-spacing:.04em;white-space:nowrap}
+.tch .t{font-family:var(--sans);font-size:14.5px;font-weight:500;color:var(--text)}
+.tch .when{color:var(--dim);font-size:12.5px;text-align:right;white-space:nowrap}
+.tch .by{grid-column:2/-1;color:var(--dimmer);font-size:12.5px}
+
+/* ———————————————————— honours and grants ————————————————————
+   Grouped under folder-style captions with the date on the right and no chips
+   at all, keyed amber. The captions are what make an entry's category obvious
+   without reading the prompt line above the block. */
+.hon{display:grid;gap:18px;max-width:72ch}
+.hon .grp h3{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:400;
+  color:var(--dimmer);display:flex;align-items:center;gap:10px;padding-bottom:6px}
+.hon .grp h3::after{content:"";flex:1;height:1px;background:var(--line-soft)}
+.hon ul{list-style:none;display:grid;gap:2px}
+.hon li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 14px;align-items:baseline;padding:5px 0}
+.hon .t{font-family:var(--sans);font-size:14px;color:var(--text)}
+.hon .t::before{content:"◆";color:var(--amber);font-size:8px;vertical-align:2px;padding-right:8px}
+.hon .n{grid-column:1;color:var(--dimmer);font-size:12px;padding-left:16px}
+.hon .when{color:var(--amber);font-size:12.5px;text-align:right;white-space:nowrap}
+
+@media (max-width:520px){
+  .tch li{grid-template-columns:minmax(0,1fr) auto}
+  .tch .code{grid-column:1/-1;color:var(--cyan)}
+  .tch .by{grid-column:1/-1}
+}
+
 /* ———————————————————— publication browser ———————————————————— */
 .browser{
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);

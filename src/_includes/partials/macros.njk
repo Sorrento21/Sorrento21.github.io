@@ -24,7 +24,10 @@
                     {%- set ven = p | venue %}
                     <a class="prow{% if loop.first %} sel{% endif %}" role="option" aria-selected="{{ 'true' if loop.first else 'false' }}"
                          href="/papers/{{ p.slug }}.html"
-                         data-img="/{{ p.image }}"
+                         {#- An entry with no figure must carry an empty data-img, not "/", or the
+                             stage below tries to load the site root as an image instead of showing
+                             the "no figure attached" state. #}
+                         data-img="{% if p.image %}/{{ p.image }}{% endif %}"
                          data-title="{{ p.title }}"
                          data-au="{{ au }}"
                          data-venue="{{ ven }}"

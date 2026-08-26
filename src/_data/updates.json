@@ -1,5 +1,13 @@
 [
   {
+    "date": "2026-08-26",
+    "html": "🎉 Our dataset paper <strong>SoniSpeech: A Large-Scale Open-Vocabulary Tri-Modal Dataset for Wearable Silent Speech Interfaces</strong> was accepted to <strong>Interspeech 2026</strong>. The dataset is available on <a href=\"https://ecommons.cornell.edu/entities/publication/6328648d-caa4-4314-9655-449c59e47918\" target=\"_blank\" rel=\"noopener\">Cornell eCommons</a>."
+  },
+  {
+    "date": "2026-08-21",
+    "html": "💼 I wrapped up my summer internship at <a href=\"https://behaviorai.ai/\" target=\"_blank\" rel=\"noopener\"><strong>BehaviorAI</strong></a>, where I worked on behavior-tracking models, signal quality control, and the in-house data-collection software."
+  },
+  {
     "date": "2026-08-03",
     "html": "🎉 Our paper <strong>PPG as a Bridge: Cross-Device Authentication for Smart Wearables with Photoplethysmography</strong> was accepted to <strong>IMWUT 2026</strong>."
   },
