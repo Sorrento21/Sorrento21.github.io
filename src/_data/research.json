@@ -7,7 +7,6 @@
     "alt": "PPGTransID transfers a phone's face-authentication status to co-worn wearables using PPG",
     "authors": "<u>Jiacheng Liu*</u>, Jiankai Tang*, Guangye Zhao, Ruichen Gui, Songqin Cheng, Taiting Lu, Jian Liu, Weiqiang Wang, Mahanth Gowda, Yuanchun Shi, Yuntao Wang",
     "venue": "IMWUT 2026",
-    "status": "Accepted",
     "year": "2026",
     "abstract": "As smart wearable devices become increasingly powerful and pervasive, protecting user privacy on these devices has emerged as a critical challenge. While existing authentication mechanisms are available for interaction-rich devices such as smartwatches, enabling on-device authentication (ODA) on interaction-limited wearables, including rings, earphones, glasses, and wristbands, remains difficult. Moreover, as users increasingly own multiple smart devices, relying on device-specific authentication methods becomes redundant and burdensome. To address these challenges, we present PPGTransID, a ubiquitous and unobtrusive cross-device authentication (CDA) approach that leverages the real-time physiological consistency of photoplethysmography (PPG) signals across the human body. PPGTransID utilizes the widely available PPG sensors on wearable devices to capture users' physiological signals and compares them with remote PPG (rPPG) signals extracted from a smartphone camera, where robust face-based authentication is already established. In doing so, PPGTransID securely transfers the reliable authentication status of the smartphone to nearby wearable devices without requiring additional user interaction. An evaluation (N=33) shows that PPGTransID achieves a balanced accuracy of 95.5% and generalizes across multiple wearable form factors. Robustness experiments (N=10) demonstrate resilience to variations in lighting, camera placement, and user behavior, while a real-time usability study (N=14) confirms reliable performance with minimal interaction burden. Finally, a deployment on commercial hardware (N=10) confirms the practicability of PPGTransID in out-of-lab scenarios and its resistance to synchronized rPPG injection attacks.",
     "keywords": [
@@ -17,6 +16,10 @@
       "Photoplethysmography"
     ],
     "links": [
+      {
+        "label": "DOI",
+        "url": "https://dl.acm.org/doi/abs/10.1145/3831968"
+      },
       {
         "label": "Google Scholar",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=_mc1WWgAAAAJ&citation_for_view=_mc1WWgAAAAJ:UeHWp8X0CEIC"
@@ -31,7 +34,6 @@
     "alt": "SoniSpeech captures three synchronized modalities — inaudible echo profiles, audible voice and frontal video — in paired voiced and silent utterances",
     "authors": "Ruidong Zhang, <u>Jiacheng Liu</u>, François Guimbretière, Cheng Zhang",
     "venue": "Interspeech 2026",
-    "status": "Accepted",
     "year": "2026",
     "abstract": "Wearable silent speech interfaces (SSIs) are limited to small, closed vocabularies. Approaches achieving larger vocabularies require obtrusive hardware such as facial electrodes. We present SoniSpeech, the first large-scale, open-vocabulary, tri-modal dataset for wearable SSI using acoustic-sensing eyewear. It contains 34 hours across 18,000 utterances with three synchronized modalities: ultrasound echo profiles, voiced audio, and frontal video, in both voiced and silent modes. The corpus draws from the SODA dialogue dataset, providing contemporary conversational English with 5,356 unique words and full phoneme coverage. A CTC-based ResNet-34 baseline achieves 26.3% word error rate (WER) on open-vocabulary silent speech recognition, the first benchmark for this task.",
     "keywords": [
@@ -43,11 +45,40 @@
     ],
     "links": [
       {
+        "label": "Paper",
+        "url": "https://www.isca-archive.org/interspeech_2026/zhang26y_interspeech.html"
+      },
+      {
         "label": "Dataset",
         "url": "https://ecommons.cornell.edu/entities/publication/6328648d-caa4-4314-9655-449c59e47918"
       }
     ],
     "type": "C"
+  },
+  {
+    "slug": "sonigan",
+    "title": "Synthesizing Ultrasonic Echo Profiles from Text for Open-Vocabulary Silent Speech Recognition",
+    "image": "images/research/sonigan.png",
+    "alt": "SoniGAN's two-stage generator: an envelope stage, then a carrier stage that synthesizes the full ultrasonic echo profile",
+    "authors": "<u>Jiacheng Liu</u>, Ruidong Zhang, François Guimbretière, Cheng Zhang",
+    "venue": "arXiv 2026",
+    "status": "Submitted to ICASSP 2027",
+    "year": "2026",
+    "abstract": "Eyewear that senses articulation with inaudible ultrasound can now recognize silent speech over an open vocabulary, but its accuracy is limited by the cost of training data. We present SoniGAN, which synthesizes the ultrasonic echo profiles of silent articulation from text and uses them as synthetic supervision. A voice-cloned text-to-speech (TTS) model reads a text corpus, and a two-stage generator synthesizes echo profiles from representations of the spoken content of that audio. Pretraining a recognizer on 104 hours of the synthesized data improves the word error rate (WER) of a public open-vocabulary benchmark by 2.3 points. Adding the sessions the corpus discards for a faulty microphone brings the system to 22.2% without any language model. Lexicon-constrained decoding, LLM rescoring, and ensembling further bring it to 14.9%, the first minimally obtrusive silent speech interface to fall inside the error range in which users report no loss of willingness to use silent speech input.",
+    "keywords": [
+      "Silent Speech Interface",
+      "Acoustic Sensing",
+      "Data Synthesis",
+      "Generative Models",
+      "Wearable Computing"
+    ],
+    "links": [
+      {
+        "label": "Paper",
+        "url": "https://arxiv.org/abs/2610.15671"
+      }
+    ],
+    "type": "P"
   },
   {
     "slug": "revoice",
